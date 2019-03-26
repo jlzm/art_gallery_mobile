@@ -2,6 +2,16 @@
   font-size: .3rem;
 }
 
+/* x-header start*/
+.header-wrap .header-nav .vux-header .vux-header-left .left-arrow:before{
+  border-color: #000;
+  border-width: 2px 0 0 2px;
+}
+
+.header-wrap .header-nav .vux-header .vux-header-right a {
+  color: #000;
+}
+/* x-header end*/
 
 /* preiviewer*/
 

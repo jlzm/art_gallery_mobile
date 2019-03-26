@@ -1,5 +1,8 @@
 <template>
   <div class="entered-course">
+    <!-- 头部导航 start -->
+    <HeaderNav titleTxt="已报名活动课程"/>
+    <!-- 头部导航 end -->
     <div class="tab">
       <tab>
         <tab-item @on-item-click="onItemClick" selected>未开始</tab-item>
@@ -62,6 +65,8 @@
 </template>
 
 <script>
+import HeaderNav from '../../../../components/HeadNav';
+
 /** 参与活动课程 */
 import { Tab, TabItem } from 'vux'
 import {mapState} from 'vuex'
@@ -70,7 +75,8 @@ export default {
   name: 'enter',
   components: {
     Tab,
-    TabItem
+    TabItem,
+    HeaderNav
   },
   data() {
     return {

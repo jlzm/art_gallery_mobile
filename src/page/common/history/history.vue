@@ -1,5 +1,8 @@
 <template>
   <div class="history">
+        <!-- 头部导航 start -->
+        <HeaderNav titleTxt="上课历史记录"></HeaderNav>
+        <!-- 头部导航 end -->
     <div class="content">
       <div class="wapper" ref="wrapper">
         <div class="ctn" >
@@ -57,221 +60,222 @@
 </template>
 
 <script>
-import { Tab, TabItem } from 'vux'
-import {mapState} from 'vuex'
-import BScroll from 'better-scroll'
-import API from '@/api/apiFactory'
-export default {
-  name: 'history',
-  components: {
-    Tab,
-    TabItem
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.initScroll()
-    })
-    this.getHistoryById()
-  },
-  data() {
-    return {
-      type: '',
-      history: [],
-      pageJSON: {
-        rows: 10,
-        total: 10,
-        page: 1,
-        pageCount: 2
-      },
-      info: '加载更多...',
-      showMore: false
-    }
-  },
-  methods: {
-    initScroll() {
-      const options = {
-        scrollY: true, // 因为scrollY默认为true，其实可以省略,
-        click: true,
-        pullUpLoad: {
-          threshold: -30,
-          moreTxt: '加载更多'
-        }
-      }
-      const winHeight = window.innerHeight
-      this.$refs.wrapper.style.height = winHeight + 'px'
-      this.scroll = new BScroll(this.$refs.wrapper, options)
-      this.scroll.on('pullingUp',() => {
-        if (this.pageJSON.page >= this.pageJSON.pageCount) {
-          this.showMore = true
-          this.info = '没有更多数据了...'
-          return
-        }
-        this.pageJSON.page++
-        this.getHistoryById()
-      })
-    },
-    onItemClick() {
-
-    },
-    endScroll() {
-      this.$nextTick(() => {
-        this.scroll.finishPullUp() 
-        this.scroll.refresh() 
-        this.showMore = false
-      })
-    },
-    showCourse(index) {
-      this.$store.commit('saveCurrentCourse',this.history[index])
-      this.$router.push('/'+ this.type +'/courseDetail')
-    },
-    // 获取历史上课记录
-    getHistoryById() {
-      // this.history = []
-      this.showMore = true
-      if (this.type === 'teacher') {
-        this.getTeacherHis()
-      } else {
-        this.getStudentHis()
-      }
-    },
-    // 获取学生上课记录
-    getStudentHis() {
-       API.homeAPI.wxStudentCourse({
-        ctype: 1,
-        sid: this.userInfo.sid,
-        rows: this.pageJSON.rows,
-        page: this.pageJSON.page
-
-      })
-        .then((data) => {
-          if (data.total > 0) {
-            this.history = this.history.concat(data.rows)
-            this.pageJSON = {
-              page: data.crrentPage,
-              total: data.total,
-              rows: data.pageSize,
-              pageCount: data.pageCount
+    import HeaderNav from '../../../components/HeadNav';
+    import {
+        Tab,
+        TabItem
+    } from 'vux'
+    import {
+        mapState
+    } from 'vuex'
+    import BScroll from 'better-scroll'
+    import API from '@/api/apiFactory'
+    export default {
+        name: 'history',
+        components: {
+            Tab,
+            TabItem,
+            HeaderNav
+        },
+        mounted() {
+            this.$nextTick(() => {
+                this.initScroll()
+            })
+            this.getHistoryById()
+        },
+        data() {
+            return {
+                type: '',
+                history: [],
+                pageJSON: {
+                    rows: 10,
+                    total: 10,
+                    page: 1,
+                    pageCount: 2
+                },
+                info: '加载更多...',
+                showMore: false
             }
-          } else {
-            this.$vux.toast.text('暂无数据', 'middle')
-          }
-          this.endScroll()
-        })
-    },
-    // 获取老师上课记录
-    getTeacherHis() {
-       API.homeAPI.wxTeacherCourse({
-        ctype: 1,
-        tid: this.userInfo.tid,
-        rows: this.pageJSON.rows,
-        page: this.pageJSON.page
-      })
-        .then((data) => {
-          if (data.total > 0) {
-            this.history = this.history.concat(data.rows)
-            this.pageJSON = {
-              page: data.crrentPage,
-              total: data.total,
-              rows: data.pageSize,
-              pageCount: data.pageCount
-            }
-          } else {
-            this.$vux.toast.text('暂无数据', 'middle')
-          }
-          this.endScroll()
-        })
-    }
-  },
-  watch: {
-    $route: {
-      deep: true,
-      handler(val) {
-        this.type = val.meta.type
-      },
-      immediate: true
-    }
-  },
-  computed: {
-    ...mapState({
-      userInfo: 'userInfo'
-    })
-  }
+        },
+        methods: {
+            initScroll() {
+                const options = {
+                    scrollY: true, // 因为scrollY默认为true，其实可以省略,
+                    click: true,
+                    pullUpLoad: {
+                        threshold: -30,
+                        moreTxt: '加载更多'
+                    }
+                }
+                const winHeight = window.innerHeight
+                this.$refs.wrapper.style.height = winHeight + 'px'
+                this.scroll = new BScroll(this.$refs.wrapper, options)
+                this.scroll.on('pullingUp', () => {
+                    if (this.pageJSON.page >= this.pageJSON.pageCount) {
+                        this.showMore = true
+                        this.info = '没有更多数据了...'
+                        return
+                    }
+                    this.pageJSON.page++
+                        this.getHistoryById()
+                })
+            },
+            onItemClick() {
 
-}
+            },
+            endScroll() {
+                this.$nextTick(() => {
+                    this.scroll.finishPullUp()
+                    this.scroll.refresh()
+                    this.showMore = false
+                })
+            },
+            showCourse(index) {
+                this.$store.commit('saveCurrentCourse', this.history[index])
+                this.$router.push('/' + this.type + '/courseDetail')
+            },
+            // 获取历史上课记录
+            getHistoryById() {
+                // this.history = []
+                this.showMore = true
+                if (this.type === 'teacher') {
+                    this.getTeacherHis()
+                } else {
+                    this.getStudentHis()
+                }
+            },
+            // 获取学生上课记录
+            getStudentHis() {
+                API.homeAPI.wxStudentCourse({
+                        ctype: 1,
+                        sid: this.userInfo.sid,
+                        rows: this.pageJSON.rows,
+                        page: this.pageJSON.page
+
+                    })
+                    .then((data) => {
+                        if (data.total > 0) {
+                            this.history = this.history.concat(data.rows)
+                            this.pageJSON = {
+                                page: data.crrentPage,
+                                total: data.total,
+                                rows: data.pageSize,
+                                pageCount: data.pageCount
+                            }
+                        } else {
+                            this.$vux.toast.text('暂无数据', 'middle')
+                        }
+                        this.endScroll()
+                    })
+            },
+            // 获取老师上课记录
+            getTeacherHis() {
+                API.homeAPI.wxTeacherCourse({
+                        ctype: 1,
+                        tid: this.userInfo.tid,
+                        rows: this.pageJSON.rows,
+                        page: this.pageJSON.page
+                    })
+                    .then((data) => {
+                        if (data.total > 0) {
+                            this.history = this.history.concat(data.rows)
+                            this.pageJSON = {
+                                page: data.crrentPage,
+                                total: data.total,
+                                rows: data.pageSize,
+                                pageCount: data.pageCount
+                            }
+                        } else {
+                            this.$vux.toast.text('暂无数据', 'middle')
+                        }
+                        this.endScroll()
+                    })
+            }
+        },
+        watch: {
+            $route: {
+                deep: true,
+                handler(val) {
+                    this.type = val.meta.type
+                },
+                immediate: true
+            }
+        },
+        computed: {
+            ...mapState({
+                userInfo: 'userInfo'
+            })
+        }
+
+    }
 </script>
 
 <style lang="less" scoped>
-.history {
-  height: 100vh;
-  background-color: #F5F7FA;
-  p.more {
-    font-size: .28rem;
-    color: #8d8e8f;
-    margin-top: .3rem;
-    text-align: center;
-  }
-  .content {
-    .ctn {
-      .item {
-        background-color: #fff;
-        &:not(:first-child) {
-          margin-top: .2rem;
-        }
-        
-        padding: 0 0.32rem; 
-        position: relative;
-       
-                
-        .item-title {
-          display: flex;
-          justify-content: space-between;
-          font-size: .3rem;
-          padding: .2rem 0;
-          .number {
-            color:#999999;
-            font-size: .2rem;
-          }
-        }
-        .course-info {
-          // margin-bottom: .15rem;
-          padding: .2rem 0;
-          position: relative;
-          .className {
+    .history {
+        height: 100vh;
+        background-color: #F5F7FA;
+        p.more {
             font-size: .28rem;
-            color:rgba(51,51,51,1);
-            
-          }
-          .class-info-detail {
-            .detail-item {
-              display: flex;
-              align-items: center;
-              margin: .05rem 0 ;
-              .label {
-                font-size: .24rem;
-                color: #666666;
-                min-width: 1.2rem;
-              }
-              .for {
-                font-size: .24rem;
-                color: #333;
-                margin-left: .1rem;
-              }
-            }
-          }
-          .arrow {
-            position: absolute;
-            right: 0;
-            top: .25rem;
-            img {
-              width: .48rem;
-              height: .48rem;
-            }
-          }
+            color: #8d8e8f;
+            margin-top: .3rem;
+            text-align: center;
         }
-        
-      }
+        .content {
+            .ctn {
+                .item {
+                    background-color: #fff;
+                    &:not(:first-child) {
+                        margin-top: .2rem;
+                    }
+                    padding: 0 0.32rem;
+                    position: relative;
+                    .item-title {
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: .3rem;
+                        padding: .2rem 0;
+                        .number {
+                            color: #999999;
+                            font-size: .2rem;
+                        }
+                    }
+                    .course-info {
+                        // margin-bottom: .15rem;
+                        padding: .2rem 0;
+                        position: relative;
+                        .className {
+                            font-size: .28rem;
+                            color: rgba(51, 51, 51, 1);
+                        }
+                        .class-info-detail {
+                            .detail-item {
+                                display: flex;
+                                align-items: center;
+                                margin: .05rem 0;
+                                .label {
+                                    font-size: .24rem;
+                                    color: #666666;
+                                    min-width: 1.2rem;
+                                }
+                                .for {
+                                    font-size: .24rem;
+                                    color: #333;
+                                    margin-left: .1rem;
+                                }
+                            }
+                        }
+                        .arrow {
+                            position: absolute;
+                            right: 0;
+                            top: .25rem;
+                            img {
+                                width: .48rem;
+                                height: .48rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
-}
 </style>
-

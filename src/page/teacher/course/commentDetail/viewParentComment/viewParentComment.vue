@@ -1,5 +1,8 @@
 <template>
   <div class="viewParentComment">
+    <!-- 头部导航 start -->
+    <HeaderNav titleTxt="家长评价老师列表"/>
+    <!-- 头部导航 end -->
     <div class="wrapper" ref="wrapper">
       <div class="template">
         <div class="course-panel" v-for="item in commentList" :key="item">
@@ -35,115 +38,120 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll'
-import {mapState} from 'vuex'
-import API from '@/api/apiFactory'
-export default {
-  name: 'viewParentComment',
-  mounted() {
-    this.getCommentData()
-    this.$nextTick(() => {
-      this.initScroll()
-    })
-  },
-  data() {
-    return {
-      commentList: [] // 评论列表
-    }
-  },
-  methods: {
-    initScroll() {
-      const options = {
-        scrollY: true // 因为scrollY默认为true，其实可以省略
-      }
-      const winHeight = window.innerHeight
-      this.$refs.wrapper.style.height = winHeight + 'px'
-      this.scroll = new BScroll(this.$refs.wrapper, options)
-    },
-    getCommentData() { // 获取评价信息
-      this.commentList = []
-      API.homeAPI.getCommentData({
-        crid: this.currentCourse.crid,
-        tid: this.currentCourse.tid,
-        type: 2
-      })
-      .then(data => {
-        if (data) {
-          data.forEach(item => {
-            parseInt(item.isPj) !== 2 && this.commentList.push(item)
-          })
+    import HeaderNav from '../../../../../components/HeadNav';
+    import BScroll from 'better-scroll'
+    import {
+        mapState
+    } from 'vuex'
+    import API from '@/api/apiFactory'
+    export default {
+        name: 'viewParentComment',
+        components: {
+            HeaderNav
+        },
+        mounted() {
+            this.getCommentData()
+            this.$nextTick(() => {
+                this.initScroll()
+            })
+        },
+        data() {
+            return {
+                commentList: [] // 评论列表
+            }
+        },
+        methods: {
+            initScroll() {
+                const options = {
+                    scrollY: true // 因为scrollY默认为true，其实可以省略
+                }
+                const winHeight = window.innerHeight
+                this.$refs.wrapper.style.height = winHeight + 'px'
+                this.scroll = new BScroll(this.$refs.wrapper, options)
+            },
+            getCommentData() { // 获取评价信息
+                this.commentList = []
+                API.homeAPI.getCommentData({
+                        crid: this.currentCourse.crid,
+                        tid: this.currentCourse.tid,
+                        type: 2
+                    })
+                    .then(data => {
+                        if (data) {
+                            data.forEach(item => {
+                                parseInt(item.isPj) !== 2 && this.commentList.push(item)
+                            })
+                        }
+                    })
+            }
+        },
+        computed: {
+            ...mapState({
+                currentCourse: 'currentCourse'
+            })
         }
-      })
     }
-  },
-  computed: {
-    ...mapState({
-      currentCourse:'currentCourse'
-    })
-  }
-}
 </script>
 
 <style lang="less" scoped>
-  .viewParentComment {
-    height: 100vh;
-    background-color: #F5F7FA;
-    .noData {
-      font-size: .32rem;
-      color:#999999;
-      padding-top: .25rem;
-      text-align: center;
-    }
-    .course-panel {
-      padding: .2rem .32rem;
-      background-color: #fff;
-      margin-bottom: .2rem;
-      .top {
-        display: flex;
-        justify-content: space-between;
-        padding-bottom: .1rem;
-        .avatar {
-          display: flex;
-          overflow: hidden;
-          .img {
-            display: flex;
-            align-items: center;
-            margin-right:.2rem;
-            border-radius: 50%;
-            overflow: hidden;
-            img {
-              width: .8rem;
-              height: .8rem;
+    .viewParentComment {
+        height: 100vh;
+        background-color: #F5F7FA;
+        .noData {
+            font-size: .32rem;
+            color: #999999;
+            padding-top: .25rem;
+            text-align: center;
+        }
+        .course-panel {
+            padding: .2rem .32rem;
+            background-color: #fff;
+            margin-bottom: .2rem;
+            .top {
+                display: flex;
+                justify-content: space-between;
+                padding-bottom: .1rem;
+                .avatar {
+                    display: flex;
+                    overflow: hidden;
+                    .img {
+                        display: flex;
+                        align-items: center;
+                        margin-right: .2rem;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        img {
+                            width: .8rem;
+                            height: .8rem;
+                        }
+                    }
+                    .name {
+                        font-size: .3rem;
+                        color: #333;
+                        justify-content: center;
+                        align-items: center;
+                        display: flex;
+                    }
+                }
+                .date {
+                    font-size: .24rem;
+                    color: #999999;
+                    display: flex;
+                    align-items: center;
+                }
             }
-          }
-          .name {
-            font-size: .3rem;
-            color:#333;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-          }
+            .bottom {
+                .bottom-title {
+                    color: #888888;
+                    font-size: .24rem;
+                    margin-top: .1rem;
+                }
+                .content {
+                    color: #333333;
+                    font-size: .28rem;
+                    margin-top: .24rem;
+                }
+            }
         }
-        .date {
-          font-size: .24rem;
-          color:#999999;
-          display: flex;
-          align-items: center;
-        }
-      }
-      .bottom {
-        .bottom-title {
-          color:#888888;
-          font-size: .24rem;
-          margin-top: .1rem;
-        }
-        .content {
-          color: #333333;
-          font-size: .28rem;
-          margin-top: .24rem;
-        }
-      }
     }
-  }
 </style>
-

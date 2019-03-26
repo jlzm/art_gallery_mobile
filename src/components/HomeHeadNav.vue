@@ -3,24 +3,14 @@
     <!-- 头部导航 start -->
     <div class="header-wrap">
       <div class="header-nav">
-        <x-header @on-click-more="headShowMore = true" style="background-color:#f9f9f9"
-          :left-options="{ preventGoBack: false, backText: '' }" :right-options="{ showMore: true }">
-          <span class="title-txt dib">
-            {{titleTxt}}
-          </span>
+        <x-header style="background-color:#f9f9f9" :left-options="{ showBack: false}">
+          <span class="title-txt dib"> {{titleTxt}}</span>
         </x-header>
       </div>
     </div>
     <!-- 头部导航 end -->
-    
-      <!-- 导航打开更多 -->
-    <div v-transfer-dom>
-      <actionsheet :menus="menus" v-model="headShowMore" show-cancel></actionsheet>
-    </div>
   </div>
 </template>
-
-
 
 <script>
   // 组件
@@ -29,7 +19,6 @@
     TransferDom,
     Actionsheet
   } from "vux";
-
   export default {
     directives: {
       TransferDom
@@ -42,7 +31,7 @@
     props: {
       titleTxt: {
         type: String,
-        default: '暂无标题'
+        default: '会员中心'
       },
       preventGoBack: {
         type: String,
@@ -57,11 +46,11 @@
         },
       }
     }
-  };
+  }
 
 </script>
 
-<style lang="less" scoped>
+<style scoped>
   .header-wrap {
     height: 46px;
 

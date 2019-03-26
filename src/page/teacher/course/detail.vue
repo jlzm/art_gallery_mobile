@@ -1,7 +1,7 @@
 <template>
   <div class="course-detail">
     <!-- 头部导航 start -->
-    <HeaderNav></HeaderNav>
+    <HeaderNav titleTxt="课程详情"/>
     <!-- 头部导航 end -->
     <div class="course-panel">
       <div class="panel-title">{{currentCourse.cname}}</div>
@@ -49,22 +49,14 @@
     </div>
     <div class="course-panel single-panel">
       <group>
-        <cell
-          title="家长评价课程/老师"
-          is-link
-          :border-intent="false"
-          :link="'./viewParentComment/' + currentCourse.crid"
-        >
+        <cell title="家长评价课程/老师" is-link :border-intent="false" :link="'./viewParentComment/' + currentCourse.crid">
           <div>
             <span style="color: #999999;font-size:.2rem">查看详情</span>
           </div>
         </cell>
       </group>
     </div>
-    <!-- 导航打开更多 -->
-    <div v-transfer-dom>
-      <actionsheet :menus="menus" v-model="headShowMore" show-cancel></actionsheet>
-    </div>
+
   </div>
 </template>
 
@@ -73,9 +65,6 @@
     import {
         Cell,
         Group,
-        XHeader,
-        TransferDom,
-        Actionsheet
     } from "vux";
 
     /** 课程详情 */
@@ -84,14 +73,10 @@
     } from "vuex";
     export default {
         name: "courseDetail",
-        directives: {
-            TransferDom
-        },
+
         components: {
             Cell,
             Group,
-            XHeader,
-            Actionsheet,
             HeaderNav
         },
         data() {
@@ -173,4 +158,4 @@
             }
         }
     }
-</style>
+</style>/

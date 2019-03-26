@@ -1,5 +1,8 @@
 <template>
   <div class="parent-home">
+        <!-- 头部导航 start -->
+        <HomeHeadNav />
+        <!-- 头部导航 end -->
     <div class="parent-top">
       <div class="top-info">
         <div class="img">
@@ -7,7 +10,7 @@
         </div>
         <div class="info">
           <div class="name">
-            {{userInfo.sname}}
+            {{userInfo.sname || '暂无姓名'}}
           </div>
           <div class="progressed">
             <div class="label">
@@ -107,6 +110,8 @@
 </template>
 
 <script>
+import HomeHeadNav from '../../components/HomeHeadNav';
+
 import {  Group, Cell,XButton,XProgress,Box  } from 'vux'
 import BScroll from 'better-scroll'
 import API from '@/api/apiFactory'
@@ -117,7 +122,8 @@ export default {
   components: {
     XButton,
     Box,
-    XProgress
+    XProgress,
+    HomeHeadNav
   },
   mounted() {
     document.title = '会员中心'
