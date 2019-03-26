@@ -1,0 +1,199 @@
+<template>
+  <div class="entered-course">
+    <div class="tab">
+      <tab>
+        <tab-item @on-item-click="onItemClick" selected>未开始</tab-item>
+        <tab-item @on-item-click="onItemClick">已结束</tab-item>
+      </tab>
+    </div>
+    <div class="content">
+      <div class="wapper">
+        <div class="ctn" >
+          <div class="item" v-for="(item, index) in courseData[selectType]" @click.capture="showCourse(index)" :key="item.crid" >
+            <template>
+              <div class="item-title vux-1px-b">
+                <div class="date">
+                  {{item.cdate}} ({{item.weeknum}})
+                </div>
+                <div class="number">
+                  {{item.period_need}}课时
+                </div>
+              </div>
+              <div class="course-info">
+                <div class="className">
+                  {{item.cname}}
+                </div>
+                <div class="class-info-detail">
+                  <div class="detail-item">
+                    <div class="label">
+                      时间段:
+                    </div>
+                    <div class="for">
+                      {{item.begintime}} - {{item.endtime}}
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="label">
+                      上课老师:
+                    </div>
+                    <div class="for">
+                     {{item.tname}}
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="label">
+                      上课教室:
+                    </div>
+                    <div class="for">
+                      {{item.room}}
+                    </div>
+                  </div>
+                </div>
+                <div class="arrow">
+                  <img src="@/assets/images/arrow.png" alt="">
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+/** 参与活动课程 */
+import { Tab, TabItem } from 'vux'
+import {mapState} from 'vuex'
+import API from '@/api/apiFactory'
+export default {
+  name: 'enter',
+  components: {
+    Tab,
+    TabItem
+  },
+  data() {
+    return {
+      selectType: 0,
+      courseData: {
+        // 未开始课程
+        0: [],
+        // 已结束课程
+        1: []
+      }
+    }
+  },
+  mounted() {
+    this.getwxStudentCourse()
+  },
+  methods: {
+    onItemClick(val) {
+      this.selectType = val
+    },
+    showCourse(index) {
+      this.$store.commit('saveCurrentCourse',this.courseData[this.selectType][index])
+      this.$router.push('/parent/courseDetail')
+    },
+    getwxStudentCourse() {
+      this.courseData = {
+        // 未开始课程
+        0: [],
+        // 已结束课程
+        1: []
+      }
+      API.homeAPI.wxStudentCourse({
+        ctype: 2,
+        sid: this.userInfo.sid
+      })
+      .then(data => {
+        if (data && data.length) {
+          data.forEach((item,index) => {
+            this.courseData[item.status].push(item)
+          })
+        } else {
+          this.$vux.toast.text('暂无活动课程安排', 'middle')
+        }
+      })
+    }
+  },
+  computed: {
+    ...mapState({
+      userInfo: 'userInfo'
+    })
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.entered-course {
+  height: 100vh;
+  background-color: #F5F7FA;
+  .tab {
+    /deep/ .vux-tab .vux-tab-item.vux-tab-selected {
+      color: #4BB9C2;
+      border-bottom: 3px solid #4BB9C2;
+    }
+    /deep/ .vux-tab-ink-bar {
+      background-color: #4BB9C2;
+    }
+  }
+  .content {
+    .ctn {
+      .item {
+        background-color: #fff;
+        margin-top: .2rem;
+        padding: 0 0.32rem; 
+        position: relative;
+        .item-title {
+          display: flex;
+          justify-content: space-between;
+          font-size: .3rem;
+          padding: .2rem 0;
+          .number {
+            color:#999999;
+            font-size: .2rem;
+          }
+        }
+        .course-info {
+          // margin-bottom: .15rem;
+          padding: .2rem 0;
+          position: relative;
+          .className {
+            font-size: .28rem;
+            color:rgba(51,51,51,1);
+            
+          }
+          .class-info-detail {
+            .detail-item {
+              display: flex;
+              align-items: center;
+              margin: .05rem 0 ;
+              .label {
+                font-size: .24rem;
+                color: #666666;
+                min-width: 1.2rem;
+              }
+              .for {
+                font-size: .24rem;
+                color: #333;
+                margin-left: .1rem;
+              }
+            }
+          }
+          .arrow {
+            position: absolute;
+            right: 0;
+            top: .25rem;
+            img {
+              width: .48rem;
+              height: .48rem;
+            }
+          }
+        }
+        
+      }
+    }
+  }
+}
+</style>
+
