@@ -1,8 +1,11 @@
 <template>
   <div class="parent-comment">
+    <!-- 头部导航 start -->
+    <HeaderNav titleTxt="家长评价课程/老师"/>
+    <!-- 头部导航 end -->
     <div class="course-panel">
       <group>
-        <cell  :border-intent="false" >
+        <cell :border-intent="false" >
           <div class="avatar" slot="icon">
             <img :src="teacherInfo.headimgurl" alt="" v-if="teacherInfo.headimgurl">
             <img src="@/assets/images/avatar.png" alt="" v-else>
@@ -18,6 +21,16 @@
 
       </editable-input>
     </div>
+    <div class="course-panel rater-wrap">
+        <div class="rater-item">
+          <span class="rater-title">老师评分</span>
+          <rater v-model="teacherRaterNum"></rater>
+        </div>
+        <div class="rater-item">
+          <span class="rater-title">课程评分</span>
+          <rater v-model="courseRaterNum"></rater>
+        </div>
+    </div>
     <div class="btn" v-if="!hasComment">
       <x-button type="primary" @click.native="confirmComment">确认评价</x-button>
     </div>
@@ -25,9 +38,11 @@
 </template>
 
 <script>
+import HeaderNav from '../../../../components/HeadNav';
+
 /** 家长评论老师 */
 import typeMixin from '@/mixins/typeMixin'
-import {Cell,Group, XButton} from 'vux'
+import { Cell,Group, XButton, Rater } from 'vux'
 import zoom from '@/mixins/zoom'
 import editableInput from '@/components/editableInput'
 import API from '@/api/apiFactory'
@@ -46,10 +61,14 @@ export default {
     Cell,
     Group,
     editableInput,
-    XButton
+    XButton,
+    Rater,
+    HeaderNav
   },
   data() {
     return {
+      teacherRaterNum: 5,
+      courseRaterNum: 5,
       hasComment: false,
       teacherInfo: {
         headimgurl: '',
@@ -202,6 +221,11 @@ export default {
       border-radius:0.08rem;
     }
   }
+}
+
+.rater-title {
+  font-size: .3rem;
+  color: #333;
 }
 </style>
 
