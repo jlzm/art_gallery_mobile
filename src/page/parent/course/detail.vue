@@ -1,5 +1,8 @@
 <template>
   <div class="course-detail">
+     <!-- 头部导航 start -->
+     <HeaderNav titleTxt="课程详情"/>
+     <!-- 头部导航 end -->
     <div class="course-panel">
       <div class="panel-title">
         {{currentCourse.cname}}
@@ -81,6 +84,8 @@
 </template>
 
 <script>
+import HeaderNav from '../../../components/HeadNav';
+
 import {Cell,Group } from 'vux'
 import {mapState} from 'vuex'
 export default {
@@ -89,7 +94,8 @@ export default {
   },
   components: {
     Cell,
-    Group
+    Group,
+    HeaderNav
   },
   methods: {
   },

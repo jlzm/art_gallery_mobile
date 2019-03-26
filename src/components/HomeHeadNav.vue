@@ -52,8 +52,8 @@
 
 <style scoped>
   .header-wrap {
+    
     height: 46px;
-
     .header-nav {
       position: fixed;
       width: 100%;

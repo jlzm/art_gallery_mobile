@@ -1,5 +1,8 @@
 <template>
   <div class="comment-detail">
+     <!-- 头部导航 start -->
+     <HeaderNav titleTxt="老师评价学生"/>
+     <!-- 头部导航 end -->
     <div class="course-panel">
       <group v-if="isTeacher">
         <cell  :border-intent="false" >
@@ -89,6 +92,8 @@
 </template>
 
 <script>
+import HeaderNav from '../../../../components/HeadNav';
+
 import typeMixin from '@/mixins/typeMixin'
 import {Cell,Group, XButton, Previewer, TransferDom, Toast } from 'vux'
 import imageMixin from '@/mixins/imageMixins'
@@ -114,7 +119,8 @@ export default {
     editableInput,
     XButton,
     Previewer,
-    Toast
+    Toast,
+    HeaderNav
   },
   data() {
     return {

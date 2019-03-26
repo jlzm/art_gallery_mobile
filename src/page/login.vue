@@ -1,24 +1,32 @@
 <template>
-  <div class="login">
-    <div class="login-ctn">
-      <group>
-        <x-input  v-model="loginForm.name" placeholder="请输入姓名" required :is-type="name">
-          <label slot="label"><img src="../assets/images/personal.png" alt=""  ></label>
-        </x-input>
-        <x-input  v-model="loginForm.phone" placeholder="请输入手机号码"  required :is-type="mobile">
-          <label slot="label"><img src="../assets/images/phone.png" alt=""  ></label>
-        </x-input>
-        <x-input  v-model="loginForm.codes" placeholder="验证码" required  :is-type="code">
-          <label slot="label"><img src="../assets/images/code.png" alt="" ></label>
-          <x-button slot="right" type="primary" plain mini>发送验证码</x-button>
-        </x-input>
-        <x-button type="primary"  class="bind" @click.native="bind">绑定</x-button>
-      </group>
-    </div>
+  <div>
+    <!-- 头部导航 start -->
+    <HomeHeadNav titleTxt="登入"/>
+    <!-- 头部导航 end -->
+    <div class="login">
+          
+         <div class="login-ctn">
+           <group>
+             <x-input  v-model="loginForm.name" placeholder="请输入姓名" required :is-type="name">
+               <label slot="label"><img src="../assets/images/personal.png" alt=""  ></label>
+             </x-input>
+             <x-input  v-model="loginForm.phone" placeholder="请输入手机号码"  required :is-type="mobile">
+               <label slot="label"><img src="../assets/images/phone.png" alt=""  ></label>
+             </x-input>
+             <x-input  v-model="loginForm.codes" placeholder="验证码" required  :is-type="code">
+               <label slot="label"><img src="../assets/images/code.png" alt="" ></label>
+               <x-button slot="right" type="primary" plain mini>发送验证码</x-button>
+             </x-input>
+             <x-button type="primary"  class="bind" @click.native="bind">绑定</x-button>
+           </group>
+         </div>
+       </div>
   </div>
 </template>
 
 <script>
+import HomeHeadNav from '../components/HomeHeadNav';
+
 import {  Group, Cell,XInput,XButton  } from 'vux'
 import API from '@/api/apiFactory'
 export default {
@@ -27,7 +35,8 @@ export default {
     Group,
     Cell,
     XInput,
-    XButton
+    XButton,
+    HomeHeadNav
   },
   data() {
     return {
