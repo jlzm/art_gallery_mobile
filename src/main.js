@@ -7,8 +7,13 @@ import FastClick from 'fastclick';
 import util from './util/util';
 import store from './store/index';
 import {Toast, ToastPlugin, LoadingPlugin} from 'vux';
+
+// css
+import "./assets/css/public.css";
 // 或者umd方式
 // 引入构建的js文件
+
+
 Vue.use(LoadingPlugin);
 import './assets/css/rewirete.css';
 import VueVideoPlayer from 'vue-video-player';

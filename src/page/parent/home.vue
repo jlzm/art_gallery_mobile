@@ -35,15 +35,30 @@
     <div class="parent-bottom">
       <div class="bottom-history">
         <div class="history history-1">
-          <div class="" @click="stepToHistory">
-            历史上课记录
+          <div class="plate-left" @click="stepToHistory">
+            <div class="plate-title activity-title">活动课程</div>
+            <div class="plate-desc">资深老师带，挖掘潜力突破极限</div>
+            <div class="tar">
+              <div class="dib plate-activity-img"><img src="@/assets/images/plate-activity.png" alt=""></div>
+            </div>
           </div>
         </div>
-        <div class="history history-2" @click="stepToEnter">
-          <div class="">
-            已报名活动课程
-          </div>
-        </div>
+         <div class="history history-1">
+           <div class="history plate-right" @click="stepToEnter">
+             <div class="dib vat">
+               <div class="plate-title apply-title">已报名课程</div>
+               <div class="plate-desc">课程一手掌握</div>
+             </div>
+             <div class="dib plate-activity-img vat"><img src="@/assets/images/plate-apply.png" alt=""></div>
+           </div>
+           <div class="history plate-right" @click="stepToEnter">
+             <div class="dib vat">
+               <div class="plate-title history-title">历史上课记录</div>
+               <div class="plate-desc">实时记录上课轨迹</div>
+             </div>
+             <div class="dib plate-activity-img vat"><img src="@/assets/images/plate-history.png" alt=""></div>
+           </div>
+         </div>
       </div>
       <div class="bottom-class">
         <div class="class-title">
@@ -401,54 +416,80 @@ export default {
             background:rgba(0,0,0,0);
             opacity:1;
             border-radius:0.16rem;
-            background: url(../../assets/images/test.jpg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
+            /*display: flex;*/
+            /*justify-content: center;*/
+            /*align-items: center;*/
             font-size: .28rem;
             font-weight: 500;
-            color: #fff;
-            background: url(../../assets/images/banner0.png) center center no-repeat;
             background-size: contain;
-            div {
-              background:rgba(75,185,194,.6);
-              border-radius:0.08rem;
-              width:2.6rem;
-              height:0.8rem;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              outline: .02rem solid rgba(75,185,194,.6);
-              outline-offset: 0.06rem;
+            /*板块头部*/
+            .plate-title {
+              font-weight:500;
+              font-size: 0.28rem;
+              padding-bottom: 0.08rem;
+            }
+            /*板块介绍*/
+            .plate-desc {
+              font-size: .2rem;
+              color:rgba(0, 0, 0, .4);
+            }
+            /*左边板块*/
+            .plate-left {
+              .activity-title {
+                color: #D33F29;
+              }
+              margin-top: 0.24rem;
+              .plate-activity-img {
+                width: 2.4rem;
+                height: 1.6rem;
+                margin-top: .73rem;
+              }
+            }
+            /*右边板块*/
+            .plate-right {
+              width: 3.4rem;
+              height: 1.6rem;
+              padding: .2rem 0 .3rem .24rem;
+              .apply-title {
+                color: #B78D1B;
+              }
+              .history-title {
+                color: #85AC32;
+              }
+              .plate-activity-img {
+                margin-left: .3rem;
+                width: 1.08rem;
+                height: 1.08rem;
+
+              }
             }
           }
-          &.history-2 {
-            width:3.4rem;
-            height:3.4rem;
-            background:rgba(0,0,0,0);
-            opacity:1;
-            border-radius:0.16rem;
-            background: url(../../assets/images/test.jpg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: .28rem;
-            font-weight: 500;
-            color: #fff;
-            background: url(../../assets/images/banner3.png) center center no-repeat;
-            background-size: contain;
-            div {
-              background:rgba(237,154,41,.6);
-              border-radius:0.08rem;
-              width:2.6rem;
-              height:0.8rem;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              outline: .02rem solid rgba(237,154,41,.6);
-              outline-offset: 0.06rem;
-            }
-          }
+          /*&.history-2 {*/
+            /*width:3.4rem;*/
+            /*height:3.4rem;*/
+            /*background:rgba(0,0,0,0);*/
+            /*opacity:1;*/
+            /*border-radius:0.16rem;*/
+            /*display: flex;*/
+            /*justify-content: center;*/
+            /*align-items: center;*/
+            /*font-size: .28rem;*/
+            /*font-weight: 500;*/
+            /*color: #fff;*/
+            /*background-size: contain;*/
+            /*div {*/
+              /*background:rgba(237,154,41,.6);*/
+              /*border-radius:0.08rem;*/
+              /*width:2.6rem;*/
+              /*height:0.8rem;*/
+              /*display: flex;*/
+              /*align-items: center;*/
+              /*justify-content: center;*/
+              /*outline: .02rem solid rgba(237,154,41,.6);*/
+              /*outline-offset: 0.06rem;*/
+            /*}*/
+          /*}*/
         }
       }
       .bottom-class {
