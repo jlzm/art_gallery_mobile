@@ -50,7 +50,7 @@
 
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   .header-wrap {
     
     height: 46px;

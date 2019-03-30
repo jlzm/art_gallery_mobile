@@ -5,6 +5,18 @@ img {
 }
 
 
+/*单行超出省略*/
+.txt-omit {
+  white-space: nowrap;  
+  text-overflow:ellipsis; 
+  overflow:hidden;
+}
+
+ /* 强制换行 */
+.txt-wrap {
+  word-wrap: break-word;
+}
+
 .tac {
   text-align: center;
 }
@@ -27,4 +39,65 @@ img {
 
 .vab {
   vertical-align: bottom;
+}
+
+/* // 边框 */
+.bd-b {
+    border-bottom: 1px solid #efeff4;
+}
+
+.bd-r {
+    border-right: 1px solid #efeff4;
+}
+
+.bd-l {
+    border-left: 1px solid #efeff4;
+}
+
+.bd-t {
+    border-top: 1px solid #efeff4;
+}
+
+
+/* // 清除空格 */
+.c-sp {
+    font-size: 0;
+}
+
+
+.df {
+  display: flex;
+  align-items: center;
+}
+
+[class*="df-"] {
+    display: flex;
+}
+
+.df-c {
+    flex-direction: column;
+    align-items: center;
+}
+
+.df-r {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.df-sa {
+    justify-content: space-around; 
+}
+
+.fx1 {
+  flex: 1;
+}
+
+/* 定位 */
+.poa {
+  position: absolute;
+}
+
+.por {
+  position: relative;
 }

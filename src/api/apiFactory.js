@@ -1,4 +1,7 @@
-import { sendRequest, sendFormData } from '../global/httpConfig'
+import {
+  sendRequest,
+  sendFormData
+} from '../global/httpConfig'
 export default {
   homeAPI: {
     // 登录接口
@@ -20,6 +23,19 @@ export default {
         .then(data => data)
     },
     /* 家长端 */
+
+    /**
+     * 获取活动课程列表
+     * @param {*} obj 
+     */
+    getCourseByPage: async function getCourseByPage(obj) {
+      return sendRequest({
+        method: 'post',
+        data: obj,
+        url: '/getCourseByPage'
+      })
+    },
+
     // 首页获取学生信息
     // params: sid学生id
     wxAppGetStudent: async function wxAppGetStudent(obj) {
@@ -96,6 +112,7 @@ export default {
         })
         .then(data => data)
     },
+
     // 获取课程签到信息
     // params: crid 课程id
     getSignData: async function getSignData(obj) {

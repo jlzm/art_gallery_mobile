@@ -101,6 +101,24 @@ const router = [
       type: 'parent'
     },
     component: resolve => require(['../page/common/history/history'],resolve)
-  }
+  },
+  {
+    path: '/parent/activityCourse/list',
+    name: 'activityCourseList',
+    meta: {
+      title: '活动课程列表',
+      type: 'parent'
+    },
+    component: resolve => require(['../page/parent/activityCourse/List'],resolve)
+  },
+  {
+    path: '/parent/activityCourse/desc',
+    name: 'activityCourseDesc',
+    meta: {
+      title: '活动课程详情',
+      type: 'parent'
+    },
+    component: resolve => require(['../page/parent/activityCourse/Desc'],resolve)
+  },
 ]
 export default router

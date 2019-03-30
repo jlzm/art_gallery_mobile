@@ -23,7 +23,7 @@ const router = new Router({
   }].concat(teacher, parent)
 });
 router.beforeEach((to, from, next) => {
-  let path = to.path;
+  // let path = to.path;
 
   document.title = to.meta.title || '主页';
   next();
