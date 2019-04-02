@@ -34,6 +34,7 @@ export default {
         data: obj,
         url: '/getCourseByPage'
       })
+      .then(data => data)
     },
 
     // 首页获取学生信息

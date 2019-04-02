@@ -1,42 +1,47 @@
 <template>
-  <div>
+  <div calss="course-list">
     <!-- 头部导航 start -->
     <HeadNav titleTxt="活动课程"/>
     <!-- 头部导航 end -->
     <div class="course-wrap">
-      <div class="course-item">
-        <div class="df course-item-title bd-b">
-          <div class="title-main">综合技法素描写生</div>
-          <div class="title-meta">24课时</div>
-        </div>
-        <div class="por course-item-content">
-          <div class="dib course-item-img vat">
-            <img src="@/assets/images/activity_course.png" alt>
+      <div class="wapper" ref="wrapper">
+        <div class="ctn">
+          <div v-for="(item, index) in currentData" :key="index" class="course-item">
+            <div class="df course-item-title bd-b">
+              <div class="title-main">综合技法素描写生</div>
+              <div class="title-meta">24课时</div>
+            </div>
+            <div class="por course-item-content">
+              <div class="dib course-item-img vat">
+                <img :src="item.cpicture" @error="'@/assets/images/activity_course.png'" alt>
+              </div>
+              <div class="dib course-item-info vat">
+                <p>
+                  <span class="info-title">活动老师：</span>
+                  <span class="info-desc">{{item.tname}}</span>
+                </p>
+                <p>
+                  <span class="info-title">活动日期：</span>
+                  <span class="info-desc">{{item.cdate}}</span>
+                </p>
+                <p>
+                  <span class="info-title">活动时间：</span>
+                  <span class="info-desc">{{item.begintime}}-{{item.endtime}}</span>
+                </p>
+                <p>
+                  <span class="info-title">活动地点：</span>
+                  <span class="info-desc">{{item.room}}</span>
+                </p>
+              </div>
+              <div class="course-item-btn">
+                <button
+                  class="poa btn-content"
+                  :class=" btnStatus == 0 ? 'btn-status1' : 'btn-status2' "
+                >{{btnTxt}}</button>
+              </div>
+            </div>
           </div>
-          <div class="dib course-item-info vat">
-            <p>
-              <span class="info-title">活动老师：</span>
-              <span class="info-desc">李亚东</span>
-            </p>
-            <p>
-              <span class="info-title">活动日期：</span>
-              <span class="info-desc">2019/3/28</span>
-            </p>
-            <p>
-              <span class="info-title">活动时间：</span>
-              <span class="info-desc">14：00-15：00</span>
-            </p>
-            <p>
-              <span class="info-title">活动地点：</span>
-              <span class="info-desc">麓谷企业广场F4栋14楼</span>
-            </p>
-          </div>
-          <div class="course-item-btn">
-            <button
-              class="poa btn-content"
-              :class=" btnStatus == 0 ? 'btn-status1' : 'btn-status2' "
-            >{{btnTxt}}</button>
-          </div>
+          <p class="more" v-if="showMore">{{info}}</p>
         </div>
       </div>
     </div>
@@ -48,46 +53,109 @@ import HeadNav from "../../../components/HeadNav";
 
 // api
 import API from "@/api/apiFactory";
+
+// vuex
+import { mapState } from "vuex";
+
 //   vux组件
 import { XButton } from "vux";
+
+import BScroll from "better-scroll";
 export default {
   components: {
     HeadNav,
     XButton
   },
+
   data() {
     return {
+      currentData: [],
       btnStatus: 0, //按钮状态
       btnTxt: "立即报名", //按钮文字
-      pagenum: 10,
-      pageSize: 1,
-      courseList: '',
+      pagenum: 1,
+      pageSize: 10,
+      pagenumCount: null,
+      courseList: "",
+      showMore: false,
+      info: "加载更多"
     };
   },
+  computed: {
+    ...mapState({
+      userInfo: "userInfo"
+    })
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initScroll();
+    });
+    this.getActiveData();
+  },
   methods: {
+    initScroll() {
+      const options = {
+        scrollY: true, // 因为scrollY默认为true，其实可以省略,
+        click: true,
+        pullUpLoad: {
+          threshold: -30,
+          moreTxt: "加载更多"
+        }
+      };
+      const winHeight = window.innerHeight;
+      console.log(winHeight);
+      console.log(this.$refs.wrapper);
+      this.$refs.wrapper.style.height = winHeight - 60 + "px";
+      this.scroll = new BScroll(this.$refs.wrapper, options);
+      this.scroll.on("pullingUp", () => {
+        if (this.pagenum >= this.pagenumCount) {
+          this.showMore = true;
+          this.info = "没有更多数据了...";  
+          return;
+        }
+        this.pagenum++;
+        this.getActiveData();
+      });
+    },
+
+    endScroll() {
+      this.$nextTick(() => {
+        this.scroll.finishPullUp();
+        this.scroll.refresh();
+        this.showMore = false;
+      });
+    },
+
     /**
      * 获取活动课程列表
      * 作者：jlzm
      */
-      getActiveData(status) {
-        let propsData = {
-          uid: '1',
-          page: this.pageJSON.currentPage,
-            rows: this.pageJSON.pageSize,
-            status: status || 0,
-            ctype: 2
-        };
-       API.getCourseByPage(propsData).then(res => {
-         console.log('res', res);
-       })
-
-
-      }
+    getActiveData() {
+      let propsData = {
+        wsid: this.userInfo.sid,
+        page: this.pagenum,
+        rows: this.pageSize,
+        status: 0,
+        ctype: 2
+      };
+      console.log("propsData", propsData);
+      API.homeAPI.getCourseByPage(propsData).then(res => {
+        console.log("res", res);
+        if (res.total > 0) {
+          this.currentData = this.currentData.concat(res.rows);
+          this.pagenumCount = res.pageCount;
+        } else {
+          this.$vux.toast.text("暂无数据", "middle");
+        }
+        this.endScroll();
+        console.log(this.currentData);
+      });
+    }
   }
 };
 </script>
 
 <style lang="less" scoped>
+
 .course-item {
   margin-bottom: 0.32rem;
   padding: 0 0.32rem;
@@ -143,5 +211,12 @@ export default {
       }
     }
   }
+}
+
+.more {
+  font-size: 0.28rem;
+  color: #8d8e8f;
+  margin-top: 0.3rem;
+  text-align: center;
 }
 </style>

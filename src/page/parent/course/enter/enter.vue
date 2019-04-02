@@ -11,49 +11,36 @@
     </div>
     <div class="content">
       <div class="wapper">
-        <div class="ctn" >
-          <div class="item" v-for="(item, index) in courseData[selectType]" @click.capture="showCourse(index)" :key="item.crid" >
+        <div class="ctn">
+          <div
+            class="item"
+            v-for="(item, index) in courseData[selectType]"
+            @click.capture="showCourse(index)"
+            :key="item.crid"
+          >
             <template>
               <div class="item-title vux-1px-b">
-                <div class="date">
-                  {{item.cdate}} ({{item.weeknum}})
-                </div>
-                <div class="number">
-                  {{item.period_need}}课时
-                </div>
+                <div class="date">{{item.cdate}} ({{item.weeknum}})</div>
+                <div class="number">{{item.period_need}}课时</div>
               </div>
               <div class="course-info">
-                <div class="className">
-                  {{item.cname}}
-                </div>
+                <div class="className">{{item.cname}}</div>
                 <div class="class-info-detail">
                   <div class="detail-item">
-                    <div class="label">
-                      时间段:
-                    </div>
-                    <div class="for">
-                      {{item.begintime}} - {{item.endtime}}
-                    </div>
+                    <div class="label">时间段:</div>
+                    <div class="for">{{item.begintime}} - {{item.endtime}}</div>
                   </div>
                   <div class="detail-item">
-                    <div class="label">
-                      上课老师:
-                    </div>
-                    <div class="for">
-                     {{item.tname}}
-                    </div>
+                    <div class="label">上课老师:</div>
+                    <div class="for">{{item.tname}}</div>
                   </div>
                   <div class="detail-item">
-                    <div class="label">
-                      上课教室:
-                    </div>
-                    <div class="for">
-                      {{item.room}}
-                    </div>
+                    <div class="label">上课教室:</div>
+                    <div class="for">{{item.room}}</div>
                   </div>
                 </div>
                 <div class="arrow">
-                  <img src="@/assets/images/arrow.png" alt="">
+                  <img src="@/assets/images/arrow.png" alt>
                 </div>
               </div>
             </template>
@@ -65,14 +52,14 @@
 </template>
 
 <script>
-import HeaderNav from '../../../../components/HeadNav';
+import HeaderNav from "../../../../components/HeadNav";
 
 /** 参与活动课程 */
-import { Tab, TabItem } from 'vux'
-import {mapState} from 'vuex'
-import API from '@/api/apiFactory'
+import { Tab, TabItem } from "vux";
+import { mapState } from "vuex";
+import API from "@/api/apiFactory";
 export default {
-  name: 'enter',
+  name: "enter",
   components: {
     Tab,
     TabItem,
@@ -87,18 +74,21 @@ export default {
         // 已结束课程
         1: []
       }
-    }
+    };
   },
   mounted() {
-    this.getwxStudentCourse()
+    this.getwxStudentCourse();
   },
   methods: {
     onItemClick(val) {
-      this.selectType = val
+      this.selectType = val;
     },
     showCourse(index) {
-      this.$store.commit('saveCurrentCourse',this.courseData[this.selectType][index])
-      this.$router.push('/parent/courseDetail')
+      this.$store.commit(
+        "saveCurrentCourse",
+        this.courseData[this.selectType][index]
+      );
+      this.$router.push("/parent/courseDetail");
     },
     getwxStudentCourse() {
       this.courseData = {
@@ -106,97 +96,96 @@ export default {
         0: [],
         // 已结束课程
         1: []
-      }
-      API.homeAPI.wxStudentCourse({
-        ctype: 2,
-        sid: this.userInfo.sid
-      })
-      .then(data => {
-        if (data && data.length) {
-          data.forEach((item,index) => {
-            this.courseData[item.status].push(item)
-          })
-        } else {
-          this.$vux.toast.text('暂无活动课程安排', 'middle')
-        }
-      })
+      };
+      API.homeAPI
+        .wxStudentCourse({
+          ctype: 2,
+          sid: this.userInfo.sid
+        })
+        .then(data => {
+          if (data && data.length) {
+            data.forEach((item, index) => {
+              this.courseData[item.status].push(item);
+            });
+          } else {
+            this.$vux.toast.text("暂无活动课程安排", "middle");
+          }
+        });
     }
   },
   computed: {
     ...mapState({
-      userInfo: 'userInfo'
+      userInfo: "userInfo"
     })
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
 .entered-course {
   height: 100vh;
-  background-color: #F5F7FA;
+  background-color: #f5f7fa;
   .tab {
     /deep/ .vux-tab .vux-tab-item.vux-tab-selected {
-      color: #4BB9C2;
-      border-bottom: 3px solid #4BB9C2;
+      color: #4bb9c2;
+      border-bottom: 3px solid #4bb9c2;
     }
     /deep/ .vux-tab-ink-bar {
-      background-color: #4BB9C2;
+      background-color: #4bb9c2;
     }
   }
   .content {
     .ctn {
       .item {
         background-color: #fff;
-        margin-top: .2rem;
-        padding: 0 0.32rem; 
+        margin-top: 0.2rem;
+        padding: 0 0.32rem;
         position: relative;
         .item-title {
           display: flex;
           justify-content: space-between;
-          font-size: .3rem;
-          padding: .2rem 0;
+          font-size: 0.3rem;
+          padding: 0.2rem 0;
           .number {
-            color:#999999;
-            font-size: .2rem;
+            color: #999999;
+            font-size: 0.2rem;
           }
         }
         .course-info {
           // margin-bottom: .15rem;
-          padding: .2rem 0;
+          padding: 0.2rem 0;
           position: relative;
           .className {
-            font-size: .28rem;
-            color:rgba(51,51,51,1);
-            
+            font-size: 0.28rem;
+            color: rgba(51, 51, 51, 1);
           }
           .class-info-detail {
             .detail-item {
               display: flex;
               align-items: center;
-              margin: .05rem 0 ;
+              margin: 0.05rem 0;
               .label {
-                font-size: .24rem;
+                font-size: 0.24rem;
                 color: #666666;
                 min-width: 1.2rem;
               }
               .for {
-                font-size: .24rem;
+                font-size: 0.24rem;
                 color: #333;
-                margin-left: .1rem;
+                margin-left: 0.1rem;
               }
             }
           }
           .arrow {
             position: absolute;
             right: 0;
-            top: .25rem;
+            top: 0.25rem;
             img {
-              width: .48rem;
-              height: .48rem;
+              width: 0.48rem;
+              height: 0.48rem;
             }
           }
         }
-        
       }
     }
   }
