@@ -102,6 +102,10 @@ const router = [
     },
     component: resolve => require(['../page/common/history/history'],resolve)
   },
+
+  /**活动课程模块 start */
+  
+  /**活动课程列表 */
   {
     path: '/parent/activityCourse/list',
     name: 'activityCourseList',
@@ -111,8 +115,9 @@ const router = [
     },
     component: resolve => require(['../page/parent/activityCourse/List'],resolve)
   },
+  /**活动课程详情 */
   {
-    path: '/parent/activityCourse/desc',
+    path: '/parent/activityCourse/Desc',
     name: 'activityCourseDesc',
     meta: {
       title: '活动课程详情',
@@ -120,5 +125,7 @@ const router = [
     },
     component: resolve => require(['../page/parent/activityCourse/Desc'],resolve)
   },
+
+  /**活动课程模块 end */
 ]
 export default router

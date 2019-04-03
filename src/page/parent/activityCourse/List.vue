@@ -6,10 +6,15 @@
     <div class="course-wrap">
       <div class="wapper" ref="wrapper">
         <div class="ctn">
-          <div v-for="(item, index) in currentData" :key="index" class="course-item">
+          <div
+            @click="routerCourse(item)"
+            v-for="(item, index) in currentData"
+            :key="index"
+            class="course-item"
+          >
             <div class="df course-item-title bd-b">
-              <div class="title-main">综合技法素描写生</div>
-              <div class="title-meta">24课时</div>
+              <div class="title-main">{{item.cname}}</div>
+              <div class="title-meta">{{item.period_need}}课时</div>
             </div>
             <div class="por course-item-content">
               <div class="dib course-item-img vat">
@@ -35,7 +40,7 @@
               </div>
               <div class="course-item-btn">
                 <button
-                  @click="apply()"
+                  @click="apply(item.crid)"
                   :disabled="item.cstatus != 0"
                   class="poa btn-content"
                   :class=" item.cstatus == '0' ? 'btn-status1' : 'btn-status2' "
@@ -47,11 +52,17 @@
         </div>
       </div>
     </div>
+    <div class="alert-wrap">
+      <alert v-model="applyMsg.show" :title="applyMsg.title">{{ applyMsg.desc }}</alert>
+    </div>
   </div>
 </template>
 
 <script>
 import HeadNav from "../../../components/HeadNav";
+
+// 公共方法
+import pubilcFn from "../../../mixins/pulicFn";
 
 // api
 import API from "@/api/apiFactory";
@@ -60,17 +71,26 @@ import API from "@/api/apiFactory";
 import { mapState } from "vuex";
 
 //   vux组件
-import { XButton } from "vux";
+import { XButton, Alert } from "vux";
 
 import BScroll from "better-scroll";
 export default {
+  // 混入
+  mixins: [pubilcFn],
+
   components: {
     HeadNav,
-    XButton
+    XButton,
+    Alert
   },
 
   data() {
     return {
+      applyMsg: {
+        show: false,
+        title: "",
+        desc: ""
+      },
       currentData: [],
       btnStatus: 0, //按钮状态
       // btnTxt: "立即报名", //按钮文字
@@ -95,9 +115,42 @@ export default {
   },
   methods: {
     /**
+     * 跳转活动课程详情页
+     */
+    routerCourse(item) {
+      const path = '/parent/activityCourse/Desc';
+      let query = {
+        crid: item.crid
+      }
+      this.routeLink(path, query)
+    },
+
+    /**
      * 立即报名
      */
-    
+    apply(crid) {
+      this.applyMsg.show = true;
+      let propsData = {
+        crid,
+        sid: this.userInfo.sid
+      };
+      console.log("propsData", propsData);
+      API.homeAPI.wxSignUpCourseRecords(propsData).then(res => {
+        console.log("res", res);
+        switch (res.code) {
+          case 1:
+            this.applyMsg.title = "成功";
+            this.applyMsg.desc = res.msg;
+            break;
+
+          default:
+            this.applyMsg.title = "失败";
+            this.applyMsg.desc = res.msg;
+            break;
+        }
+        this.getActiveData();
+      });
+    },
 
     initScroll() {
       const options = {
@@ -126,8 +179,7 @@ export default {
 
     /**
      * 停止下拉
-     */
-    endScroll() {
+     */endScroll() {
       this.$nextTick(() => {
         this.scroll.finishPullUp();
         this.scroll.refresh();

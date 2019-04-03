@@ -39,11 +39,28 @@ export default {
       .then(data => data)
     },
 
+    /**
+     * 获取活动课程详情
+     * @param {*} obj 
+     */
+    getCourseRecordDetails: async function getCourseRecordDetails(obj) {
+      return sendRequest({
+        method: 'post',
+        data: obj,
+        url: '/getCourseRecordDetails'
+      })
+      .then(data => data)
+    },
+
+     /**
+      * 报名活动课程
+      * @param {*} obj 
+      */
     wxSignUpCourseRecords: async function wxSignUpCourseRecords(obj) {
       return sendRequest({
         method: 'post',
         data: obj,
-        url: '/getCourseByPage'
+        url: '/wxSignUpCourseRecords'
       })
       .then(data => data)
     },

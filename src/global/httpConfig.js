@@ -2,10 +2,13 @@ import axios from 'axios'
 import qs from 'qs'
 import global from './global'
 import Vue from 'vue'
-import { Toast, ToastPlugin } from 'vux'
+import {
+  Toast,
+  ToastPlugin
+} from 'vux'
 axios.defaults.headers.post['Content-Type'] = global.CONTENTTYPE
 axios.defaults.baseURL = global.BASEURL
-axios.defaults.transformRequest = [function(data, config) {
+axios.defaults.transformRequest = [function (data, config) {
   if (!config['Content-Type']) return qs.stringify(data)
   switch (config['Content-Type'].toLowerCase()) {
     case 'application/json; charset=utf-8':
