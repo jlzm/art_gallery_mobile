@@ -24,6 +24,8 @@ export default {
     },
     /* 家长端 */
 
+
+    /** 活动课程相关 start */
     /**
      * 获取活动课程列表
      * @param {*} obj 
@@ -36,6 +38,18 @@ export default {
       })
       .then(data => data)
     },
+
+    wxSignUpCourseRecords: async function wxSignUpCourseRecords(obj) {
+      return sendRequest({
+        method: 'post',
+        data: obj,
+        url: '/getCourseByPage'
+      })
+      .then(data => data)
+    },
+
+    /** 活动课程相关 end */
+
 
     // 首页获取学生信息
     // params: sid学生id

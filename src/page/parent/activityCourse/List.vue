@@ -35,9 +35,11 @@
               </div>
               <div class="course-item-btn">
                 <button
+                  @click="apply()"
+                  :disabled="item.cstatus != 0"
                   class="poa btn-content"
-                  :class=" btnStatus == 0 ? 'btn-status1' : 'btn-status2' "
-                >{{btnTxt}}</button>
+                  :class=" item.cstatus == '0' ? 'btn-status1' : 'btn-status2' "
+                >{{item.btnTxt}}</button>
               </div>
             </div>
           </div>
@@ -71,7 +73,7 @@ export default {
     return {
       currentData: [],
       btnStatus: 0, //按钮状态
-      btnTxt: "立即报名", //按钮文字
+      // btnTxt: "立即报名", //按钮文字
       pagenum: 1,
       pageSize: 10,
       pagenumCount: null,
@@ -92,6 +94,11 @@ export default {
     this.getActiveData();
   },
   methods: {
+    /**
+     * 立即报名
+     */
+    
+
     initScroll() {
       const options = {
         scrollY: true, // 因为scrollY默认为true，其实可以省略,
@@ -109,7 +116,7 @@ export default {
       this.scroll.on("pullingUp", () => {
         if (this.pagenum >= this.pagenumCount) {
           this.showMore = true;
-          this.info = "没有更多数据了...";  
+          this.info = "没有更多数据了...";
           return;
         }
         this.pagenum++;
@@ -117,6 +124,9 @@ export default {
       });
     },
 
+    /**
+     * 停止下拉
+     */
     endScroll() {
       this.$nextTick(() => {
         this.scroll.finishPullUp();
@@ -143,11 +153,39 @@ export default {
         if (res.total > 0) {
           this.currentData = this.currentData.concat(res.rows);
           this.pagenumCount = res.pageCount;
+          this.addCstutasBtnTxt();
         } else {
           this.$vux.toast.text("暂无数据", "middle");
         }
         this.endScroll();
         console.log(this.currentData);
+      });
+    },
+
+    /**
+     * 添加按钮状态文字
+     */
+    addCstutasBtnTxt() {
+      this.currentData.forEach(item => {
+        switch (item.cstatus) {
+          case "0":
+            item.btnTxt = "立即报名";
+            break;
+          case "1":
+            item.btnTxt = "已报名";
+            break;
+
+          case "2":
+            item.btnTxt = "名额已满";
+            break;
+
+          case "3":
+            item.btnTxt = "报名结束";
+            break;
+
+          default:
+            break;
+        }
       });
     }
   }
@@ -155,7 +193,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 .course-item {
   margin-bottom: 0.32rem;
   padding: 0 0.32rem;
