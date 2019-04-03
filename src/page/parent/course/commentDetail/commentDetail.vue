@@ -136,8 +136,8 @@ export default {
               headimgurl: data.headimgurl
             };
             this.comment = data.tev;
-            // this.teacherRater = this.teacherrater;
-            // this.courseRater = this.courserater
+            this.teacherRater = parseInt(data.teacherrater);
+            this.courseRater = parseInt(data.courserater);
           }
         });
     }

@@ -10,7 +10,7 @@
       <div class="panel-content">
         <div class="inline-item">
           <div class="label">
-            时间段
+            时段
           </div>
           <div class="for">
             {{currentCourse.begintime}} - {{currentCourse.endtime}}

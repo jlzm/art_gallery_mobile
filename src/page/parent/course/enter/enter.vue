@@ -5,8 +5,8 @@
     <!-- 头部导航 end -->
     <div class="tab">
       <tab>
-        <tab-item @on-item-click="onItemClick" selected>未开始</tab-item>
-        <tab-item @on-item-click="onItemClick">已结束</tab-item>
+        <tab-item @on-item-click="onItemClick(0)" selected>未开始</tab-item>
+        <tab-item @on-item-click="onItemClick(1)">已结束</tab-item>
       </tab>
     </div>
     <div class="content">
@@ -81,8 +81,10 @@ export default {
   },
   methods: {
     onItemClick(val) {
+      console.logval
       this.selectType = val;
     },
+
     showCourse(index) {
       this.$store.commit(
         "saveCurrentCourse",
@@ -90,6 +92,8 @@ export default {
       );
       this.$router.push("/parent/courseDetail");
     },
+
+
     getwxStudentCourse() {
       this.courseData = {
         // 未开始课程
@@ -103,14 +107,16 @@ export default {
           sid: this.userInfo.sid
         })
         .then(data => {
-          if (data && data.length) {
-            data.forEach((item, index) => {
+          console.log('data', data);
+          if (data) {
+            data.rows.forEach((item, index) => {
               this.courseData[item.status].push(item);
             });
           } else {
             this.$vux.toast.text("暂无活动课程安排", "middle");
           }
         });
+        console.log('this.courseData', this.courseData);
     }
   },
   computed: {
