@@ -8,7 +8,11 @@
       <div class="top-info">
         <div class="flex">
           <div class="img">
-            <img :src="infoData.headimgurl" @error="infoData.headimgurl = require('../../assets/images/avatar.png')" alt >
+            <img
+              :src="infoData.headimgurl"
+              @error="infoData.headimgurl = require('../../assets/images/avatar.png')"
+              alt
+            >
           </div>
           <div class="info">
             <div class="name">{{infoData.tname}}</div>
@@ -141,13 +145,13 @@ export default {
   },
   mounted() {
     document.title = "会员中心";
+    // 获取一周的开始与结束
+    this.getWeekData();
+    // 获取用户信息
+    this.getUserInfo();
     this.$nextTick(() => {
       this.initScroll();
     });
-    // 获取用户信息
-    this.getUserInfo();
-    // 获取一周的开始与结束
-    this.getWeekData();
   },
   data() {
     return {
@@ -285,7 +289,7 @@ export default {
         })
         .then(data => {
           if (data) {
-              console.log('data', data);
+            console.log("data", data);
             this.infoData = data;
           }
         });
@@ -458,12 +462,11 @@ export default {
 
           /*板块*/
           .plate-left {
-            padding: 0 .24rem;
+            padding: 0 0.24rem;
             margin-top: 0.24rem;
             .activity-title {
               color: #d33f29;
             }
-
 
             .plate-activity-img {
               width: 2.4rem;
