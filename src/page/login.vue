@@ -19,7 +19,7 @@
               <label slot="label">
                 <img src="../assets/images/code.png" alt>
               </label>
-              <x-button @click.native="getPhoneCode()" slot="right" type="primary" plain mini>发送验证码</x-button>
+              <x-button action-type="button" @click.native.stop="getPhoneCode()" slot="right" type="primary" plain mini>发送验证码</x-button>
             </x-input>
             <x-button action-type="submit" type="primary" class="bind" @click.native.stop="bind()">绑定</x-button>
           </form>
@@ -73,7 +73,23 @@ export default {
      * 获取手机验证码
      */
     getPhoneCode() {
-      
+      let phone = this.loginForm.phone;
+      let reg = /^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\d{8}$/;
+
+      if(!phone) {
+          this.$vux.toast.text("请输入手机号", "middle");
+        return false;
+      } else if(!phone.match(reg)){
+          this.$vux.toast.text("请输入正确手机格式", "middle");
+        return  false;
+      }
+
+      let propsData = {
+        phone: phone
+      }
+      API.homeAPI.getPhoneCode(propsData).then(res => {
+        console.log('res', res);
+      })
     },
 
     // rules

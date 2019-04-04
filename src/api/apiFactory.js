@@ -4,7 +4,24 @@ import {
 } from '../global/httpConfig'
 export default {
   homeAPI: {
-    // 登录接口
+    /**登入相关 start */
+
+    /**
+     * 获取验证码
+     * @param {*} obj 
+     */
+    getPhoneCode: async function getPhoneCode(obj) {
+      return sendRequest({
+          method: 'post',
+          data: obj,
+          url: '/getPhoneCode'
+        })
+        .then(data => data)
+    },
+
+    /**
+     * 登录接口
+     */
     login: async function login(obj) {
       return sendRequest({
           method: 'post',
@@ -13,6 +30,9 @@ export default {
         })
         .then(data => data)
     },
+
+    /**登入相关 end */
+
     // 获取用户信息
     getUserInfo: async function getUserInfo(obj) {
       return sendRequest({
