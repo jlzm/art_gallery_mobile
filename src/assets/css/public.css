@@ -12,6 +12,10 @@ img {
   overflow:hidden;
 }
 
+.hv-cp {
+  cursor: pointer;
+}
+
  /* 强制换行 */
 .txt-wrap {
   word-wrap: break-word;

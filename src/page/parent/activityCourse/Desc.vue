@@ -34,7 +34,7 @@
         <div class="course-item-title bd-b">
           <div class="title-main">课程预热</div>
         </div>
-          <div class="course-desc txt-wrap">{{currentData.cdesc}}</div>
+        <div class="course-desc txt-wrap">{{currentData.cdesc}}</div>
       </div>
 
       <div class="course-item">
@@ -77,7 +77,11 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    ...mapState({
+      userInfo: "userInfo"
+    })
+  },
 
   mounted() {
     this.getCourseDesc();
@@ -92,6 +96,7 @@ export default {
         wsid: this.userInfo.sid,
         crid: this.$route.query.crid
       };
+      console.log("propsData", propsData);
       API.homeAPI.getCourseRecordDetails(propsData).then(res => {
         console.log("res", res);
         this.currentData = res.course;
@@ -198,8 +203,8 @@ export default {
 }
 
 .course-desc {
-  font-size: .28rem;
+  font-size: 0.28rem;
   color: #666;
-  padding: .32rem .2rem;
+  padding: 0.32rem 0.2rem;
 }
 </style>

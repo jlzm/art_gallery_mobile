@@ -165,7 +165,7 @@ export default {
           openid: this.userInfo.openid
         })
         .then(res => {
-          console.log('res', res);
+          console.log("res", res);
           this.$vux.loading.hide();
           if (res && parseInt(res.code) === 1) {
             this.$vux.toast.show({
@@ -191,15 +191,15 @@ export default {
           ftype: "view"
         })
         .then(res => {
-          if(res) {
+          console.log("res", res);
+          if (res && res.length) {
             this.hasUpload = true;
             res.forEach(item => {
-               this.viewVedioList.push({
-                    src: global.VIDEOURL + item.url
-                  });
+              this.viewVedioList.push({
+                src: global.VIDEOURL + item.url
+              });
             });
           }
-          
         });
     }
   },
