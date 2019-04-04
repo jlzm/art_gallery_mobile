@@ -28,8 +28,8 @@
       </div>
     </div>
     <div class="btn">
-      <x-button v-if="!hasComment" type="primary" @click.native="confirmComment()">确认评价</x-button>
-      <x-button v-else type="primary">已评价</x-button>
+      <x-button class="ago" v-if="!hasComment" type="primary" @click.native="confirmComment()">确认评价</x-button>
+      <x-button class="yet" type="info" v-else>已评价</x-button>
     </div>
   </div>
 </template>
@@ -224,7 +224,7 @@ export default {
   }
   .btn {
     padding: 0.32rem;
-    button {
+    .ago {
       background: rgba(75, 185, 194, 1);
       border-radius: 0.08rem;
     }
@@ -234,6 +234,10 @@ export default {
 .rater-title {
   font-size: 0.3rem;
   color: #333;
+}
+
+.parent-comment .btn .yet {
+  background: #C3C3C3;
 }
 </style>
 
