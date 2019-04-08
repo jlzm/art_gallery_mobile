@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="btn" v-if="type === 'teacher'">
-      <x-button class="disabled" v-if="signStudentList.length == signed.length" type="primary" disabled>签到完毕</x-button>
+      <x-button class="disabled" v-if="isSign == signStudentList.length" type="primary" disabled>签到完毕</x-button>
       <x-button v-else type="primary" @click.native="sign()">签到</x-button>
     </div>
   </div>
@@ -95,6 +95,7 @@ export default {
   },
   data() {
     return {
+      isSign: 0,
       studentList: [],
       commonList: [],
       signed: [],
@@ -107,7 +108,9 @@ export default {
     };
   },
   methods: {
-    changeValue(val) {},
+    changeValue(val) {
+
+    },
     // bScroll
     initScroll() {
       this.$nextTick(() => {
@@ -138,6 +141,7 @@ export default {
     
     getSignData() {
       this.signed = [];
+      this.isSign = 0;
       API.homeAPI
         .getSignData({
           crid: this.crid
@@ -149,6 +153,7 @@ export default {
               // 签到学生推入
               if (item.ifsign) {
                 this.signed.push(item.sid);
+                this.isSign++;
               }
             });
             this.signStudentList = data;
