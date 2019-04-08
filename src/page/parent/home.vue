@@ -472,7 +472,6 @@ export default {
         &.history-1 {
           width: 3.4rem;
           height: 3.4rem;
-          background: rgba(0, 0, 0, 0);
           opacity: 1;
           border-radius: 0.16rem;
 
@@ -498,6 +497,7 @@ export default {
 
           /*左边板块*/
           .plate-left {
+            background: #fff;
             padding: 0 0.24rem;
             margin-top: 0.24rem;
             .activity-title {
@@ -513,6 +513,7 @@ export default {
 
           /*右边板块*/
           .plate-right {
+            background: #fff;
             margin-top: 0.24rem;
             width: 3.4rem;
             height: 1.6rem;
