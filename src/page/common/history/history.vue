@@ -20,7 +20,7 @@
               <div class="className">{{item.cname}}</div>
               <div class="class-info-detail">
                 <div class="detail-item">
-                  <div class="label">时间段:</div>
+                  <div class="label">上课时间:</div>
                   <div class="for">{{item.begintime}} - {{item.endtime}}</div>
                 </div>
                 <div class="detail-item">

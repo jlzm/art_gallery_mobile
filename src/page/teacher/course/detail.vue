@@ -7,7 +7,7 @@
       <div class="panel-title">{{currentCourse.cname}}</div>
       <div class="panel-content">
         <div class="inline-item">
-          <div class="label">时间段</div>
+          <div class="label">上课时间</div>
           <div class="for">{{currentCourse.begintime}} - {{currentCourse.endtime}}</div>
         </div>
         <div class="inline-item">
@@ -15,7 +15,7 @@
           <div class="for">{{currentCourse.tname}}</div>
         </div>
         <div class="inline-item">
-          <div class="label">教室</div>
+          <div class="label">教&nbsp;室</div>
           <div class="for">{{currentCourse.room}}</div>
         </div>
       </div>

@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="btn" v-if="type === 'teacher'">
-      <x-button v-if="signStudentList.length == signed.length" type="default">已全部签到</x-button>
+      <x-button class="disabled" v-if="signStudentList.length == signed.length" type="primary" disabled>签到完毕</x-button>
       <x-button v-else type="primary" @click.native="sign()">签到</x-button>
     </div>
   </div>
@@ -283,6 +283,10 @@ export default {
     box-sizing: border-box;
     button {
       background: rgba(75, 185, 194, 1);
+    }
+    .disabled {
+      background-color: #aaa;
+      background: #aaa;
     }
   }
 }
