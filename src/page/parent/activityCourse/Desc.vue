@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div calss="course-desc">
     <!-- 头部导航 start -->
     <HeadNav titleTxt="活动课程详情"/>
     <!-- 头部导航 end -->
@@ -62,6 +62,9 @@ import pubilcFn from "../../../mixins/pulicFn";
 
 // vux组件
 import { XButton, Alert } from "vux";
+
+// vuex
+import { mapState } from "vuex";
 
 // api
 import API from "@/api/apiFactory";

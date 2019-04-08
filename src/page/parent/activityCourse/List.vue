@@ -18,23 +18,23 @@
             </div>
             <div class="por course-item-content">
               <div class="dib course-item-img vat">
-                <img :src="item.cpicture" @error="'@/assets/images/activity_course.png'" alt>
+                <img :src="item.cpicture" @error="item.cpicture = require('@/assets/images/activity_course.png')" alt>
               </div>
               <div class="dib course-item-info vat">
                 <p>
-                  <span class="info-title">活动老师：</span>
+                  <span class="info-title">老师：</span>
                   <span class="info-desc">{{item.tname}}</span>
                 </p>
                 <p>
-                  <span class="info-title">活动日期：</span>
+                  <span class="info-title">日期：</span>
                   <span class="info-desc">{{item.cdate}}</span>
                 </p>
                 <p>
-                  <span class="info-title">活动时间：</span>
+                  <span class="info-title">时间：</span>
                   <span class="info-desc">{{item.begintime}}-{{item.endtime}}</span>
                 </p>
                 <p>
-                  <span class="info-title">活动地点：</span>
+                  <span class="info-title">地点：</span>
                   <span class="info-desc">{{item.room}}</span>
                 </p>
               </div>
@@ -118,11 +118,11 @@ export default {
      * 跳转活动课程详情页
      */
     routerCourse(item) {
-      const path = '/parent/activityCourse/Desc';
+      const path = "/parent/activityCourse/desc";
       let query = {
         crid: item.crid
-      }
-      this.routeLink(path, query)
+      };
+      this.routeLink(path, query);
     },
 
     /**
@@ -179,7 +179,7 @@ export default {
 
     /**
      * 停止下拉
-     */endScroll() {
+     */ endScroll() {
       this.$nextTick(() => {
         this.scroll.finishPullUp();
         this.scroll.refresh();

@@ -30,7 +30,7 @@
         <group>
           <cell is-link :border-intent="false" v-for="(item, index) in studentList" :key="index" :link="'./commentDetail/' + item.sid + ',' + item.sname + ',' + item.isPj ">
             <div class="avatar" slot="icon">
-              <img :src="item.headimgurl" alt="" v-if="item.headimgurl">
+              <img :src="item.headimgurl" @error="item.headimgurl = require('../../../assets/images/avatar.png')" v-if="item.headimgurl">
               <img src="../../../assets/images/avatar.png" alt="" v-else>
             </div>
             <div slot="title">

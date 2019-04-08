@@ -115,9 +115,10 @@ const router = [
     },
     component: resolve => require(['../page/parent/activityCourse/List'],resolve)
   },
+
   /**活动课程详情 */
   {
-    path: '/parent/activityCourse/Desc',
+    path: '/parent/activityCourse/desc',
     name: 'activityCourseDesc',
     meta: {
       title: '活动课程详情',
