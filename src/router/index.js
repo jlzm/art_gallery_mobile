@@ -53,10 +53,8 @@ router.beforeEach((to, from, next) => {
         console.log(isLogin.role);
         console.log('path', path);
           if(path.indexOf(isLogin.role) != -1) {
-            console.log(1);
             next();
           } else {
-            console.log(2);
             console.log('from.path', from.path);
             next({
               path: from.path

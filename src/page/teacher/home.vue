@@ -49,7 +49,7 @@
     </div>
     <div class="teacher-bottom">
       <div class="bottom-history">
-        <div class="history history-1 ">
+        <div class="history history-1">
           <div class="plate-left" @click="gotoHistory()">
             <div class="plate-title history-title">上课记录</div>
             <div class="plate-desc txt-wrap">上过的课，教过的学生，都深深地刻在记录里</div>
@@ -60,7 +60,7 @@
             </div>
           </div>
         </div>
-        <div class="history history-1 ">
+        <div class="history history-1">
           <div class="plate-right" @click="gotoAttendence()">
             <div class="plate-title activity-title">考勤记录</div>
             <div class="plate-desc">美好的一天从签到开始</div>
@@ -100,15 +100,15 @@
                   <div class="className">{{item.cname}}</div>
                   <div class="class-info-detail">
                     <div class="detail-item">
-                      <div class="label">时间段:</div>
+                      <div class="label">时间:</div>
                       <div class="for">{{item.begintime}} - {{item.endtime}}</div>
                     </div>
                     <div class="detail-item">
-                      <div class="label">上课老师:</div>
+                      <div class="label">老师:</div>
                       <div class="for">{{item.tname}}</div>
                     </div>
                     <div class="detail-item">
-                      <div class="label">上课教室:</div>
+                      <div class="label">地点:</div>
                       <div class="for">{{item.room}}</div>
                     </div>
                   </div>
@@ -143,6 +143,9 @@ export default {
     XButton,
     HomeHeadNav
   },
+  created() {
+    this.getWeekDay();
+  },
   mounted() {
     document.title = "会员中心";
     // 获取一周的开始与结束
@@ -161,7 +164,7 @@ export default {
         menu1: "退出登入"
       },
       /** jlzm end */
-
+      currentDay: false,
       tabArr: ["一", "二", "三", "四", "五", "六", "日"],
       activeIndex: 0,
       scroll: {},
@@ -178,6 +181,13 @@ export default {
     /** jlzm start */
 
     showMore() {},
+
+    getWeekDay() {
+      let date = new Date();
+      let weekDay = date.getDay();
+      console.log("weekDay", typeof weekDay);
+      this.activeIndex = weekDay - 1;
+    },
 
     /** jlzm end */
 
@@ -458,7 +468,7 @@ export default {
           .plate-desc {
             font-size: 0.2rem;
             color: rgba(0, 0, 0, 0.4);
-            height: .56rem;
+            height: 0.56rem;
           }
 
           /*板块*/
@@ -471,8 +481,8 @@ export default {
               color: #d33f29;
             }
             .plate-activity-img {
-              margin-top: .44rem;
-              bottom: .08rem;
+              margin-top: 0.44rem;
+              bottom: 0.08rem;
               right: 0;
             }
           }
