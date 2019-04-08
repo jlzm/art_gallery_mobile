@@ -49,7 +49,7 @@
     </div>
     <div class="teacher-bottom">
       <div class="bottom-history">
-        <div class="history history-1">
+        <div class="history history-1 ">
           <div class="plate-left" @click="gotoHistory()">
             <div class="plate-title history-title">上课记录</div>
             <div class="plate-desc txt-wrap">上过的课，教过的学生，都深深地刻在记录里</div>
@@ -60,13 +60,13 @@
             </div>
           </div>
         </div>
-        <div class="history history-1">
-          <div class="plate-left" @click="gotoAttendence()">
+        <div class="history history-1 ">
+          <div class="plate-right" @click="gotoAttendence()">
             <div class="plate-title activity-title">考勤记录</div>
             <div class="plate-desc">美好的一天从签到开始</div>
             <div class="tar">
               <div class="dib plate-activity-img">
-                <img src="@/assets/images/plate-activity.png" alt>
+                <img src="@/assets/images/teacher_home_2.png" alt>
               </div>
             </div>
           </div>
@@ -429,7 +429,7 @@ export default {
         &.history-1 {
           width: 3.4rem;
           height: 3.4rem;
-          background: rgba(0, 0, 0, 0);
+          background: #fff;
           opacity: 1;
           border-radius: 0.16rem;
 
@@ -458,20 +458,35 @@ export default {
           .plate-desc {
             font-size: 0.2rem;
             color: rgba(0, 0, 0, 0.4);
+            height: .56rem;
           }
 
           /*板块*/
-          .plate-left {
+          .plate-left,
+          .plate-right {
             padding: 0 0.24rem;
             margin-top: 0.24rem;
             .activity-title {
               color: #d33f29;
             }
+            .plate-activity-img {
+              margin-top: .44rem;
+              bottom: .08rem;
+              right: 0;
+            }
+          }
 
+          .plate-left {
             .plate-activity-img {
               width: 2.4rem;
               height: 1.6rem;
-              margin-top: 0.73rem;
+            }
+          }
+
+          .plate-right {
+            .plate-activity-img {
+              width: 1.7rem;
+              height: 1.64rem;
             }
           }
         }
