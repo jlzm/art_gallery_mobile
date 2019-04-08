@@ -164,7 +164,6 @@ export default {
         menu1: "退出登入"
       },
       /** jlzm end */
-      currentDay: false,
       tabArr: ["一", "二", "三", "四", "五", "六", "日"],
       activeIndex: 0,
       scroll: {},
@@ -182,6 +181,7 @@ export default {
 
     showMore() {},
 
+    /**获取当前星期 */
     getWeekDay() {
       let date = new Date();
       let weekDay = date.getDay();

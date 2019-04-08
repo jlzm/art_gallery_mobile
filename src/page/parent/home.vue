@@ -137,6 +137,9 @@ export default {
     XProgress,
     HomeHeadNav
   },
+  created() {
+    this.getWeekDay();
+  },
   mounted() {
     document.title = "会员中心";
     // 获取一周的开始与结束
@@ -166,6 +169,14 @@ export default {
     };
   },
   methods: {
+    /**获取当前星期 */
+    getWeekDay() {
+      let date = new Date();
+      let weekDay = date.getDay();
+      console.log("weekDay", typeof weekDay);
+      this.activeIndex = weekDay - 1;
+    },
+
     /**
      * 路由
      */
@@ -259,7 +270,7 @@ export default {
         this.weekData.begindate = this.format(startDate);
         this.weekData.enddate = this.format(endDate);
       }
-      console.log('this.weekData', this.weekData);
+      console.log("this.weekData", this.weekData);
     },
     // 获取用户信息
     getUserInfo() {
