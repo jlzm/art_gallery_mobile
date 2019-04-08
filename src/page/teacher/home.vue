@@ -16,7 +16,7 @@
           </div>
           <div class="info">
             <div class="name">{{infoData.tname}}</div>
-            <div class="punch-time">
+            <!-- <div class="punch-time">
               <div class="on-punch punch">
                 <div class="pre">上班打卡</div>
                 <div class="time">10:25:13</div>
@@ -25,12 +25,12 @@
                 <div class="pre">下班打卡</div>
                 <div class="time">--:--</div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
-        <div class="punch-btn">
+        <!-- <div class="punch-btn">
           <x-button type="primary" mini plain>上班签到</x-button>
-        </div>
+        </div> -->
       </div>
       <div class="top-number-info">
         <div class="number-item">
