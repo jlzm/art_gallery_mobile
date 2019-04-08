@@ -52,7 +52,8 @@
       </div>
     </div>
     <div class="btn" v-if="type === 'teacher'">
-      <x-button type="primary" @click.native="sign()">签到</x-button>
+      <x-button v-if="signStudentList.length == signed.length" type="default">已全部签到</x-button>
+      <x-button v-else type="primary" @click.native="sign()">签到</x-button>
     </div>
   </div>
 </template>
