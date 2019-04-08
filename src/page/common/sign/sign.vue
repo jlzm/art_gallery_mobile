@@ -290,8 +290,8 @@ export default {
       background: rgba(75, 185, 194, 1);
     }
     .disabled {
-      background-color: #aaa;
-      background: #aaa;
+      background-color: #c3c3c3;
+      background: #c3c3c3;
     }
   }
 }
