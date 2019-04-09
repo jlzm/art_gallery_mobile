@@ -563,7 +563,6 @@ export default {
           display: flex;
           justify-content: space-around;
           align-items: center;
-          align-items: center;
           padding: 0.22rem 0.3rem;
           border-bottom: 0.02rem solid rgba(225, 227, 230, 1);
           box-sizing: border-box;
@@ -586,6 +585,7 @@ export default {
 
         .courses {
           display: flex;
+          align-items: center;
           margin: 0.15rem 0.15rem 0 0.15rem;
           border-bottom: 1px solid #e8e8e8;
           position: relative;
@@ -627,7 +627,6 @@ export default {
                 .label {
                   font-size: 0.24rem;
                   color: #666666;
-                  width: 1.2rem;
                 }
 
                 .for {
