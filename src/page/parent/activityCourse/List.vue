@@ -7,7 +7,7 @@
       <div class="wapper" ref="wrapper">
         <div class="ctn">
           <div
-            @click="routerCourse(item)"
+            @click.stop="routerCourse(item)"
             v-for="(item, index) in currentData"
             :key="index"
             class="course-item"
@@ -40,7 +40,7 @@
               </div>
               <div class="course-item-btn">
                 <button
-                  @click="apply(item.crid)"
+                  @click.stop="apply(item.crid)"
                   :disabled="item.cstatus != 0"
                   class="poa btn-content"
                   :class=" item.cstatus == '0' ? 'btn-status1' : 'btn-status2' "
@@ -141,6 +141,7 @@ export default {
           case 1:
             this.applyMsg.title = "成功";
             this.applyMsg.desc = res.msg;
+            this.getActiveData();
             break;
 
           default:

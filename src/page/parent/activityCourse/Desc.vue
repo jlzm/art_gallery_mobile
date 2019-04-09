@@ -46,7 +46,7 @@
             :class=" currentData.cstatus == '0' ? 'btn-status1' : 'btn-status2' "
           >
             <span class="btn-meta">{{currentData.btnTxt}}</span>
-            <span v-show="currentData.cstatus == 0" class="btn-desc">仅剩100个名额</span>
+            <span v-show="currentData.cstatus == 0" class="btn-desc">仅剩{{currentData.maxnum - currentData.allarrive}}个名额</span>
           </button>
         </div>
       </div>

@@ -79,10 +79,10 @@
           <div class="course-ctn list-wrapper" ref="wrapper">
             <div>
               <div
+                @click="routerChange(index)" 
                 class="courses"
-                v-for="(item,index) in weekClassData[(activeIndex + 1) % 7]"
+                v-for="(item, index) in weekClassData[(activeIndex + 1) % 7]"
                 :key="index"
-                @click="routerChange(index)"
               >
                 <div class="course-time">
                   <div class="date">{{item.cdate}}</div>
@@ -92,15 +92,15 @@
                   <div class="className">{{item.cname}}</div>
                   <div class="class-info-detail">
                     <div class="detail-item">
-                      <div class="label">时间段:</div>
+                      <div class="label">时间：</div>
                       <div class="for">{{item.begintime}} - {{item.endtime}}</div>
                     </div>
                     <div class="detail-item">
-                      <div class="label">上课老师:</div>
+                      <div class="label">老师：</div>
                       <div class="for">{{item.tname}}</div>
                     </div>
                     <div class="detail-item">
-                      <div class="label">上课教室:</div>
+                      <div class="label">教室：</div>
                       <div class="for">{{item.room}}</div>
                     </div>
                   </div>
@@ -194,7 +194,8 @@ export default {
 
     initScroll() {
       const options = {
-        scrollY: true // 因为scrollY默认为true，其实可以省略
+        scrollY: true, // 因为scrollY默认为true，其实可以省略
+        click: true
       };
       const winHeight = window.innerHeight;
       const topHeight = util.getStyle(
@@ -222,6 +223,7 @@ export default {
       this.$refs.wrapper.style.height = wrapperHeight + "px";
       this.scroll = new BScroll(this.$refs.wrapper, options);
     },
+
     // 跳转
     routerChange(index) {
       // 保存当前查看课程
@@ -231,6 +233,7 @@ export default {
       );
       this.$router.push("./courseDetail");
     },
+    
     // 跳转到报名课程
     stepToEnter() {
       this.$router.push("./enteredCourse");
@@ -629,11 +632,13 @@ export default {
 
         .courses {
           display: flex;
+          align-items: center;
           margin: 0.15rem 0.15rem 0 0.15rem;
           border-bottom: 1px solid #e8e8e8;
           position: relative;
 
           .course-time {
+            padding-right: .6rem;
             display: flex;
             justify-content: center;
             flex-direction: column;
@@ -669,7 +674,6 @@ export default {
                 .label {
                   font-size: 0.24rem;
                   color: #666666;
-                  width: 1.2rem;
                 }
 
                 .for {

@@ -563,6 +563,7 @@ export default {
           display: flex;
           justify-content: space-around;
           align-items: center;
+          align-items: center;
           padding: 0.22rem 0.3rem;
           border-bottom: 0.02rem solid rgba(225, 227, 230, 1);
           box-sizing: border-box;
@@ -591,6 +592,7 @@ export default {
 
           .course-time {
             display: flex;
+            padding-right: .6rem;
             justify-content: center;
             flex-direction: column;
             width: 2rem;
