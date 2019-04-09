@@ -38,7 +38,7 @@
             </div>
             <div>
               <span class="showComment" v-if="parseInt(item.isPj) === 2" >去评价</span>
-              <span class="showDetail" v-else>查看详情</span>
+              <span class="showDetail" v-else>已评价</span>
             </div>
           </cell>
         </group>
