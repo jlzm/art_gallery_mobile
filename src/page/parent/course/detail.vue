@@ -18,7 +18,7 @@
         </div>
         <div class="inline-item">
           <div class="label">
-            上课老师
+            老师
           </div>
           <div class="for">
             {{currentCourse.tname}}
@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="course-panel single-panel" v-if="type === 'teacher'">
+    <div class="course-panel single-panel">
       <group>
         <cell title="签到信息" :border-intent="false">
           <span class="info" v-if="currentCourse.status === 1">{{currentCourse.signtime || '尚未签到'}}</span>
@@ -96,6 +96,9 @@ export default {
     Cell,
     Group,
     HeaderNav
+  },
+  mounted() {
+    console.log('currentCourse', this.currentCourse);
   },
   methods: {
   },

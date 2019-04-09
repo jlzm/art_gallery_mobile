@@ -129,7 +129,7 @@ export default {
     getStudentHis() {
       API.homeAPI
         .wxStudentCourse({
-          ctype: 1,
+          // ctype: 1,
           sid: this.userInfo.sid,
           rows: this.pageJSON.rows,
           page: this.pageJSON.page

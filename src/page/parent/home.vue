@@ -220,7 +220,7 @@ export default {
         parseFloat(historyHeight) -
         parseFloat(titleHeight) -
         parseFloat(week);
-      this.$refs.wrapper.style.height = wrapperHeight + "px";
+      this.$refs.wrapper.style.height = wrapperHeight - 55 + "px";
       this.scroll = new BScroll(this.$refs.wrapper, options);
     },
 
@@ -604,6 +604,7 @@ export default {
 
         .course-ctn {
           overflow: hidden;
+          margin-top: .2rem
         }
 
         .class-week {

@@ -37,3 +37,10 @@
   min-height: auto!important;
   width: 2.5rem;
 }
+
+
+
+/* 提示弹窗 */
+.alert-wrap .weui-dialog__hd {
+  padding: 0;
+}

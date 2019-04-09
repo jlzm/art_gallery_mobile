@@ -141,6 +141,7 @@ export default {
           case 1:
             this.applyMsg.title = "成功";
             this.applyMsg.desc = res.msg;
+            this.pagenum = 1;
             this.getActiveData();
             break;
 
@@ -149,7 +150,6 @@ export default {
             this.applyMsg.desc = res.msg;
             break;
         }
-        this.getActiveData();
       });
     },
 
@@ -203,13 +203,22 @@ export default {
       console.log("propsData", propsData);
       API.homeAPI.getCourseByPage(propsData).then(res => {
         console.log("res", res);
-        if (res.total > 0) {
-          this.currentData = this.currentData.concat(res.rows);
-          this.pagenumCount = res.pageCount;
-          this.addCstutasBtnTxt();
-        } else {
+        if (res.total <= 0) {
           this.$vux.toast.text("暂无数据", "middle");
+          return ;
         }
+
+        if(this.pagenum == 1) {
+          this.currentData = res.rows;
+        } else {
+          this.currentData = this.currentData.concat(res.rows);
+
+        }
+
+        this.pagenumCount = res.pageCount;
+        this.addCstutasBtnTxt();
+
+
         this.endScroll();
         console.log(this.currentData);
       });
@@ -309,4 +318,7 @@ export default {
   margin-top: 0.3rem;
   text-align: center;
 }
+
+
+
 </style>
