@@ -1,7 +1,7 @@
 <template>
   <div class="video">
     <div class="header" @click="triggerClick">
-      <div class="content">{{hasUpload || this.type === 'parent' ? '查看视频' : '添加视频'}}</div>
+      <div class="content">{{hasUpload || this.type === 'parent' ? '查看视频' : '添加视频'}} {{viewVedioList}}</div>
       <div class="head-img">
         <img src="@/assets/images/upload-video.png" alt>
       </div>
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="vedios" v-else>
-        <div class="item" v-for="(item, index) in this.viewVedioList" :key="index">
+        <div class="item" v-for="(item, index) in viewVedioList" :key="index">
           <!-- <video controls=""  :src="item.src"></video> -->
           <div class="video-wrapper">
             <video-player class="vjs-custom-skin" :options="playerOptions(item)"></video-player>
@@ -57,6 +57,7 @@ export default {
   mixins: [zoom, typeMixin],
   mounted() {
     this.getVedio();
+    console.log('viewVedioList', this.viewVedioList);
   },
   components: {
     XButton,
@@ -105,7 +106,7 @@ export default {
 
     updateVedio(e) {
       var file = e.target.files;
-      let regx = /(\.){1}(mp4|rmvb|flv|mpeg|avi)$/gi;
+      let regx = /(\.){1}(mp4|rmvb|flv|mpeg|avi|mov)$/gi;
       var _this = this;
       if (this.fileList.length + file.length > 3) {
         this.$vux.toast.show({
@@ -128,6 +129,7 @@ export default {
               type: "text",
               width: "auto"
             });
+            return;
           } else {
             // this.$vux.toast.text('正在上传请稍后·','middle')
             reader.readAsDataURL(file[i]);

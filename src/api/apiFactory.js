@@ -19,6 +19,7 @@ export default {
         .then(data => data)
     },
 
+
     /**
      * 登录接口
      */
@@ -52,11 +53,11 @@ export default {
      */
     getCourseByPage: async function getCourseByPage(obj) {
       return sendRequest({
-        method: 'post',
-        data: obj,
-        url: '/getCourseByPage'
-      })
-      .then(data => data)
+          method: 'post',
+          data: obj,
+          url: '/getCourseByPage'
+        })
+        .then(data => data)
     },
 
     /**
@@ -65,24 +66,24 @@ export default {
      */
     getCourseRecordDetails: async function getCourseRecordDetails(obj) {
       return sendRequest({
-        method: 'post',
-        data: obj,
-        url: '/getCourseRecordDetails'
-      })
-      .then(data => data)
+          method: 'post',
+          data: obj,
+          url: '/getCourseRecordDetails'
+        })
+        .then(data => data)
     },
 
-     /**
-      * 报名活动课程
-      * @param {*} obj 
-      */
+    /**
+     * 报名活动课程
+     * @param {*} obj 
+     */
     wxSignUpCourseRecords: async function wxSignUpCourseRecords(obj) {
       return sendRequest({
-        method: 'post',
-        data: obj,
-        url: '/wxSignUpCourseRecords'
-      })
-      .then(data => data)
+          method: 'post',
+          data: obj,
+          url: '/wxSignUpCourseRecords'
+        })
+        .then(data => data)
     },
 
     /** 活动课程相关 end */
@@ -232,6 +233,19 @@ export default {
           url: '/insertCoursePhotoView'
         })
         .then(data => data)
+    },
+  },
+  businessApi: {
+    /**
+     * 课程详情状态
+     * @param {*} obj 
+     */
+    wxgetTeevaluationStatus: async function wxgetTeevaluationStatus(obj) {
+      return sendRequest({
+        method: 'post',
+        data: obj,
+        url: '/wxgetTeevaluationStatus'
+      })
     },
   }
 }

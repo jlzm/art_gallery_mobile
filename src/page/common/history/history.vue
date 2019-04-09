@@ -88,7 +88,7 @@ export default {
         }
       };
       const winHeight = window.innerHeight;
-      this.$refs.wrapper.style.height = winHeight - 50 + "px";
+      this.$refs.wrapper.style.height = winHeight + "px";
       this.scroll = new BScroll(this.$refs.wrapper, options);
       this.scroll.on("pullingUp", () => {
         if (this.pageJSON.page >= this.pageJSON.pageCount) {

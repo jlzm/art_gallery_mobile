@@ -85,8 +85,10 @@
 
 <script>
 import HeaderNav from '../../../components/HeadNav';
+import api from '../../../api/apiFactory.js';
 
 import {Cell,Group } from 'vux'
+
 import {mapState} from 'vuex'
 export default {
   name: 'courseDetail',
@@ -98,9 +100,23 @@ export default {
     HeaderNav
   },
   mounted() {
+    console.log(this.userInfo.sid);
     console.log('currentCourse', this.currentCourse);
   },
   methods: {
+    /**
+     * 获取课程详情各状态
+     */
+    getCourseStatus() {
+      let propsData = {
+        crid: this.currentCourse.crid,
+        sid: this.userInfo.sid,
+      }
+      api.businessApi.wxgetTeevaluationStatus(propsData)
+          .then(res => {
+            console.log('res', res);
+          })
+    }
   },
   computed: {
     ...mapState({

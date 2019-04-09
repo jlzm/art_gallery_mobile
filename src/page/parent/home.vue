@@ -9,7 +9,6 @@
           <img
             :src="userInfo.headimgurl"
             @error="userInfo.headimgurl = require('../../assets/images/avatar.png')"
-            alt
           >
         </div>
         <div class="info">
@@ -146,9 +145,9 @@ export default {
     this.getWeekData();
     this.getUserInfo();
 
-    this.$nextTick(() => {
-      this.initScroll();
-    });
+    // this.$nextTick(() => {
+    //   this.initScroll();
+    // });
   },
   data() {
     return {

@@ -11,7 +11,6 @@
             <img
               :src="infoData.headimgurl"
               @error="infoData.headimgurl = require('../../assets/images/avatar.png')"
-              alt
             >
           </div>
           <div class="info">
@@ -60,7 +59,7 @@
             </div>
           </div>
         </div>
-        <div class="history history-1">
+        <!-- <div class="history history-1">
           <div class="plate-right" @click="gotoAttendence()">
             <div class="plate-title activity-title">考勤记录</div>
             <div class="plate-desc">美好的一天从签到开始</div>
@@ -70,7 +69,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="bottom-class">
         <div class="class-title">本周课程</div>
@@ -152,9 +151,9 @@ export default {
     this.getWeekData();
     // 获取用户信息
     this.getUserInfo();
-    this.$nextTick(() => {
-      this.initScroll();
-    });
+    // this.$nextTick(() => {
+    //   this.initScroll();
+    // });
   },
   data() {
     return {
@@ -222,7 +221,7 @@ export default {
         parseFloat(historyHeight) -
         parseFloat(titleHeight) -
         parseFloat(week);
-      this.$refs.wrapper.style.height = wrapperHeight - 55 + "px";
+      this.$refs.wrapper.style.height = wrapperHeight - 70 + "px";
       this.scroll = new BScroll(this.$refs.wrapper, options);
     },
     format(time) {
