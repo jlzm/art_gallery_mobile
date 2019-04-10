@@ -6,6 +6,8 @@
         <img src="@/assets/images/upload-video.png" alt>
       </div>
     </div>
+    
+    <!-- <video style="width:400px; height: 200px" controls :src="item.src" v-for="(item, index) in this.viewVedioList" :key="index"></video> -->
     <div class="show-video-ctn vux-1px-t">
       <div class="vedios" v-if="!hasUpload">
         <div class="item" v-for="(item, index) in this.fileList" :key="index">
@@ -44,6 +46,7 @@
 </template>
 
 <script>
+import 'videojs-flash'
 import typeMixin from "@/mixins/typeMixin";
 import { XButton } from "vux";
 import zoom from "@/mixins/zoom";
@@ -75,7 +78,7 @@ export default {
           autoplay: false, // 如果true,浏览器准备好时开始回放。
           muted: false, // 默认情况下将会消除任何音频。
           loop: false, // 导致视频一结束就重新开始。
-          preload: "", // 建议浏览器在加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+          preload: "auto", // 建议浏览器在加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
           language: "zh-CN",
           aspectRatio: "16:9", // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
           fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
@@ -84,11 +87,16 @@ export default {
           timeDivider: true,
           durationDisplay: true,
           remainingTimeDisplay: false,
-          fullscreenToggle: false // 全屏按钮
+          techOrder: ['flash'],
+          controls: true,
+          fullscreenToggle: false // 全屏按钮,
+          
         };
         return Object.assign(options, {
           sources: [
             {
+              type: "video/ogg",
+              type:"video/webm",
               type: "video/mp4",
               src: item.src
             }
