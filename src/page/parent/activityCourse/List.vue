@@ -162,10 +162,10 @@ export default {
           moreTxt: "加载更多"
         }
       };
-      const winHeight = window.innerHeight;
+      const winHeight = window.innerHeight - 46;
       console.log(winHeight);
       console.log(this.$refs.wrapper);
-      this.$refs.wrapper.style.height = winHeight - 60 + "px";
+      this.$refs.wrapper.style.height = winHeight + "px";
       this.scroll = new BScroll(this.$refs.wrapper, options);
       this.scroll.on("pullingUp", () => {
         if (this.pagenum >= this.pagenumCount) {
@@ -255,7 +255,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.course-wrap {
+  background: #f5f5f5;
+}
+
 .course-item {
+  background: #fff;
   margin-bottom: 0.32rem;
   padding: 0 0.32rem;
   .course-item-title {
