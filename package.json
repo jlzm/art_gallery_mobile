@@ -13,6 +13,7 @@
         "axios": "^0.18.0",
         "better-scroll": "^1.13.2",
         "fastclick": "^1.0.6",
+        "videojs-flash": "^2.2.0",
         "vue": "^2.5.2",
         "vue-router": "^3.0.1",
         "vue-video-player": "^5.0.2",

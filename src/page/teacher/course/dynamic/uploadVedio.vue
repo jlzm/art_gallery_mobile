@@ -1,16 +1,14 @@
 <template>
   <div class="video">
     <div class="header" @click="triggerClick">
-      <div class="content">{{hasUpload || this.type === 'parent' ? '查看视频' : '添加视频'}}</div>
+      <div class="content">{{hasUpload || type === 'parent' ? '查看视频' : '添加视频'}}</div>
       <div class="head-img">
         <img src="@/assets/images/upload-video.png" alt>
       </div>
     </div>
-    
-    <!-- <video style="width:400px; height: 200px" controls :src="item.src" v-for="(item, index) in this.viewVedioList" :key="index"></video> -->
     <div class="show-video-ctn vux-1px-t">
       <div class="vedios" v-if="!hasUpload">
-        <div class="item" v-for="(item, index) in this.fileList" :key="index">
+        <div class="item" v-for="(item, index) in fileList" :key="index">
           <div class="video-wrapper">
             <video-player class="vjs-custom-skin" :options="playerOptions(item)"></video-player>
           </div>
@@ -46,7 +44,6 @@
 </template>
 
 <script>
-import 'videojs-flash'
 import typeMixin from "@/mixins/typeMixin";
 import { XButton } from "vux";
 import zoom from "@/mixins/zoom";
@@ -55,6 +52,18 @@ import global from "@/global/global";
 import { mapState } from "vuex";
 import "video.js/dist/video-js.css";
 import { videoPlayer } from "vue-video-player";
+
+
+  // videojs hotkeys plugin
+  import 'videojs-flash'
+  import 'videojs-hotkeys'
+
+  // videojs
+  import videojs from 'video.js'
+  window.videojs = videojs
+
+    // hls plugin for videojs6
+  require('videojs-contrib-hls/dist/videojs-contrib-hls.js')
 export default {
   name: "videos",
   mixins: [zoom, typeMixin],
@@ -75,7 +84,7 @@ export default {
       playerOptions(item, index) {
         const options = {
           playbackRates: [0.7, 1.0, 1.5, 2.0], // 播放速度
-          autoplay: false, // 如果true,浏览器准备好时开始回放。
+          autoplay: true, // 如果true,浏览器准备好时开始回放。
           muted: false, // 默认情况下将会消除任何音频。
           loop: false, // 导致视频一结束就重新开始。
           preload: "auto", // 建议浏览器在加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
@@ -87,19 +96,21 @@ export default {
           timeDivider: true,
           durationDisplay: true,
           remainingTimeDisplay: false,
-          techOrder: ['flash'],
-          controls: true,
-          fullscreenToggle: false // 全屏按钮,
+
+          // techOrder: ['flash'],
+          fullscreenToggle: false // 全屏按钮
           
         };
         return Object.assign(options, {
           sources: [
             {
-              type: "video/ogg",
-              type:"video/webm",
               type: "video/mp4",
-              src: item.src
+              src: item.src,
+              // withCredentials: false,
+              // type: "application/x-mpegURL",
+              // src: "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8"
             }
+            
           ]
         });
       }
