@@ -53,11 +53,11 @@
                <img src="@/assets/images/home/teacher_1.png" alt="">
           </div>
         </div>
-        <div class="history history-1">
+        <!-- <div class="history history-1">
           <div class="plate-right" @click="gotoAttendence()">
             <img src="@/assets/images/home/teacher_2.png" alt="">
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="bottom-class">
         <div class="class-title">本周课程</div>
