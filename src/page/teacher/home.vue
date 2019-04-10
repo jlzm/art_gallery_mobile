@@ -24,12 +24,12 @@
                 <div class="pre">下班打卡</div>
                 <div class="time">--:--</div>
               </div>
-            </div> -->
+            </div>-->
           </div>
         </div>
         <!-- <div class="punch-btn">
           <x-button type="primary" mini plain>上班签到</x-button>
-        </div> -->
+        </div>-->
       </div>
       <div class="top-number-info">
         <div class="number-item">
@@ -50,26 +50,14 @@
       <div class="bottom-history">
         <div class="history history-1">
           <div class="plate-left" @click="gotoHistory()">
-            <div class="plate-title history-title">上课记录</div>
-            <div class="plate-desc txt-wrap">上过的课，教过的学生，都深深地刻在记录里</div>
-            <div class="tar">
-              <div class="dib plate-activity-img">
-                <img src="@/assets/images/plate-activity.png" alt>
-              </div>
-            </div>
+               <img src="@/assets/images/home/teacher_1.png" alt="">
           </div>
         </div>
-        <!-- <div class="history history-1">
+        <div class="history history-1">
           <div class="plate-right" @click="gotoAttendence()">
-            <div class="plate-title activity-title">考勤记录</div>
-            <div class="plate-desc">美好的一天从签到开始</div>
-            <div class="tar">
-              <div class="dib plate-activity-img">
-                <img src="@/assets/images/teacher_home_2.png" alt>
-              </div>
-            </div>
+            <img src="@/assets/images/home/teacher_2.png" alt="">
           </div>
-        </div> -->
+        </div>
       </div>
       <div class="bottom-class">
         <div class="class-title">本周课程</div>
@@ -473,9 +461,9 @@ export default {
           /*板块*/
           .plate-left,
           .plate-right {
+            border-radius: .16rem;
             background: #fff;
-            padding: 0 0.24rem;
-            margin-top: 0.24rem;
+            padding: 0.24rem 0.24rem 0;
             .activity-title {
               color: #d33f29;
             }
@@ -556,8 +544,7 @@ export default {
 
         .course-ctn {
           overflow: hidden;
-          margin-top: .2rem
-
+          margin-top: 0.2rem;
         }
 
         .class-week {
@@ -593,7 +580,7 @@ export default {
 
           .course-time {
             display: flex;
-            padding-right: .6rem;
+            padding-right: 0.6rem;
             justify-content: center;
             flex-direction: column;
             width: 2rem;

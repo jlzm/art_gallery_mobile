@@ -33,32 +33,18 @@
       <div class="bottom-history">
         <div class="history history-1">
           <div class="plate-left" @click="routerLink('./activityCourse/list')">
-            <div class="plate-title activity-title">活动课程</div>
-            <div class="plate-desc">资深老师带，挖掘潜力突破极限</div>
-            <div class="tar">
-              <div class="dib plate-activity-img">
-                <img src="@/assets/images/plate-activity.png" alt>
-              </div>
-            </div>
+            <img src="@/assets/images/home/parent_1.png" alt="">
           </div>
         </div>
         <div class="history history-1">
           <div class="history plate-right" @click="stepToEnter">
-            <div class="dib vat">
-              <div class="plate-title apply-title">已报名课程</div>
-              <div class="plate-desc">课程一手掌握</div>
-            </div>
-            <div class="dib plate-activity-img vat">
-              <img src="@/assets/images/plate-apply.png" alt>
+            <div class="plate-right-item">
+              <img src="@/assets/images/home/parent_2.png" alt="">
             </div>
           </div>
-          <div class="history plate-right" @click="stepToHistory">
-            <div class="dib vat">
-              <div class="plate-title history-title">历史上课记录</div>
-              <div class="plate-desc">实时记录上课轨迹</div>
-            </div>
-            <div class="dib plate-activity-img vat">
-              <img src="@/assets/images/plate-history.png" alt>
+          <div class="history plate-right plate-right-bottom" @click="stepToHistory">
+            <div class="plate-right-item">
+              <img src="@/assets/images/home/parent_3.png" alt="">
             </div>
           </div>
         </div>
@@ -485,15 +471,8 @@ export default {
         &.history-1 {
           width: 3.4rem;
           height: 3.4rem;
-          opacity: 1;
           border-radius: 0.16rem;
-
-          /*display: flex;*/
-          /*justify-content: center;*/
-          /*align-items: center;*/
-          font-size: 0.28rem;
-          font-weight: 500;
-          background-size: contain;
+          overflow: hidden;
 
           /*板块头部*/
           .plate-title {
@@ -504,75 +483,32 @@ export default {
 
           /*板块介绍*/
           .plate-desc {
-            font-size: 0.2rem;
+            font-size: .24rem;
+            transform:scale(0.8);
             color: rgba(0, 0, 0, 0.4);
+          }
+
+          .plate-left, .plate-right {
+            border-radius: .16rem;
+            background: #fff;
           }
 
           /*左边板块*/
           .plate-left {
-            background: #fff;
-            padding: 0 0.24rem;
-            margin-top: 0.24rem;
-            .activity-title {
-              color: #d33f29;
-            }
-
-            .plate-activity-img {
-              width: 2.4rem;
-              height: 1.6rem;
-              margin-top: 0.73rem;
-            }
+            
           }
 
           /*右边板块*/
           .plate-right {
-            background: #fff;
-            margin-top: 0.24rem;
             width: 3.4rem;
-            height: 1.6rem;
-            padding: 0 0.24rem;
+            height: 1.58rem;
+            
+          }
 
-            .apply-title {
-              color: #b78d1b;
-            }
-
-            .history-title {
-              color: #85ac32;
-            }
-
-            .plate-activity-img {
-              margin-left: 0.3rem;
-              width: 1.08rem;
-              height: 1.08rem;
-            }
+          .plate-right-bottom {
+            margin-top: .24rem;
           }
         }
-
-        /*&.history-2 {*/
-        /*width:3.4rem;*/
-        /*height:3.4rem;*/
-        /*background:rgba(0,0,0,0);*/
-        /*opacity:1;*/
-        /*border-radius:0.16rem;*/
-        /*display: flex;*/
-        /*justify-content: center;*/
-        /*align-items: center;*/
-        /*font-size: .28rem;*/
-        /*font-weight: 500;*/
-        /*color: #fff;*/
-        /*background-size: contain;*/
-        /*div {*/
-        /*background:rgba(237,154,41,.6);*/
-        /*border-radius:0.08rem;*/
-        /*width:2.6rem;*/
-        /*height:0.8rem;*/
-        /*display: flex;*/
-        /*align-items: center;*/
-        /*justify-content: center;*/
-        /*outline: .02rem solid rgba(237,154,41,.6);*/
-        /*outline-offset: 0.06rem;*/
-        /*}*/
-        /*}*/
       }
     }
 
