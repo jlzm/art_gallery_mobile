@@ -1,7 +1,7 @@
 <template>
   <div class="video">
     <div class="header" @click="triggerClick">
-      <div class="content">{{hasUpload || this.type === 'parent' ? '查看视频' : '添加视频'}} {{viewVedioList}}</div>
+      <div class="content">{{hasUpload || this.type === 'parent' ? '查看视频' : '添加视频'}}</div>
       <div class="head-img">
         <img src="@/assets/images/upload-video.png" alt>
       </div>

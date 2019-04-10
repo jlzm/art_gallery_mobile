@@ -21,7 +21,7 @@
               </label>
               <x-button action-type="button" @click.native.stop="getPhoneCode()" slot="right" type="primary" plain mini>发送验证码</x-button>
             </x-input>
-            <x-button action-type="submit" type="primary" class="bind" @click.native.stop="bind()">绑定</x-button>
+            <x-button action-type="submit" type="primary" class="bind">绑定</x-button>
           </form>
         </group>
       </div>
