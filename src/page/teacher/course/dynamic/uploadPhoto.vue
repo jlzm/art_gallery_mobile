@@ -126,8 +126,9 @@ export default {
             this.hasComment = true;
             if (this.trendDetail[0]) {
               this.trendDetail[0].url.split(",").forEach(item => {
+                console.log('imgItem', item);
                 this.viewImgList.push({
-                  src: global.BASEURL + item
+                  src: global.IMGURL + item
                 });
               });
             }

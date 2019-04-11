@@ -137,6 +137,9 @@ export default {
     //   return this.validate.name;
     // },
 
+    /**
+     * 登入事件
+     */
     bind() {
       //  && this.validate.name.valid
       if (this.validate.code.valid && this.validate.phone.valid) {
