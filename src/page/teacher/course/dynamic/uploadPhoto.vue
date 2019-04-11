@@ -119,16 +119,19 @@ export default {
           ftype: "photo"
         })
         .then(res => {
+          console.log('res', res);
           if (res && res.length) {
             this.trendDetail = res;
+            console.log(this.trendDetail);
             this.hasComment = true;
             if (this.trendDetail[0]) {
               this.trendDetail[0].url.split(",").forEach(item => {
                 this.viewImgList.push({
-                  src: global.BASEURL + "/getImgUrl?ftype=photo&imgurl=" + item
+                  src: global.BASEURL + item
                 });
               });
             }
+            console.log('viewImgList', this.viewImgList);
           }
         });
     },

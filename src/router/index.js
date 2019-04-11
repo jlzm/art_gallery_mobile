@@ -33,18 +33,18 @@ router.beforeEach((to, from, next) => {
     switch (isLogin.role) {
       case 'teacher':
         next({
-          name: 'teacher'
+          path: '/teacher/home'
         })
         break;
 
       case 'parent':
         next({
-          name: 'parent'
+          path: '/parent/home'
         })
         break;
     
       default:
-        next(false);
+        next();
         break;
     }
 
@@ -62,12 +62,12 @@ router.beforeEach((to, from, next) => {
           }
       } else {
         next({
-          name: 'login'
+          path: '/login'
         })
       }
   }
 
-  document.title = to.meta.title || '主页';
-  next();
+  // document.title = to.meta.title || '主页';
+  // next();
 });
 export default router;

@@ -7,9 +7,11 @@
       <div class="top-info">
         <div class="img">
           <img
+            v-if="!!userInfo.headimgurl"
             :src="userInfo.headimgurl"
             @error="userInfo.headimgurl = require('../../assets/images/avatar.png')"
           >
+          <img v-else :src="require('../../assets/images/avatar.png')" alt>
         </div>
         <div class="info">
           <div class="name">{{userInfo.sname || '暂无姓名'}}</div>
@@ -33,18 +35,18 @@
       <div class="bottom-history">
         <div class="history history-1">
           <div class="plate-left" @click="routerLink('./activityCourse/list')">
-            <img src="@/assets/images/home/parent_1.png" alt="">
+            <img src="@/assets/images/home/parent_1.png" alt>
           </div>
         </div>
         <div class="history history-1">
           <div class="history plate-right" @click="stepToEnter">
             <div class="plate-right-item">
-              <img src="@/assets/images/home/parent_2.png" alt="">
+              <img src="@/assets/images/home/parent_2.png" alt>
             </div>
           </div>
           <div class="history plate-right plate-right-bottom" @click="stepToHistory">
             <div class="plate-right-item">
-              <img src="@/assets/images/home/parent_3.png" alt="">
+              <img src="@/assets/images/home/parent_3.png" alt>
             </div>
           </div>
         </div>
@@ -64,7 +66,7 @@
           <div class="course-ctn list-wrapper" ref="wrapper">
             <div>
               <div
-                @click="routerChange(index)" 
+                @click="routerChange(index)"
                 class="courses"
                 v-for="(item, index) in weekClassData[(activeIndex + 1) % 7]"
                 :key="index"
@@ -218,7 +220,7 @@ export default {
       );
       this.$router.push("./courseDetail");
     },
-    
+
     // 跳转到报名课程
     stepToEnter() {
       this.$router.push("./enteredCourse");
@@ -286,6 +288,7 @@ export default {
           sid: this.userInfo.sid
         })
         .then(data => {
+          console.log(data);
           if (data) {
             this.infoData = data;
             this.complete =
@@ -483,30 +486,29 @@ export default {
 
           /*板块介绍*/
           .plate-desc {
-            font-size: .24rem;
-            transform:scale(0.8);
+            font-size: 0.24rem;
+            transform: scale(0.8);
             color: rgba(0, 0, 0, 0.4);
           }
 
-          .plate-left, .plate-right {
-            border-radius: .16rem;
+          .plate-left,
+          .plate-right {
+            border-radius: 0.16rem;
             background: #fff;
           }
 
           /*左边板块*/
           .plate-left {
-            
           }
 
           /*右边板块*/
           .plate-right {
             width: 3.4rem;
             height: 1.58rem;
-            
           }
 
           .plate-right-bottom {
-            margin-top: .24rem;
+            margin-top: 0.24rem;
           }
         }
       }
@@ -539,7 +541,7 @@ export default {
 
         .course-ctn {
           overflow: hidden;
-          margin-top: .2rem
+          margin-top: 0.2rem;
         }
 
         .class-week {
@@ -574,7 +576,7 @@ export default {
           position: relative;
 
           .course-time {
-            padding-right: .6rem;
+            padding-right: 0.6rem;
             display: flex;
             justify-content: center;
             flex-direction: column;

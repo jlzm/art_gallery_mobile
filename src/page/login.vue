@@ -10,23 +10,23 @@
             <!-- <x-input v-model="loginForm.name" placeholder="请输入姓名" required :is-type="name">
             <label slot="label"><img src="../assets/images/personal.png" alt=""></label>
             </x-input>-->
-            <x-input v-model="loginForm.phone" placeholder="请输入手机号码" required :is-type="mobile">
+            <x-input class="form-input" v-model="loginForm.phone" placeholder="请输入手机号码" required :is-type="mobile">
               <label slot="label">
-                <!-- <img src="@/assets/images/phone.png" alt> -->
+                <img src="@/assets/images/phone.png" alt>
               </label>
             </x-input>
-            <x-input v-model="loginForm.codes" placeholder="验证码" required :is-type="code">
+            <x-input class="form-input" v-model="loginForm.codes" placeholder="请输入邀请码" required :is-type="code">
               <label slot="label">
-                <!-- <img src="@/assets/images/code.png" alt> -->
+                <img src="@/assets/images/code.png" alt>
               </label>
-              <x-button
+              <!-- <x-button
                 action-type="button"
                 @click.native.stop="getPhoneCode()"
                 slot="right"
                 type="primary"
                 plain
                 mini
-              >发送验证码</x-button>
+              >发送验证码</x-button> -->
             </x-input>
             <x-button type="primary" @click.native.stop="bind()" class="bind">绑定</x-button>
           </form>
@@ -253,5 +253,9 @@ export default {
       }
     }
   }
+}
+
+.form-input {
+  border-radius: 4px;
 }
 </style>

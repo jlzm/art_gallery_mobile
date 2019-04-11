@@ -9,9 +9,11 @@
         <div class="flex">
           <div class="img">
             <img
+              v-if="!!userInfo.headimgurl"
               :src="infoData.headimgurl"
               @error="infoData.headimgurl = require('../../assets/images/avatar.png')"
             >
+            <img v-else :src="require('../../assets/images/avatar.png')" alt>
           </div>
           <div class="info">
             <div class="name">{{infoData.tname}}</div>
@@ -50,14 +52,14 @@
       <div class="bottom-history">
         <div class="history history-1">
           <div class="plate-left" @click="gotoHistory()">
-               <img src="@/assets/images/home/teacher_1.png" alt="">
+            <img src="@/assets/images/home/teacher_1.png" alt>
           </div>
         </div>
         <!-- <div class="history history-1">
           <div class="plate-right" @click="gotoAttendence()">
             <img src="@/assets/images/home/teacher_2.png" alt="">
           </div>
-        </div> -->
+        </div>-->
       </div>
       <div class="bottom-class">
         <div class="class-title">本周课程</div>
@@ -461,7 +463,7 @@ export default {
           /*板块*/
           .plate-left,
           .plate-right {
-            border-radius: .16rem;
+            border-radius: 0.16rem;
             background: #fff;
             padding: 0.24rem 0.24rem 0;
             .activity-title {

@@ -23,7 +23,7 @@
     <div class="course-panel">
       <div class="panel-title">课程预热</div>
       <div class="panel-content">
-        <div class="text">{{currentCourse.cdesc}}</div>
+        <div class="text txt-wrap">{{currentCourse.cdesc}}</div>
       </div>
     </div>
     <div class="course-panel single-panel">
