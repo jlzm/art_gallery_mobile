@@ -128,29 +128,28 @@ export default {
      * 确认报名
      */
     onConfirm() {
-      
       this.applyMsg.show = true;
-      // let propsData = {
-      //   crid,
-      //   sid: this.userInfo.sid
-      // };
-      // console.log("propsData", propsData);
-      // API.homeAPI.wxSignUpCourseRecords(propsData).then(res => {
-      //   console.log("res", res);
-      //   switch (res.code) {
-      //     case 1:
-      //       this.applyMsg.title = "成功";
-      //       this.applyMsg.desc = res.msg;
-      //       this.pagenum = 1;
-      //       this.getActiveData();
-      //       break;
+      let propsData = {
+        crid: this.currentCrid,
+        sid: this.userInfo.sid
+      };
+      console.log("propsData", propsData);
+      API.homeAPI.wxSignUpCourseRecords(propsData).then(res => {
+        console.log("res", res);
+        switch (res.code) {
+          case 1:
+            this.applyMsg.title = "成功";
+            this.applyMsg.desc = res.msg;
+            this.pagenum = 1;
+            this.getActiveData();
+            break;
 
-      //     default:
-      //       this.applyMsg.title = "失败";
-      //       this.applyMsg.desc = res.msg;
-      //       break;
-      //   }
-      // });
+          default:
+            this.applyMsg.title = "失败";
+            this.applyMsg.desc = res.msg;
+            break;
+        }
+      });
     },
 
     /**
