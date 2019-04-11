@@ -37,7 +37,7 @@
     <div class="course-panel single-panel">
       <group>
         <cell title="课堂动态" is-link :border-intent="false" link="./trends/photo">
-          <span class="info">查看详情</span>
+          <span class="info">{{(!courseStatusData.photoStatus || !courseStatusData.viewCount) ? '未评价' : '查看详情'}}</span>
         </cell>
       </group>
     </div>
@@ -51,7 +51,7 @@
         "
         >
           <div>
-            <span class="info">查看详情</span>
+            <span class="info">{{ !courseStatusData.ttos ? '未评价' : '查看详情'}}</span>
           </div>
         </cell>
       </group>
@@ -68,8 +68,8 @@
           <div>
             <span
               class="desc-ms"
-              :class="courseStatusData.stot == 1 ? 'desc-ms-t' : 'desc-ms-f'"
-            >{{courseStatusData.stot == 1 ? '去评价' : '已评价'}}</span>
+              :class=" !courseStatusData.stot  ? 'desc-ms-f' : 'desc-ms-t'"
+            >{{ !courseStatusData.stot  ? '去评价' : '已评价'}}</span>
           </div>
         </cell>
       </group>
