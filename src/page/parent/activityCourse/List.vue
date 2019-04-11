@@ -18,7 +18,11 @@
             </div>
             <div class="por course-item-content">
               <div class="dib course-item-img vat">
-                <img :src="item.cpicture" @error="item.cpicture = require('@/assets/images/activity_course.png')" alt>
+                <img
+                  :src="item.cpicture"
+                  @error="item.cpicture = require('@/assets/images/activity_course.png')"
+                  alt
+                >
               </div>
               <div class="dib course-item-info vat">
                 <p>
@@ -55,10 +59,8 @@
     <div class="alert-wrap">
       <alert v-model="applyMsg.show" :title="applyMsg.title">{{ applyMsg.desc }}</alert>
     </div>
-       <div class="confirm-wrap">
-      <confirm v-model="showConfirm"
-      title="提示"
-        @on-confirm="onConfirm()">
+    <div class="confirm-wrap">
+      <confirm v-model="showConfirm" title="提示" @on-confirm="onConfirm()">
         <p style="text-align:center;">是否确认报名？</p>
       </confirm>
     </div>
@@ -78,7 +80,7 @@ import API from "@/api/apiFactory";
 import { mapState } from "vuex";
 
 //   vux组件
-import { XButton, Alert, Confirm  } from "vux";
+import { XButton, Alert, Confirm } from "vux";
 
 import BScroll from "better-scroll";
 export default {
@@ -152,6 +154,14 @@ export default {
       });
     },
 
+        /**
+     * 立即报名
+     */
+    apply(crid) {
+      this.currentCrid = crid;
+      this.showConfirm = true;
+    },
+
     /**
      * 跳转活动课程详情页
      */
@@ -163,13 +173,6 @@ export default {
       this.routeLink(path, query);
     },
 
-    /**
-     * 立即报名
-     */
-    apply(crid) {
-      this.currentCrid = crid;
-      this.showConfirm = true;
-    },
 
     initScroll() {
       const options = {
@@ -223,19 +226,17 @@ export default {
         console.log("res", res);
         if (res.total <= 0) {
           this.$vux.toast.text("暂无数据", "middle");
-          return ;
+          return;
         }
 
-        if(this.pagenum == 1) {
+        if (this.pagenum == 1) {
           this.currentData = res.rows;
         } else {
           this.currentData = this.currentData.concat(res.rows);
-
         }
 
         this.pagenumCount = res.pageCount;
         this.addCstutasBtnTxt();
-
 
         this.endScroll();
         console.log(this.currentData);
@@ -341,7 +342,4 @@ export default {
   margin-top: 0.3rem;
   text-align: center;
 }
-
-
-
 </style>

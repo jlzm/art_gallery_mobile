@@ -40,16 +40,27 @@
       <div class="course-item">
         <div class="course-item-btn">
           <button
-            @click="apply(currentData.crid)"
+            @click="apply()"
             :disabled="currentData.cstatus != 0"
             class="btn-content"
             :class=" currentData.cstatus == '0' ? 'btn-status1' : 'btn-status2' "
           >
             <span class="btn-meta">{{currentData.btnTxt}}</span>
-            <span v-show="currentData.cstatus == 0" class="btn-desc">仅剩{{currentData.maxnum - currentData.allarrive}}个名额</span>
+            <span
+              v-show="currentData.cstatus == 0"
+              class="btn-desc"
+            >仅剩{{currentData.maxnum - currentData.allarrive}}个名额</span>
           </button>
         </div>
       </div>
+    </div>
+    <div class="alert-wrap">
+      <alert v-model="applyMsg.show" :title="applyMsg.title">{{ applyMsg.desc }}</alert>
+    </div>
+    <div class="confirm-wrap">
+      <confirm v-model="showConfirm" title="提示" @on-confirm="onConfirm()">
+        <p style="text-align:center;">是否确认报名？</p>
+      </confirm>
     </div>
   </div>
 </template>
@@ -61,7 +72,7 @@ import HeadNav from "../../../components/HeadNav";
 import pubilcFn from "../../../mixins/pulicFn";
 
 // vux组件
-import { XButton, Alert } from "vux";
+import { XButton, Alert, Confirm } from "vux";
 
 // vuex
 import { mapState } from "vuex";
@@ -72,11 +83,20 @@ import API from "@/api/apiFactory";
 export default {
   mixins: [pubilcFn],
   components: {
-    HeadNav
+    HeadNav,
+    Alert,
+    Confirm
   },
   data() {
     return {
-      currentData: {}
+      currentCrid: null,
+      showConfirm: false,
+      currentData: {},
+      applyMsg: {
+        show: false,
+        title: "",
+        desc: ""
+      }
     };
   },
 
@@ -91,6 +111,41 @@ export default {
   },
 
   methods: {
+    /**
+     * 确认报名
+     */
+    onConfirm() {
+      this.applyMsg.show = true;
+      let propsData = {
+        crid: this.currentData.crid,
+        sid: this.userInfo.sid
+      };
+      console.log("propsData", propsData);
+      API.homeAPI.wxSignUpCourseRecords(propsData).then(res => {
+        console.log("res", res);
+        switch (res.code) {
+          case 1:
+            this.applyMsg.title = "成功";
+            this.applyMsg.desc = res.msg;
+            this.pagenum = 1;
+            this.getActiveData();
+            break;
+
+          default:
+            this.applyMsg.title = "失败";
+            this.applyMsg.desc = res.msg;
+            break;
+        }
+      });
+    },
+
+    /**
+     * 立即报名
+     */
+    apply() {
+      this.showConfirm = true;
+    },
+
     /**
      * 获取活动课程详情
      */

@@ -19,7 +19,14 @@
               <label slot="label">
                 <!-- <img src="@/assets/images/code.png" alt> -->
               </label>
-              <x-button action-type="button" @click.native.stop="getPhoneCode()" slot="right" type="primary" plain mini>发送验证码</x-button>
+              <x-button
+                action-type="button"
+                @click.native.stop="getPhoneCode()"
+                slot="right"
+                type="primary"
+                plain
+                mini
+              >发送验证码</x-button>
             </x-input>
             <x-button type="primary" @click.native.stop="bind()" class="bind">绑定</x-button>
           </form>
@@ -76,20 +83,20 @@ export default {
       let phone = this.loginForm.phone;
       let reg = /^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\d{8}$/;
 
-      if(!phone) {
-          this.$vux.toast.text("请输入手机号", "middle");
+      if (!phone) {
+        this.$vux.toast.text("请输入手机号", "middle");
         return false;
-      } else if(!phone.match(reg)){
-          this.$vux.toast.text("请输入正确手机格式", "middle");
-        return  false;
+      } else if (!phone.match(reg)) {
+        this.$vux.toast.text("请输入正确手机格式", "middle");
+        return false;
       }
 
       let propsData = {
         phone: phone
-      }
+      };
       API.homeAPI.getPhoneCode(propsData).then(res => {
-        console.log('res', res);
-      })
+        console.log("res", res);
+      });
     },
 
     // rules
@@ -107,7 +114,7 @@ export default {
       }
       return this.validate.phone;
     },
-    
+
     code(val) {
       this.validate.code.valid = false;
       let reg = /^\d*$/;
@@ -154,7 +161,7 @@ export default {
         openid: ""
       };
 
-      console.log('propsData', propsData);
+      console.log("propsData", propsData);
       API.homeAPI.login(propsData).then(data => {
         console.log("data", data);
         this.canCommit = true;
@@ -176,7 +183,7 @@ export default {
 <style scope lang="less">
 .login {
   height: 100vh;
-  background: url('../assets/images/login.png');
+  background: url("../assets/images/login.png");
   background-size: cover;
   display: flex;
   justify-content: center;
