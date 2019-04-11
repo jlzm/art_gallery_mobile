@@ -6,7 +6,7 @@
     <div class="login">
       <div class="login-ctn">
         <group>
-          <form>
+          <form @submit.prevent="bind()">
             <!-- <x-input v-model="loginForm.name" placeholder="请输入姓名" required :is-type="name">
             <label slot="label"><img src="../assets/images/personal.png" alt=""></label>
             </x-input>-->
@@ -28,7 +28,7 @@
                 mini
               >发送验证码</x-button> -->
             </x-input>
-            <x-button type="primary" @click.native.stop="bind()" class="bind">绑定</x-button>
+            <x-button action-type="submit" type="primary" class="bind">绑定</x-button>
           </form>
         </group>
       </div>

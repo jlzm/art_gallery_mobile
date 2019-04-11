@@ -1,13 +1,15 @@
 <template>
   <group>
-    <div class="editTable needsfocus" @click="changeEditable" :class="editable ? 'editable' : 'uneditable'">
+    <div class="editTable needsfocus editable">
+    <!-- <div class="editTable needsfocus uneditable" @click="changeEditable" :class="editable ? 'editable' : 'uneditable'"> -->
       <div class="title" ref="title">
         评价内容
       </div>
-      <div class="input" v-if="editable && showArea">
+      <div class="input" >
         <x-textarea
           v-model="inputValue"
           ref="text" 
+          placeholder="说点什么吧!"
           @on-blur="changeState"
           class="needsfocus needsclick"
           @on-focus="focus"
