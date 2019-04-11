@@ -37,7 +37,9 @@
     <div class="course-panel single-panel">
       <group>
         <cell title="课堂动态" is-link :border-intent="false" link="./trends/photo">
-          <span class="info">{{(!courseStatusData.photoStatus || !courseStatusData.viewCount) ? '未评价' : '查看详情'}}</span>
+          <span
+            class="info"
+          >{{(!courseStatusData.photoStatus || !courseStatusData.viewCount) ? '未评价' : '查看详情'}}</span>
         </cell>
       </group>
     </div>
@@ -69,7 +71,7 @@
             <span
               class="desc-ms"
               :class=" !courseStatusData.stot  ? 'desc-ms-f' : 'desc-ms-t'"
-            >{{ !courseStatusData.stot  ? '去评价' : '已评价'}}</span>
+            >{{ !courseStatusData.stot ? '去评价' : '已评价'}}</span>
           </div>
         </cell>
       </group>
@@ -109,7 +111,7 @@ export default {
      */
     interceptTime() {
       let time = this.currentCourse.signtime;
-      let index = time.lastIndexOf(':');
+      let index = time.lastIndexOf(":");
       this.currentCourse.signtime = time.substring(0, index);
     },
 
