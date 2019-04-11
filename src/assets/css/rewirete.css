@@ -44,3 +44,7 @@
 .alert-wrap .weui-dialog__hd {
   padding: 0;
 }
+
+.confirm-wrap .weui-dialog__hd {
+  padding: 0;
+}

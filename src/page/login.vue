@@ -6,22 +6,22 @@
     <div class="login">
       <div class="login-ctn">
         <group>
-          <form @submit.stop="bind()">
+          <form>
             <!-- <x-input v-model="loginForm.name" placeholder="请输入姓名" required :is-type="name">
             <label slot="label"><img src="../assets/images/personal.png" alt=""></label>
             </x-input>-->
             <x-input v-model="loginForm.phone" placeholder="请输入手机号码" required :is-type="mobile">
               <label slot="label">
-                <img src="../assets/images/phone.png" alt>
+                <!-- <img src="@/assets/images/phone.png" alt> -->
               </label>
             </x-input>
             <x-input v-model="loginForm.codes" placeholder="验证码" required :is-type="code">
               <label slot="label">
-                <img src="../assets/images/code.png" alt>
+                <!-- <img src="@/assets/images/code.png" alt> -->
               </label>
               <x-button action-type="button" @click.native.stop="getPhoneCode()" slot="right" type="primary" plain mini>发送验证码</x-button>
             </x-input>
-            <x-button action-type="submit" type="primary" class="bind">绑定</x-button>
+            <x-button type="primary" @click.native.stop="bind()" class="bind">绑定</x-button>
           </form>
         </group>
       </div>
@@ -176,7 +176,7 @@ export default {
 <style scope lang="less">
 .login {
   height: 100vh;
-  background: url(../assets/images/login.png);
+  background: url('../assets/images/login.png');
   background-size: cover;
   display: flex;
   justify-content: center;

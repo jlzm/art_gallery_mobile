@@ -55,6 +55,13 @@
     <div class="alert-wrap">
       <alert v-model="applyMsg.show" :title="applyMsg.title">{{ applyMsg.desc }}</alert>
     </div>
+       <div class="confirm-wrap">
+      <confirm v-model="showConfirm"
+      title="提示"
+        @on-confirm="onConfirm()">
+        <p style="text-align:center;">是否确认报名？</p>
+      </confirm>
+    </div>
   </div>
 </template>
 
@@ -71,7 +78,7 @@ import API from "@/api/apiFactory";
 import { mapState } from "vuex";
 
 //   vux组件
-import { XButton, Alert } from "vux";
+import { XButton, Alert, Confirm  } from "vux";
 
 import BScroll from "better-scroll";
 export default {
@@ -81,11 +88,14 @@ export default {
   components: {
     HeadNav,
     XButton,
-    Alert
+    Alert,
+    Confirm
   },
 
   data() {
     return {
+      currentCrid: null,
+      showConfirm: false,
       applyMsg: {
         show: false,
         title: "",
@@ -115,6 +125,35 @@ export default {
   },
   methods: {
     /**
+     * 确认报名
+     */
+    onConfirm() {
+      
+      this.applyMsg.show = true;
+      // let propsData = {
+      //   crid,
+      //   sid: this.userInfo.sid
+      // };
+      // console.log("propsData", propsData);
+      // API.homeAPI.wxSignUpCourseRecords(propsData).then(res => {
+      //   console.log("res", res);
+      //   switch (res.code) {
+      //     case 1:
+      //       this.applyMsg.title = "成功";
+      //       this.applyMsg.desc = res.msg;
+      //       this.pagenum = 1;
+      //       this.getActiveData();
+      //       break;
+
+      //     default:
+      //       this.applyMsg.title = "失败";
+      //       this.applyMsg.desc = res.msg;
+      //       break;
+      //   }
+      // });
+    },
+
+    /**
      * 跳转活动课程详情页
      */
     routerCourse(item) {
@@ -129,28 +168,8 @@ export default {
      * 立即报名
      */
     apply(crid) {
-      this.applyMsg.show = true;
-      let propsData = {
-        crid,
-        sid: this.userInfo.sid
-      };
-      console.log("propsData", propsData);
-      API.homeAPI.wxSignUpCourseRecords(propsData).then(res => {
-        console.log("res", res);
-        switch (res.code) {
-          case 1:
-            this.applyMsg.title = "成功";
-            this.applyMsg.desc = res.msg;
-            this.pagenum = 1;
-            this.getActiveData();
-            break;
-
-          default:
-            this.applyMsg.title = "失败";
-            this.applyMsg.desc = res.msg;
-            break;
-        }
-      });
+      this.currentCrid = crid;
+      this.showConfirm = true;
     },
 
     initScroll() {
