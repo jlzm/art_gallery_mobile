@@ -24,7 +24,7 @@
                   alt
                 >
               </div>
-              <div class="dib course-item-info vat">
+              <div class="dib course-item-info vat txt-omit">
                 <p>
                   <span class="info-title">老师：</span>
                   <span class="info-desc">{{item.tname}}</span>
@@ -37,7 +37,7 @@
                   <span class="info-title">时间：</span>
                   <span class="info-desc">{{item.begintime}}-{{item.endtime}}</span>
                 </p>
-                <p>
+                <p class="txt-omit">
                   <span class="info-title">地点：</span>
                   <span class="info-desc">{{item.room}}</span>
                 </p>

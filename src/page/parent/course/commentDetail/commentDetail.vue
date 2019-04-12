@@ -15,7 +15,7 @@
       </group>
     </div>
     <div class="course-panel">
-      <editable-input @editchange="editchange" :editable="!hasComment" :val="comment"></editable-input>
+      <editable-input :disabledInput="true" @editchange="editchange" :editable="!hasComment" :val="comment"></editable-input>
     </div>
     <div class="course-panel rater-wrap">
       <div class="rater-item">

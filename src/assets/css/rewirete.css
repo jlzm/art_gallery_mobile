@@ -48,3 +48,8 @@
 .confirm-wrap .weui-dialog__hd {
   padding: 0;
 }
+
+
+textarea:disabled {
+  background: #fff;
+}
