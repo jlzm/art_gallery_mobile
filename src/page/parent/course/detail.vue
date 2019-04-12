@@ -46,7 +46,7 @@
     <div class="course-panel single-panel">
       <group v-if="this.type==='parent'">
         <cell
-          title="老师课后评价学生"
+          title="老师评价"
           is-link
           :border-intent="false"
           :link="'./commentDetail/' + userInfo.sid
@@ -61,7 +61,7 @@
     <div class="course-panel single-panel">
       <group>
         <cell
-          title="家长评价课程/老师"
+          title="评价课程"
           is-link
           :border-intent="false"
           :link="'./parentComment/' + 
