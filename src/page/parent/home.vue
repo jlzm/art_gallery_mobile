@@ -317,6 +317,11 @@ export default {
               // 只有该学生才会加入
               if (~studentsIds.indexOf(this.userInfo.sid)) {
                 this.weekClassData[index].push(item);
+                this.weekClassData[index].forEach(item => {
+                let cdate = item.cdate;
+                let index = cdate.lastIndexOf("-");  
+                item.cdate = cdate.substring(index-2, cdate.length);
+              })
               }
             });
             this.$forceUpdate();

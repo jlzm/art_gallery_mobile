@@ -313,9 +313,9 @@ export default {
               this.weekClassData[index].push(item);
               this.weekClassData[index].forEach(item => {
                 let cdate = item.cdate;
-                let index = cdate.indexOf("-");  
-                console.log(index);
-                item.cdate = cdate.substring(index, cdate.length);
+                let index = cdate.lastIndexOf("-");  
+
+                item.cdate = cdate.substring(index-2, cdate.length);
               })
             });
             this.$forceUpdate();
