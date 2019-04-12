@@ -12,9 +12,9 @@ img {
 
 /*单行超出省略*/
 .txt-omit {
-  white-space: nowrap;  
-  text-overflow:ellipsis; 
   overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
 }
 
 .hv-cp {

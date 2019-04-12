@@ -85,7 +85,7 @@
                   <div class="date">{{item.cdate}}</div>
                   <div class="state">{{item.status === 0?'未开始':'已结束'}}</div>
                 </div>
-                <div class="course-info">
+                <div class="course-info txt-omit">
                   <div class="className">{{item.cname}}</div>
                   <div class="class-info-detail">
                     <div class="detail-item">
@@ -98,7 +98,7 @@
                     </div>
                     <div class="detail-item">
                       <div class="label">地点:</div>
-                      <div class="for">{{item.room}}</div>
+                      <div class="for txt-omit">{{item.room}}</div>
                     </div>
                   </div>
                 </div>
@@ -607,6 +607,7 @@ export default {
           }
 
           .course-info {
+            width: 4rem;
             margin-bottom: 0.15rem;
 
             .className {
@@ -648,4 +649,5 @@ export default {
     }
   }
 }
+
 </style>
