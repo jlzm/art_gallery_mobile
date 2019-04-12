@@ -64,8 +64,8 @@ export default {
   },
   data() {
     return {
-      teacherRater: '5',
-      courseRater: '5',
+      teacherRater: 5,
+      courseRater: 5,
       hasComment: false,
       teacherInfo: {
         headimgurl: "",
@@ -96,8 +96,8 @@ export default {
           tid: this.currentCourse.tid,
           type: 2,
           remark: this.comment,
-          teacherrater: this.teacherRater,
-          courserater: this.courseRater
+          teacherrater: toString(this.teacherRater),
+          courserater: toString(this.courseRater)
         };
         console.log(propsData);
       API.homeAPI
@@ -136,8 +136,8 @@ export default {
               headimgurl: data.headimgurl
             };
             this.comment = data.tev;
-            this.teacherRater = parseInt(data.teacherrater);
-            this.courseRater = parseInt(data.courserater);
+            this.teacherRater = parseInt(data.teacherrater) || 5;
+            this.courseRater = parseInt(data.courserater) || 5;
           }
         });
     }
