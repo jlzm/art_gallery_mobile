@@ -35,7 +35,6 @@
     </div>
     <div class="course-panel">
       <editable-input @editchange="editchange" :editable = "!hasComment&&isTeacher" :val="commentDetail.tev">
-
       </editable-input>
     </div>
     <div class="course-panel">

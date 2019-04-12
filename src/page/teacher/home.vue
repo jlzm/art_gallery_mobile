@@ -311,6 +311,12 @@ export default {
                 this.weekClassData[index] = [];
               }
               this.weekClassData[index].push(item);
+              this.weekClassData[index].forEach(item => {
+                let cdate = item.cdate;
+                let index = cdate.indexOf("-");  
+                console.log(index);
+                item.cdate = cdate.substring(index, cdate.length);
+              })
             });
             this.$forceUpdate();
           } else {

@@ -40,7 +40,7 @@
     </div>
     <div class="course-panel single-panel">
       <group>
-        <cell title="老师课后评价学生" is-link :border-intent="false" link="./commentList">
+        <cell title="评价学生" is-link :border-intent="false" link="./commentList">
           <div>
             <span style="color: #999999;font-size:.2rem">查看详情</span>
           </div>
@@ -50,7 +50,7 @@
     <div class="course-panel single-panel">
       <group>
         <cell
-          title="家长评价课程/老师"
+          title="家长评价"
           is-link
           :border-intent="false"
           :link="'./viewParentComment/' + currentCourse.crid"

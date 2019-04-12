@@ -19,9 +19,9 @@
           :max=200>
         </x-textarea >
       </div>
-      <div class="showCtn" v-if="!editable || (!showArea && inputValue.length)">
+      <!-- <div class="showCtn" v-if="!editable || (!showArea && inputValue.length)">
         {{inputValue || val}}
-      </div>
+      </div> -->
     </div>
   </group>
 </template>
