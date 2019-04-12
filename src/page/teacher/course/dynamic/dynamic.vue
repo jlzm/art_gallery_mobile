@@ -6,7 +6,7 @@
     <div class="tab">
       <tab active-color="#4BB9C2">
         <tab-item :selected="this.upLoadType === 'photo'" @on-item-click="onItemClick">图片</tab-item>
-        <tab-item :selected="this.upLoadType !== 'photo'" @on-item-click="onItemClick">视频</tab-item>
+        <!-- <tab-item :selected="this.upLoadType !== 'photo'" @on-item-click="onItemClick">视频</tab-item> -->
       </tab>
     </div>
     <div class="view">
