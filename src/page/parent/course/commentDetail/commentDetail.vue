@@ -15,7 +15,7 @@
       </group>
     </div>
     <div class="course-panel">
-      <editable-input :disabledInput="true" @editchange="editchange" :editable="!hasComment" :val="comment"></editable-input>
+      <editable-input @editchange="editchange" :editable="!hasComment" :val="comment"></editable-input>
     </div>
     <div class="course-panel rater-wrap">
       <div class="rater-item">
@@ -96,8 +96,8 @@ export default {
           tid: this.currentCourse.tid,
           type: 2,
           remark: this.comment,
-          teacherrater: toString(this.teacherRater),
-          courserater: toString(this.courseRater)
+          teacherrater: this.teacherRater.toString(),
+          courserater: this.courseRater.toString()
         };
         console.log(propsData);
       API.homeAPI

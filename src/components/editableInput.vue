@@ -3,7 +3,7 @@
     <div class="editTable needsfocus editable">
       <!-- <div class="editTable needsfocus uneditable" @click="changeEditable" :class="editable ? 'editable' : 'uneditable'"> -->
       <div class="title" ref="title">评价内容</div>
-      <div class="showCtn" v-if="disabledInput || editable">暂无评论</div>
+      <div class="showCtn" v-if="!editable">{{inputValue || ''}}</div>
 
       <div v-else class="input">
         <x-textarea

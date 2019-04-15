@@ -34,7 +34,7 @@
     <div class="course-panel single-panel">
       <group>
         <cell title="课堂动态" is-link :border-intent="false" link="./trends">
-          <span class="desc-ms" :class="(courseStatusData.photoStatus && courseStatusData.viewCount) ? 'desc-ms-t' : 'desc-ms-f'">{{(courseStatusData.photoStatus && courseStatusData.viewCount) ? '查看详情' : '去发布'}}</span>
+          <span class="desc-ms" :class="courseStatusData.photoStatus ? 'desc-ms-t' : 'desc-ms-f'">{{courseStatusData.photoStatus  ? '查看详情' : '去发布'}}</span>
         </cell>
       </group>
     </div>
@@ -82,6 +82,7 @@ export default {
     HeaderNav
   },
   mounted() {
+    console.log('userInfo', this.userInfo);
     this.getCourseStatus();
   },
   data() {

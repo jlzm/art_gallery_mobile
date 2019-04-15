@@ -193,12 +193,14 @@ export default {
 };
 </script>
 <style lang='less' scoped>
+@import url('../../../assets/css/activityCourse/public.less');
+
 // public start
-.title-main {
-  font-size: 0.3rem;
-  font-weight: 400;
-  color: #000;
-}
+// .title-main {
+//   font-size: 0.3rem;
+//   font-weight: 400;
+//   color: #000;
+// }
 
 // public end
 
@@ -209,10 +211,10 @@ export default {
     padding: 0.24rem 0;
     justify-content: space-between;
 
-    .title-meta {
-      font-size: 0.2rem;
-      color: #999;
-    }
+    // .title-meta {
+    //   font-size: 0.2rem;
+    //   color: #999;
+    // }
   }
   // 课程信息
   .course-item-content {
