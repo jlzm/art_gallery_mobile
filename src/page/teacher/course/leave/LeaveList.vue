@@ -7,7 +7,6 @@
     </card>
     <div class="student-list">
       <div class="wrapper" ref="wrapper">
-         {{signed}}
         <group>
           <checker
             v-model="signed"
@@ -20,7 +19,7 @@
               v-for="(item, index) in signStudentList"
               :key="index"
               :value="item.sid"
-              :disabled="item.ifsign == 1"
+              :disabled="item.status == 1"
             >
               <cell>
                 <div class="avatar" slot="icon">
@@ -140,7 +139,7 @@ export default {
           if (data.rows.length) {
             data.rows.forEach((item, index) => {
               // 签到学生推入
-              if (item.ifsign) {
+              if (item.status) {
                 this.signed.push(item.sid);
                 this.isSign++;
               }
