@@ -15,11 +15,15 @@
       </group> -->
     </div>
     <div class="course-panel">
-      <editable-input inputTitle="请假理由" @editchange="editchange" :editable="!hasComment" :val="comment"></editable-input>
+      <editable-input inputTitle="请假理由" @editchange="editchange" :editable="!leaveStatus.status" :val="leaveStatus.leave_reason"></editable-input>
+    </div>
+    <div v-if="leaveStatus.status == 1" class="teacher-txt" >
+      <span>{{leaveStatus.tname}}:</span>
+      <span>同意</span>
     </div>
     <div class="btn">
-      <x-button class="ago" v-if="!hasComment" type="primary" @click.native="confirmComment()">确认请假</x-button>
-      <x-button class="yet" type="info" v-else>已请假</x-button>
+      <x-button v-if="!leaveStatus.status" class="ago"  type="primary" @click.native="confirmLeave()">确认请假</x-button>
+      <x-button v-else class="yet" type="info">{{leaveStatus.status == 0 ? '审批中' : '已请假' }}</x-button>
     </div>
   </div>
 </template>
@@ -38,10 +42,6 @@ export default {
   name: "parentLeave",
   mixins: [zoom, typeMixin],
   mounted() {
-    // 如果是老师端，直接禁止评论
-    if (this.isTeacher) {
-      this.hasComment = true;
-    }
     this.getComment();
   },
   components: {
@@ -54,6 +54,7 @@ export default {
   },
   data() {
     return {
+      leaveStatus: {},
       teacherRater: 5,
       courseRater: 5,
       hasComment: false,
@@ -61,7 +62,7 @@ export default {
         headimgurl: "",
         tname: "快乐木马"
       },
-      comment: ""
+      leaveReason: ""
     };
   },
   methods: {
@@ -75,31 +76,27 @@ export default {
     },
 
     // 确认评价
-    confirmComment() {
-      if (!this.comment) {
+    confirmLeave() {
+      if (!this.leaveReason) {
         this.$vux.toast.text("请填写请假理由", "middle");
         return;
       }
       let propsData = {
           crid: this.currentCourse.crid,
           sid: this.userInfo.sid,
-          tid: this.currentCourse.tid,
-          type: 2,
-          remark: this.comment,
-          teacherrater: this.teacherRater.toString(),
-          courserater: this.courseRater.toString()
+          leave_reason: this.leaveReason,
         };
         console.log(propsData);
-      API.homeAPI
-        .insertParentEvaluation(propsData)
+      API.post('/insertLeave', propsData)
         .then(data => {
-          if (parseInt(data.code) === 1) {
+          if (data.code == 1) {
             this.hasComment = true;
             this.$vux.toast.show({
               text: "提交成功",
               time: 2000,
               width: "2rem"
             });
+            this.getComment();
           } else {
             this.$vux.toast.text(data.msg, "middle");
           }
@@ -107,29 +104,15 @@ export default {
     },
 
     getComment() {
-
-      API.homeAPI
-        .wxEvaluationByStu({
-          crid: this.currentCourse.crid,
-          sid: this.userInfo.sid,
-          tid: this.currentCourse.tid,
-          type: 2
-        })
-        .then(data => {
-          console.log('data', data);
-          // 是否已经评价
-          if (data) {
-            
-            this.hasComment = parseInt(data.isPj) !== 2;
-            this.teacherInfo = {
-              tname: data.tname,
-              headimgurl: data.headimgurl
-            };
-            this.comment = data.tev;
-            this.teacherRater = parseInt(data.teacherrater) || 5;
-            this.courseRater = parseInt(data.courserater) || 5;
-          }
-        });
+      let propsData = {
+        crid: this.currentCourse.crid,
+        sid: this.userInfo.sid,
+      }
+      console.log('propsData', propsData);
+      API.post('/getLeaveByPage', propsData).then(res => {
+        console.log('res', res.rows[0]);
+        this.leaveStatus = res.rows[0];
+      })
     }
   },
   computed: {
@@ -228,6 +211,10 @@ export default {
 
 .parent-leave .btn .yet {
   background: #C3C3C3;
+}
+
+.teacher-txt {
+  font-size: .28rem;
 }
 </style>
 

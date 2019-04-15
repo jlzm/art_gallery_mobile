@@ -3,11 +3,11 @@
     <div class="editTable needsfocus editable">
       <!-- <div class="editTable needsfocus uneditable" @click="changeEditable" :class="editable ? 'editable' : 'uneditable'"> -->
       <div class="title" ref="title">{{inputTitle}}</div>
-      <div class="showCtn" v-if="!editable">{{inputValue || ''}}</div>
+      <div class="showCtn" v-if="!editable">{{val || ''}}</div>
 
       <div v-else class="input">
         <x-textarea
-          v-model="inputValue"
+          v-model="val"
           ref="text"
           placeholder="说点什么吧!"
           @on-blur="changeState"

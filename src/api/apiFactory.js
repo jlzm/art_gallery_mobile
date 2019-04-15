@@ -3,6 +3,22 @@ import {
   sendFormData
 } from '../global/httpConfig'
 export default {
+  post: async function post(url, obj) {
+    return sendRequest({
+        method: 'post',
+        data: obj,
+        url: url
+      })
+      .then(data => data)
+  },
+  get: async function get(url, obj) {
+    return sendRequest({
+        method: 'get',
+        params: obj,
+        url: url
+      })
+      .then(data => data)
+  },
   homeAPI: {
     /**登入相关 start */
 

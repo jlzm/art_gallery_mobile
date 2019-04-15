@@ -64,8 +64,8 @@ export default {
   },
   data() {
     return {
-      teacherRater: 5,
-      courseRater: 5,
+      teacherRater: 0,
+      courseRater: 0,
       hasComment: false,
       teacherInfo: {
         headimgurl: "",
@@ -88,6 +88,10 @@ export default {
     confirmComment() {
       if (!this.comment) {
         this.$vux.toast.text("请填写评价", "middle");
+        return;
+      }
+      if(!this.teacherRater || this.courseRater) {
+        this.$vux.toast.text("请对课程和老师评分", "middle");
         return;
       }
       let propsData = {
@@ -136,8 +140,8 @@ export default {
               headimgurl: data.headimgurl
             };
             this.comment = data.tev;
-            this.teacherRater = parseInt(data.teacherrater) || 5;
-            this.courseRater = parseInt(data.courserater) || 5;
+            this.teacherRater = parseInt(data.teacherrater) || 0;
+            this.courseRater = parseInt(data.courserater) || 0;
           }
         });
     }
