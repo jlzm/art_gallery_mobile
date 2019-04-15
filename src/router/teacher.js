@@ -33,6 +33,15 @@ const router = [
     component: resolve => require(['../page/common/sign/sign'], resolve),
   },
   {
+    path: '/teacher/leaveList',
+    name: 'teacherleaveList',
+    meta: {
+      title: '老师评价学生',
+      type: 'teacher'
+    },
+    component: resolve => require(['../page/teacher/course/leave/LeaveList'], resolve)
+  },
+  {
     path: '/teacher/commentList',
     name: 'commentList',
     meta: {
@@ -40,6 +49,7 @@ const router = [
     },
     component: resolve => require(['../page/teacher/course/commentList'], resolve)
   },
+
   {
     // 老师评价学生详情
     path: '/teacher/commentDetail/:id',

@@ -90,7 +90,7 @@ const router = [
       title: '家长评价老师/课程',
       type: 'parent'
     },
-    component: resolve => require(['../page/parent/course/leave'],resolve)
+    component: resolve => require(['../page/parent/course/Leave'],resolve)
   },
   {
     // 报名课程

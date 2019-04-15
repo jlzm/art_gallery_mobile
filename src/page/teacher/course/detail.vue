@@ -33,6 +33,11 @@
     </div>
     <div class="course-panel single-panel">
       <group>
+        <cell title="请假信息" is-link :border-intent="false" link="/teacher/leaveList"></cell>
+      </group>
+    </div>
+    <div class="course-panel single-panel">
+      <group>
         <cell title="课堂动态" is-link :border-intent="false" link="./trends">
           <span class="desc-ms" :class="courseStatusData.photoStatus ? 'desc-ms-t' : 'desc-ms-f'">{{courseStatusData.photoStatus  ? '查看详情' : '去发布'}}</span>
         </cell>
