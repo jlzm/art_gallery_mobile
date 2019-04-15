@@ -7,7 +7,7 @@
 
       <div v-else class="input">
         <x-textarea
-          v-model="val"
+          v-model="inputValue"
           ref="text"
           placeholder="说点什么吧!"
           @on-blur="changeState"

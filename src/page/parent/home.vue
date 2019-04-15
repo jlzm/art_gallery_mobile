@@ -84,7 +84,7 @@
                     </div>
                     <div class="detail-item">
                       <div class="label">老师：</div>
-                      <div class="for">{{item.tname}}</div>
+                      <div class="for">{{item.tname}} - {{item.atname}}</div>
                     </div>
                     <div class="detail-item">
                       <div class="label">教室：</div>

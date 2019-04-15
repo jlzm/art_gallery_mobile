@@ -87,7 +87,7 @@ const router = [
     path: '/parent/leave',
     name: 'parentLeave',
     meta: {
-      title: '家长评价老师/课程',
+      title: '家长请假',
       type: 'parent'
     },
     component: resolve => require(['../page/parent/course/Leave'],resolve)

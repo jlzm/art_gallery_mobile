@@ -33,10 +33,10 @@ const router = [
     component: resolve => require(['../page/common/sign/sign'], resolve),
   },
   {
-    path: '/teacher/leaveList',
+    path: '/teacher/leaveList/:crid',
     name: 'teacherleaveList',
     meta: {
-      title: '老师评价学生',
+      title: '请假学生列表',
       type: 'teacher'
     },
     component: resolve => require(['../page/teacher/course/leave/LeaveList'], resolve)

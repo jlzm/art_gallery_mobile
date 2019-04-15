@@ -15,7 +15,7 @@
       </group> -->
     </div>
     <div class="course-panel">
-      <editable-input inputTitle="请假理由" @editchange="editchange" :editable="!leaveStatus.status" :val="leaveStatus.leave_reason"></editable-input>
+      <editable-input inputTitle="请假理由" @editchange="editchange" :editable="!leaveStatus.status" :val="leaveReason"></editable-input>
     </div>
     <div v-if="leaveStatus.status == 1" class="teacher-txt" >
       <span>{{leaveStatus.tname}}:</span>
@@ -66,16 +66,17 @@ export default {
     };
   },
   methods: {
+    editchange(val) {
+      this.leaveReason = val;
+    },
+
     triggerClick() {
       if (this.type !== "parent") {
         this.dbClick(this.$refs.file, "click");
       }
     },
-    editchange(val) {
-      this.comment = val;
-    },
 
-    // 确认评价
+    // 确认提交
     confirmLeave() {
       if (!this.leaveReason) {
         this.$vux.toast.text("请填写请假理由", "middle");
@@ -110,8 +111,11 @@ export default {
       }
       console.log('propsData', propsData);
       API.post('/getLeaveByPage', propsData).then(res => {
-        console.log('res', res.rows[0]);
-        this.leaveStatus = res.rows[0];
+        if(res.rows.length) {
+          console.log('res', res.rows[0]);
+          this.leaveStatus = res.rows[0];
+          this.leaveReason = this.leaveStatus.leave_reason;
+        }
       })
     }
   },

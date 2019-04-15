@@ -1,8 +1,24 @@
 <template>
   <div class="sign">
     <!-- 头部导航 start -->
-    <HeaderNav titleTxt="请假列表"/>
+    <HeaderNav titleTxt="签到信息"/>
     <!-- 头部导航 end -->
+    <card class="card">
+      <div slot="content" class="card-demo-flex card-demo-content01">
+        <div class="vux-1px-r">
+          <span>{{(signStudentList && signStudentList.length) || 0}}</span>
+          <br>本班人数
+        </div>
+        <div class="vux-1px-r">
+          <span>{{(signed && signed.length) || 0}}</span>
+          <br>实到人数
+        </div>
+        <div class="vux-1px-r">
+          <span>{{notSigned}}</span>
+          <br>未到人数
+        </div>
+      </div>
+    </card>
     <div class="student-list">
       <div class="wrapper" ref="wrapper">
         <group>
@@ -35,9 +51,9 @@
         </group>
       </div>
     </div>
-    <div class="btn" v-if="type === 'teacher' && signStudentList.lenght">
-      <x-button class="disabled" v-if="isSign == signStudentList.length" type="primary" disabled>批准完毕</x-button>
-      <x-button v-else type="primary" @click.native="sign()">批准</x-button>
+    <div class="btn" v-if="type === 'teacher'">
+      <x-button class="disabled" v-if="isSign == signStudentList.length" type="primary" disabled>签到完毕</x-button>
+      <x-button v-else type="primary" @click.native="sign()">签到</x-button>
     </div>
   </div>
 </template>
@@ -63,8 +79,9 @@ export default {
   name: "teacherleaveList",
   mixins: [typeMixin],
   mounted() {
-    this.getSignData();
+    this.getLeaveData();
     this.initScroll(); //bs 和 checker一起用的时候会在安卓手机上出现问题
+
   },
   components: {
     Card,
@@ -123,13 +140,14 @@ export default {
       });
     },
     
-    getSignData() {
+    getLeaveData() {
       this.signed = [];
       this.isSign = 0;
-      API.homeAPI
-        .getSignData({
-          crid: this.crid
-        })
+
+      let porpsData = {
+        crid: this.crid
+      }
+      API.post('/getLeaveByPage', porpsData)
         .then(data => {
             console.log(data);
           if (data && data.length) {
