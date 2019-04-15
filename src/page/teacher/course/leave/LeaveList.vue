@@ -4,20 +4,6 @@
     <HeaderNav titleTxt="签到信息"/>
     <!-- 头部导航 end -->
     <card class="card">
-      <div slot="content" class="card-demo-flex card-demo-content01">
-        <div class="vux-1px-r">
-          <span>{{(signStudentList && signStudentList.length) || 0}}</span>
-          <br>本班人数
-        </div>
-        <div class="vux-1px-r">
-          <span>{{(signed && signed.length) || 0}}</span>
-          <br>实到人数
-        </div>
-        <div class="vux-1px-r">
-          <span>{{notSigned}}</span>
-          <br>未到人数
-        </div>
-      </div>
     </card>
     <div class="student-list">
       <div class="wrapper" ref="wrapper">
@@ -29,6 +15,7 @@
             @on-change="changeValue"
             type="checkbox"
           >
+          {{signStudentList}}
             <checker-item
               v-for="(item, index) in signStudentList"
               :key="index"
@@ -150,15 +137,16 @@ export default {
       API.post('/getLeaveByPage', porpsData)
         .then(data => {
             console.log(data);
-          if (data && data.length) {
-            data.forEach((item, index) => {
+          if (data.rows.length) {
+            data.rows.forEach((item, index) => {
               // 签到学生推入
               if (item.ifsign) {
                 this.signed.push(item.sid);
                 this.isSign++;
               }
             });
-            this.signStudentList = data;
+            this.signStudentList = data.rows;
+            console.log('signStudentList', this.signStudentList);
           }
         });
 
