@@ -33,13 +33,23 @@
     </div>
     <div class="course-panel single-panel">
       <group>
-        <cell title="请假信息" is-link :border-intent="false" :link="'./leaveList/' + currentCourse.crid"></cell>
+        <cell
+          title="请假人数"
+          is-link
+          :border-intent="false"
+          :link="'./leaveList/' + currentCourse.crid"
+        >
+          <span class="desc-ms">{{courseStatusData.isLeave || '暂无'}}</span>
+        </cell>
       </group>
     </div>
     <div class="course-panel single-panel">
       <group>
         <cell title="课堂动态" is-link :border-intent="false" link="./trends">
-          <span class="desc-ms" :class="courseStatusData.photoStatus ? 'desc-ms-t' : 'desc-ms-f'">{{courseStatusData.photoStatus  ? '查看详情' : '去发布'}}</span>
+          <span
+            class="desc-ms"
+            :class="courseStatusData.photoStatus ? 'desc-ms-t' : 'desc-ms-f'"
+          >{{courseStatusData.photoStatus ? '查看详情' : '去发布'}}</span>
         </cell>
       </group>
     </div>
@@ -47,7 +57,7 @@
       <group>
         <cell title="评价学生" is-link :border-intent="false" link="./commentList">
           <div>
-            <span style="color: #999999;font-size:.2rem">查看详情</span>
+            <span class="desc-ms">查看详情</span>
           </div>
         </cell>
       </group>
@@ -87,7 +97,7 @@ export default {
     HeaderNav
   },
   mounted() {
-    console.log('userInfo', this.userInfo);
+    console.log("userInfo", this.userInfo);
     this.getCourseStatus();
   },
   data() {
@@ -108,8 +118,9 @@ export default {
     getCourseStatus() {
       let propsData = {
         crid: this.currentCourse.crid,
-        sid: this.userInfo.sid
+        tid: this.userInfo.tid
       };
+      console.log('propsData', propsData);
       api.businessApi.wxgetTeevaluationStatus(propsData).then(res => {
         console.log("res", res);
         this.courseStatusData = res;
