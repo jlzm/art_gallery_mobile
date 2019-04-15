@@ -1,12 +1,13 @@
 <template>
   <div class="sign">
     <!-- 头部导航 start -->
-    <HeaderNav titleTxt="签到信息"/>
+    <HeaderNav titleTxt="请假列表"/>
     <!-- 头部导航 end -->
     <card class="card">
     </card>
     <div class="student-list">
       <div class="wrapper" ref="wrapper">
+         {{signed}}
         <group>
           <checker
             v-model="signed"
@@ -15,7 +16,6 @@
             @on-change="changeValue"
             type="checkbox"
           >
-          {{signStudentList}}
             <checker-item
               v-for="(item, index) in signStudentList"
               :key="index"
@@ -39,8 +39,8 @@
       </div>
     </div>
     <div class="btn" v-if="type === 'teacher'">
-      <x-button class="disabled" v-if="isSign == signStudentList.length" type="primary" disabled>签到完毕</x-button>
-      <x-button v-else type="primary" @click.native="sign()">签到</x-button>
+      <x-button class="disabled" v-if="isSign == signStudentList.length" type="primary" disabled>审批完毕</x-button>
+      <x-button v-else type="primary" @click.native="apply()">同意</x-button>
     </div>
   </div>
 </template>
@@ -153,31 +153,32 @@ export default {
     },
 
     /**
-     * 签到
+     * 同意
      */
-    sign() {
+    apply() {
       if (this.signed.length) {
-        API.homeAPI
-          .consumeStuPeriod({
-            arriveid: this.signed.join(","),
+        let porpsData = {
+            sid: this.signed.join(","),
             crid: this.crid,
-            tid: this.currentCourse.tid
-          })
+            tid: this.currentCourse.tid,
+            status: '1'
+          };
+        API.post('updataLeave', porpsData)
           .then(data => {
-            if (data && parseInt(data.code) === 1) {
+            if (data && data.code == 1) {
               this.$vux.toast.show({
-                text: "签到成功",
+                text: "操作成功",
                 time: 2000,
                 width: "2.5rem"
               });
-              this.getSignData();
+              this.getLeaveData();
             } else {
-                this.$vux.toast.text("签到失败", data.msg);
-              this.getSignData();
+                this.$vux.toast.text("操作失败", data.msg);
+              this.getLeaveData();
             }
           });
       } else {
-        this.$vux.toast.text("请选择学生后再签到", "middle");
+        this.$vux.toast.text("请选择学生后再操作", "middle");
       }
     }
   },
