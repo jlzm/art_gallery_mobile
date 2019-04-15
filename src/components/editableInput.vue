@@ -2,7 +2,7 @@
   <group>
     <div class="editTable needsfocus editable">
       <!-- <div class="editTable needsfocus uneditable" @click="changeEditable" :class="editable ? 'editable' : 'uneditable'"> -->
-      <div class="title" ref="title">评价内容</div>
+      <div class="title" ref="title">{{inputTitle}}</div>
       <div class="showCtn" v-if="!editable">{{inputValue || ''}}</div>
 
       <div v-else class="input">
@@ -37,6 +37,10 @@ export default {
     disabledInput: {
       type: Boolean,
       default: false
+    },
+    inputTitle: {
+      type: String,
+      default: '评价内容'
     }
   },
   data() {

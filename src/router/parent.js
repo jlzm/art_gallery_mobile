@@ -83,6 +83,16 @@ const router = [
     component: resolve => require(['../page/parent/course/commentDetail/commentDetail'],resolve)
   },
   {
+    // 家长请假
+    path: '/parent/leave',
+    name: 'parentLeave',
+    meta: {
+      title: '家长评价老师/课程',
+      type: 'parent'
+    },
+    component: resolve => require(['../page/parent/course/leave'],resolve)
+  },
+  {
     // 报名课程
     path: '/parent/enteredCourse',
     name: 'enteredCourse',

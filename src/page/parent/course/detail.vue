@@ -26,11 +26,19 @@
         <div class="text txt-wrap">{{currentCourse.cdesc}}</div>
       </div>
     </div>
+    
     <div class="course-panel single-panel">
       <group>
         <cell title="签到信息" :border-intent="false">
           <span class="info" v-if="currentCourse.status === 1">{{currentCourse.signtime || '尚未签到'}}</span>
           <span v-else class="info">课程未开始</span>
+        </cell>
+      </group>
+    </div>
+    <div class="course-panel single-panel">
+      <group>
+        <cell title="我要请假" :border-intent="false" is-link link="/parent/leave">
+          <span class="info">未请假</span>
         </cell>
       </group>
     </div>
