@@ -27,6 +27,7 @@
                   <img src="../../../../assets/images/avatar.png" alt v-else>
                 </div>
                 <div slot="title">{{item.sname}}</div>
+                <div slot="title" class="leave-desc">请假理由：{{item.leave_reason}}</div>
                 <div>
                   <icon type="success" v-show="(~signed.indexOf(item.sid))"></icon>
                   <icon type="success" v-show="!(~signed.indexOf(item.sid))" class="not-check"></icon>
@@ -284,5 +285,11 @@ export default {
       background: #c3c3c3;
     }
   }
+}
+
+.leave-desc {
+  margin-top: .08rem;
+  font-size: .24rem;
+  color:rgba(0, 0, 0, .7);
 }
 </style>
