@@ -12,7 +12,7 @@
         </div>
         <div class="inline-item">
           <div class="label">老师：</div>
-          <div class="for">{{currentCourse.tname}}</div>
+          <div class="for">{{currentCourse.tname}} - {{currentCourse.atname}}</div>
         </div>
         <div class="inline-item">
           <div class="label">地点：</div>

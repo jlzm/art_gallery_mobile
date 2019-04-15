@@ -20,8 +20,8 @@
           >
             <template>
               <div class="item-title vux-1px-b">
-                <div class="date">{{item.cdate}} ({{item.weeknum}})</div>
-                <div class="number">{{item.period_need}}课时</div>
+                <div class="title-main">{{item.cdate}} ({{item.weeknum}})</div>
+                <div class="title-meta">{{item.period_need}}课时</div>
               </div>
               <div class="course-info">
                 <div class="className">{{item.cname}}</div>
@@ -32,7 +32,7 @@
                   </div>
                   <div class="detail-item">
                     <div class="label">老师:</div>
-                    <div class="for">{{item.tname}}</div>
+                    <div class="for">{{item.tname}} - {{item.atname}}</div>
                   </div>
                   <div class="detail-item">
                     <div class="label">地点:</div>
@@ -128,6 +128,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url('../../../../assets/css/activityCourse/public.less');
 .entered-course {
   height: 100vh;
   background-color: #f5f7fa;

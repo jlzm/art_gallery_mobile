@@ -27,7 +27,7 @@
               <div class="dib course-item-info vat txt-omit">
                 <p>
                   <span class="info-title">老师：</span>
-                  <span class="info-desc">{{item.tname}}</span>
+                  <span class="info-desc">{{item.tname}} - {{item.atname}}</span>
                 </p>
                 <p>
                   <span class="info-title">日期：</span>

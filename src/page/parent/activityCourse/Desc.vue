@@ -13,7 +13,7 @@
           <div class="dib course-item-info vat">
             <p>
               <span class="info-title">活动老师：</span>
-              <span class="info-desc">{{currentData.tname || ''}}</span>
+              <span class="info-desc">{{currentData.tname || ''}} - {{currentData.atname || ''}}</span>
             </p>
             <p>
               <span class="info-title">活动日期：</span>
