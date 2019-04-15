@@ -33,7 +33,7 @@
     </div>
     <div class="course-panel single-panel">
       <group>
-        <cell title="请假信息" is-link :border-intent="false" link="/teacher/leaveList"></cell>
+        <cell title="请假信息" is-link :border-intent="false" :link="'./teacher/leaveList' + currentCourse.crid"></cell>
       </group>
     </div>
     <div class="course-panel single-panel">
