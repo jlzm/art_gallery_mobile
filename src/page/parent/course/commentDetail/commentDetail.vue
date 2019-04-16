@@ -90,7 +90,7 @@ export default {
         this.$vux.toast.text("请填写评价", "middle");
         return;
       }
-      if(!this.teacherRater || this.courseRater) {
+      if(!this.teacherRater || !this.courseRater) {
         this.$vux.toast.text("请对课程和老师评分", "middle");
         return;
       }
