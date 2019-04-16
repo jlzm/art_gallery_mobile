@@ -218,6 +218,7 @@ export default {
 }
 
 .teacher-txt {
+  padding: 0 0.32rem;
   font-size: .28rem;
 }
 </style>
