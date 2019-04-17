@@ -5,7 +5,12 @@ const login = (state, payLoad) => {
 const saveCurrentCourse = (state, currentCourse) => {
   state.currentCourse = currentCourse;
 };
+
+const accountInfo = (state, account) => {
+  state.userAccountInfo = Object.assign({}, account);
+}
 export {
   login,
+  accountInfo,
   saveCurrentCourse
 };

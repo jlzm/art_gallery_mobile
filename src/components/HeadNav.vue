@@ -90,6 +90,7 @@ export default {
      */
     loginOut() {
       this.$store.commit("login", {});
+      this.$store.commit("accountInfo", {});
       this.$router.push({
         path: "/login"
       });

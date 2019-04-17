@@ -7,7 +7,7 @@
           @on-click-more="headShowMore = true"
           style="background-color:#f9f9f9"
           :left-options="{ showBack: false}"
-          :right-options="{ showMore: true }"
+          :right-options="{ showMore: showMore }"
         >
           <span class="title-txt dib">{{titleTxt}}</span>
         </x-header>
@@ -50,6 +50,10 @@ export default {
       type: String,
       default: "会员中心"
     },
+    showMore: {
+      type: Boolean,
+      default: true
+    },
     preventGoBack: {
       type: String,
       default: "false"
@@ -76,6 +80,7 @@ export default {
      */
     loginOut() {
       this.$store.commit("login", {});
+      this.$store.commit("accountInfo", {});
       this.$vux.toast.text("成功登出", "top");
       this.$router.push({
         path: "/login"

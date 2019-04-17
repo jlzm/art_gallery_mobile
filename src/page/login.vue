@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 头部导航 start -->
-    <HomeHeadNav titleTxt="登入"/>
+    <HomeHeadNav :showMore="false" titleTxt="登入"/>
     <!-- 头部导航 end -->
     <div class="login">
       <div class="login-ctn">
@@ -41,6 +41,7 @@ import HomeHeadNav from "../components/HomeHeadNav";
 
 import { Group, Cell, XInput, XButton } from "vux";
 import API from "@/api/apiFactory";
+import { mapState } from 'vuex';
 
 export default {
   name: "login",
@@ -50,6 +51,14 @@ export default {
     XInput,
     XButton,
     HomeHeadNav
+  },
+  mounted() {
+    this.autoLogin();
+  },
+  computed: {
+    ...mapState({
+      userAccountInfo: 'userAccountInfo'
+    })
   },
   data() {
     return {
@@ -76,6 +85,33 @@ export default {
     };
   },
   methods: {
+    /**
+     * 自动登入
+     */
+    autoLogin() {
+      if(!Object.keys(this.userAccountInfo).length) return;
+      console.log('自动登入');
+      let propsData = {
+        validate: this.userAccountInfo.codes,
+        phone: this.userAccountInfo.phone,
+        openid: ""
+      };
+      API.post('/applogin', propsData).then(data => {
+        console.log("data", data);
+        this.canCommit = true;
+        if (data && parseInt(data.code) === 1) {
+          this.$vux.toast.text("成功登入", "top");
+          if (data.wxUser.role) {
+            this.$store.commit("login", data.wxUser);
+            this.$router.push("./" + data.wxUser.role);
+          }
+        } else {
+          this.$store.commit("accountInfo", {});
+          return;
+        }
+      });
+    },
+
     /**
      * 获取手机验证码
      */
@@ -143,6 +179,11 @@ export default {
     bind() {
       //  && this.validate.name.valid
       if (this.validate.code.valid && this.validate.phone.valid) {
+        let account = {
+          phone: this.loginForm.phone,
+          codes: this.loginForm.codes,
+        }
+        this.$store.commit("accountInfo", account);
         this.postLogin();
       } else {
         this.$vux.toast.text("请完善输入框", "middle");
