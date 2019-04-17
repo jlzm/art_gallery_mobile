@@ -140,7 +140,7 @@ export default {
           if (data.rows.length) {
             data.rows.forEach((item, index) => {
               // 签到学生推入
-              if (item.status) {
+              if (item.status != 0) {
                 this.signed.push(item.sid);
                 this.isSign++;
               }
