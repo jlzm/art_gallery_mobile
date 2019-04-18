@@ -53,7 +53,7 @@
         </cell>
       </group>
     </div>
-    <div class="course-panel single-panel">
+    <div v-if="courseStatusData.showTee" class="course-panel single-panel">
       <group>
         <cell title="评价学生" is-link :border-intent="false" link="./commentList">
           <div>
@@ -62,7 +62,7 @@
         </cell>
       </group>
     </div>
-    <div class="course-panel single-panel">
+    <div v-if="courseStatusData.showTee" class="course-panel single-panel">
       <group>
         <cell
           title="家长评价"
