@@ -40,7 +40,7 @@
     <div class="course-panel single-panel">
       <group>
         <cell title="我要请假" :border-intent="false" is-link link="/parent/leave">
-          <span class="info">{{courseStatusData.isLeave !=0 ? '已请假' : '未请假' }}</span>
+          <span class="info">{{courseStatusData.isLeave == 1 ? '审批中' : courseStatusData.isLeave == 2 ? '已通过' : '未请假'}}</span>
         </cell>
       </group>
     </div>
