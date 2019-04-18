@@ -29,7 +29,6 @@ router.beforeEach((to, from, next) => {
   let path = to.path;
   const isLogin = store.state.userInfo;
   const isAccount = store.state.userAccountInfo;
-  console.log('from', from  );
   if (path == '/login') {
     if(Object.keys(isAccount).length) {
       switch (isLogin.role) {
@@ -76,11 +75,7 @@ router.beforeEach((to, from, next) => {
   else {
 
     if(Object.keys(isLogin).length) {
-          console.log('isLogin', isLogin);
-          console.log('path', path);
-          console.log(path.indexOf(isLogin.role));
             if(path.indexOf(isLogin.role) != -1) {
-              console.log('from.pathaaa', from.path);
               next();
             } else {
               next({

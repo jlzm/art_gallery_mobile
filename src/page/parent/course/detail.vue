@@ -26,11 +26,10 @@
         <div class="text txt-wrap">{{currentCourse.cdesc}}</div>
       </div>
     </div>
-    
     <div class="course-panel single-panel">
       <group>
         <cell title="签到信息" :border-intent="false">
-          <span class="info" v-if="currentCourse.status === 1">{{currentCourse.signtime || '尚未签到'}}</span>
+          <span class="info" v-if="currentCourse.status === 1">{{signtime || '尚未签到'}}</span>
           <span v-else class="info">课程未开始</span>
         </cell>
       </group>
@@ -47,7 +46,7 @@
         <cell title="课堂动态" is-link :border-intent="false" link="./trends/photo">
           <span
             class="info"
-          >{{(!courseStatusData.photoStatus || !courseStatusData.viewCount) ? '未评价' : '查看详情'}}</span>
+          >{{!courseStatusData.photoStatus ? '未发布' : '查看详情'}}</span>
         </cell>
       </group>
     </div>
@@ -104,13 +103,14 @@ export default {
   },
   data() {
     return {
+      signtime: '',
       courseStatusData: {}
     };
   },
-  mounted() {
+  created() {
     this.interceptTime();
-    console.log(this.userInfo.sid);
-    console.log("currentCourse", this.currentCourse);
+  },
+  mounted() {
     this.getCourseStatus();
   },
   methods: {
@@ -118,9 +118,10 @@ export default {
      * 报名时间格式截取
      */
     interceptTime() {
+      console.log('this.currentCourse', this.currentCourse);
       let time = this.currentCourse.signtime;
       let index = time.lastIndexOf(":");
-      this.currentCourse.signtime = time.substring(0, index);
+      this.signtime = time.substring(0, index);
     },
 
     /**

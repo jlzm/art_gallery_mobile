@@ -10,7 +10,7 @@
             <img :src="teacherInfo.headimgurl" alt v-if="teacherInfo.headimgurl">
             <img src="@/assets/images/avatar.png" alt v-else>
           </div>
-          <div slot="title">{{teacherInfo.tname}}</div>
+          <div slot="title">{{teacherInfo.tname}} - {{teacherInfo.atname}}</div>
         </cell>
       </group>
     </div>
