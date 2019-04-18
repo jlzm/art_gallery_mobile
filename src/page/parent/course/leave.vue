@@ -19,7 +19,7 @@
     </div>
     <div v-if="leaveStatus.status" class="teacher-txt" >
       <span v-if="leaveStatus.status == 2">{{leaveStatus.tname}}:</span>
-      <span>{{leaveStatus.status == 1? '审判中' : '通过' }}</span>
+      <span>{{leaveStatus.status == 1? '审批中' : '通过' }}</span>
     </div>
     <div class="btn">
       <x-button v-if="!leaveStatus.status" class="ago"  type="primary" @click.native="confirmLeave()">确认请假</x-button>
