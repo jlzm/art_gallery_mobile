@@ -18,7 +18,7 @@
       <editable-input inputTitle="请假理由" @editchange="editchange" :editable="!leaveStatus.status" :val="leaveReason"></editable-input>
     </div>
     <div v-if="leaveStatus.status" class="teacher-txt" >
-      <span>{{leaveStatus.tname}}:</span>
+      <span v-if="leaveStatus.status == 2">{{leaveStatus.tname}}:</span>
       <span>{{leaveStatus.status == 1? '审判中' : '通过' }}</span>
     </div>
     <div class="btn">
