@@ -166,8 +166,9 @@ export default {
           if (data.url) {
             data.url = data.url.split(',')
             data.url.forEach(item => {
+              console.log('item', global.IMGURL + item);
               this.viewImgList.push({
-                src:global.BASEURL + '/getImgUrl?ftype=photo&imgurl='+ item 
+                src:global.IMGURL + item 
               })
             })
           }
