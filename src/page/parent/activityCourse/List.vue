@@ -17,6 +17,7 @@
               <div class="title-meta">{{item.period_need}}课时</div>
             </div>
             <div class="por course-item-content">
+              
               <div class="dib course-item-img vat">
                 <img
                   :src="item.cpicture"
@@ -83,6 +84,7 @@ import { mapState } from "vuex";
 import { XButton, Alert, Confirm } from "vux";
 
 import BScroll from "better-scroll";
+import global from '../../../global/global';
 export default {
   // 混入
   mixins: [pubilcFn],
@@ -267,6 +269,7 @@ export default {
           default:
             break;
         }
+        item.cpicture = global.IMGURL + item.cpicture;
       });
     }
   }
