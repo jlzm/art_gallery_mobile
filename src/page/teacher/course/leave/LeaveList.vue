@@ -38,7 +38,7 @@
         </group>
       </div>
     </div>
-    <div class="btn" v-if="type === 'teacher'">
+    <div class="btn" v-if="type === 'teacher' && signStudentList.length">
       <x-button class="disabled" v-if="isSign == signStudentList.length" type="primary" disabled>审批完毕</x-button>
       <x-button v-else type="primary" @click.native="apply()">同意</x-button>
     </div>
@@ -161,7 +161,7 @@ export default {
             sid: this.signed.join(","),
             crid: this.crid,
             tid: this.currentCourse.tid,
-            status: '1'
+            status: '2'
           };
         API.post('updataLeave', porpsData)
           .then(data => {
