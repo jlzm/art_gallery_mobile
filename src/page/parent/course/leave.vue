@@ -17,9 +17,9 @@
     <div class="course-panel">
       <editable-input inputTitle="请假理由" @editchange="editchange" :editable="!leaveStatus.status" :val="leaveReason"></editable-input>
     </div>
-    <div v-if="leaveStatus.status == 1" class="teacher-txt" >
+    <div v-if="leaveStatus.status" class="teacher-txt" >
       <span>{{leaveStatus.tname}}:</span>
-      <span>同意</span>
+      <span>{{leaveStatus.status == 1? '审判中' : '通过' }}</span>
     </div>
     <div class="btn">
       <x-button v-if="!leaveStatus.status" class="ago"  type="primary" @click.native="confirmLeave()">确认请假</x-button>
