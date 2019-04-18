@@ -3,7 +3,7 @@
     <!-- 头部导航 start -->
     <HeaderNav titleTxt="家长评价课程/老师"/>
     <!-- 头部导航 end -->
-    <div class="course-panel">
+    <!-- <div class="course-panel">
       <group>
         <cell :border-intent="false">
           <div class="avatar" slot="icon">
@@ -13,7 +13,7 @@
           <div slot="title">{{teacherInfo.tname}} - {{teacherInfo.atname}}</div>
         </cell>
       </group>
-    </div>
+    </div> -->
     <div class="course-panel">
       <editable-input @editchange="editchange" :editable="!hasComment" :val="comment"></editable-input>
     </div>

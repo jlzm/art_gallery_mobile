@@ -4,7 +4,10 @@
     <HeaderNav titleTxt="课程详情"/>
     <!-- 头部导航 end -->
     <div class="course-panel">
-      <div class="panel-title">{{currentCourse.cname}}</div>
+      <div class="df df-sb panel-title">
+        <span >{{currentCourse.cname}}</span> 
+        <span >{{currentCourse.cdate}}</span> 
+      </div>
       <div class="panel-content">
         <div class="inline-item">
           <div class="label">时间</div>

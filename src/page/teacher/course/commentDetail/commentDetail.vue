@@ -18,7 +18,7 @@
           </div>
         </cell>
       </group>
-      <group v-else>
+      <!-- <group v-else>
         <cell  :border-intent="false" >
           <div class="avatar" slot="icon">
             <img :src="commentDetail.headimgurl" alt="" v-if="commentDetail.headimgurl">
@@ -31,7 +31,7 @@
             {{commentDetail.instime && commentDetail.instime.slice(5,16)}}
           </div>
         </cell>
-      </group>
+      </group> -->
     </div>
     <div class="course-panel">
       <editable-input @editchange="editchange" :editable = "!hasComment&&isTeacher" :val="commentDetail.tev">

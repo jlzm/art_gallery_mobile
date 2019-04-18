@@ -98,6 +98,10 @@ img {
     justify-content: space-around; 
 }
 
+.df-sb {
+  justify-content: space-between
+}
+
 .fx1 {
   flex: 1;
 }
