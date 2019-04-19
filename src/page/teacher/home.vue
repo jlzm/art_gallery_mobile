@@ -62,7 +62,10 @@
         </div>-->
       </div>
       <div class="bottom-class">
-        <div class="class-title">本周课程</div>
+        <div class="class-title dib">
+          <button :disabled="thisWeekData"  @click="thisWeek()" :class="thisWeekData ? 'week-this' : 'week-down'" class="dib week-btn">本周课程</button>
+          <button :disabled="!thisWeekData" @click="downWeek()" :class="thisWeekData ? 'week-down' : 'week-this'" class="dib week-btn">下周课程</button>
+        </div>
         <div class="class-content">
           <div class="class-week">
             <div
@@ -147,6 +150,8 @@ export default {
   },
   data() {
     return {
+      thisWeekData: true,
+
       /** jlzm start */
       headShowMore: false,
       menus: {
@@ -166,6 +171,49 @@ export default {
     };
   },
   methods: {
+        /**
+     * 获取前后日期方法
+     */
+    funDate(currentTime, dayNum) {
+      let month = null,
+        day = null;
+
+      let date = new Date(currentTime);
+      // console.log('date', date);
+      date.setDate(date.getDate() + dayNum);
+      date.getMonth() + 1 < 10
+        ? (month = "0" + (date.getMonth() + 1))
+        : (month = date.getMonth() + 1);
+      date.getDate() < 10
+        ? (day = "0" + date.getDate())
+        : (day = date.getDate());
+      let time = `${date.getFullYear()}-${month}-${day}`;
+      // console.log('time', time);
+      return time;
+    },
+
+        /**
+     * 本周课程
+     */
+    thisWeek() {
+      if(this.thisWeekData) return;
+      this.getWeekData();
+      this.getWeekClass();
+      this.thisWeekData = true;
+    },
+
+    /**
+     * 下周课程
+     */
+    downWeek() {
+      if(!this.thisWeekData) return;
+      this.weekData.begindate = this.funDate(this.weekData.begindate, 7);
+      this.weekData.enddate = this.funDate(this.weekData.enddate, 7);
+      console.log("this.weekData", this.weekData);
+      this.getWeekClass();
+      this.thisWeekData = false;
+    },
+
     /** jlzm start */
 
     showMore() {},
@@ -650,4 +698,21 @@ export default {
   }
 }
 
+
+.week-btn {
+  // background: #4bb9c2;
+  margin: 0 0.2rem;
+  padding: .13rem 0.2rem;
+  color: #fff;
+  border-radius: 0.08rem;
+  border:none;
+}
+
+.week-this {
+  background: #ccc;
+}
+
+.week-down {
+  background: #4BB9C2;
+}
 </style>
