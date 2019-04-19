@@ -19,7 +19,7 @@
               v-for="(item, index) in signStudentList"
               :key="index"
               :value="item.sid"
-              :disabled="item.status == 1"
+              :disabled="item.status == 2"
             >
               <cell>
                 <div class="avatar" slot="icon">
@@ -140,7 +140,7 @@ export default {
           if (data.rows.length) {
             data.rows.forEach((item, index) => {
               // 签到学生推入
-              if (item.status != 0) {
+              if (item.status == 2) {
                 this.signed.push(item.sid);
                 this.isSign++;
               }

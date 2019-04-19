@@ -167,12 +167,14 @@ export default {
      */
     sign() {
       if (this.signed.length) {
-        API.homeAPI
-          .consumeStuPeriod({
-            arriveid: this.signed.join(","),
+        let propsData = {
+          arriveid: this.signed.join(","),
             crid: this.crid,
             tid: this.currentCourse.tid
-          })
+        }
+        console.log('propsData', propsData);
+        API.homeAPI
+          .consumeStuPeriod(propsData)
           .then(data => {
             if (data && parseInt(data.code) === 1) {
               this.$vux.toast.show({
