@@ -53,7 +53,7 @@
         </cell>
       </group>
     </div>
-    <div v-if="courseStatusData.showTee" class="course-panel single-panel">
+    <div v-if="courseStatusData.showTee != 0" class="course-panel single-panel">
       <group v-if="this.type==='parent'">
         <cell
           title="老师评价"
@@ -68,7 +68,8 @@
         </cell>
       </group>
     </div>
-    <div v-if="courseStatusData.showTee" class="course-panel single-panel">
+
+    <div v-if="courseStatusData.showTee != 0" class="course-panel single-panel">
       <group>
         <cell
           title="评价课程"
