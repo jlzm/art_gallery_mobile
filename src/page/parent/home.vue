@@ -52,7 +52,10 @@
         </div>
       </div>
       <div class="bottom-class">
-        <div class="class-title">本周课程</div>
+        <div class="class-title dib">
+          <button :disabled="thisWeekData"  @click="thisWeek()" :class="thisWeekData ? 'week-this' : 'week-down'" class="dib week-btn">本周课程</button>
+          <button :disabled="!thisWeekData" @click="downWeek()" :class="thisWeekData ? 'week-down' : 'week-this'" class="dib week-btn">下周课程</button>
+        </div>
         <div class="class-content">
           <div class="class-week">
             <div
@@ -139,6 +142,7 @@ export default {
   },
   data() {
     return {
+      thisWeekData: true,
       tabArr: ["一", "二", "三", "四", "五", "六", "日"],
       activeIndex: 0,
       scroll: {},
@@ -156,6 +160,49 @@ export default {
     };
   },
   methods: {
+    /**
+     * 获取前后日期方法
+     */
+    funDate(currentTime, dayNum) {
+      let month = null,
+        day = null;
+
+      let date = new Date(currentTime);
+      // console.log('date', date);
+      date.setDate(date.getDate() + dayNum);
+      date.getMonth() + 1 < 10
+        ? (month = "0" + (date.getMonth() + 1))
+        : (month = date.getMonth() + 1);
+      date.getDate() < 10
+        ? (day = "0" + date.getDate())
+        : (day = date.getDate());
+      let time = `${date.getFullYear()}-${month}-${day}`;
+      // console.log('time', time);
+      return time;
+    },
+
+    /**
+     * 本周课程
+     */
+    thisWeek() {
+      if(this.thisWeekData) return;
+      this.getWeekData();
+      this.getWeekClass();
+      this.thisWeekData = true;
+    },
+
+    /**
+     * 下周课程
+     */
+    downWeek() {
+      if(!this.thisWeekData) return;
+      this.weekData.begindate = this.funDate(this.weekData.begindate, 7);
+      this.weekData.enddate = this.funDate(this.weekData.enddate, 7);
+      console.log("this.weekData", this.weekData);
+      this.getWeekClass();
+      this.thisWeekData = false;
+    },
+
     /**获取当前星期 */
     getWeekDay() {
       let date = new Date();
@@ -229,6 +276,7 @@ export default {
     stepToHistory() {
       this.$router.push("./history");
     },
+
     format(time) {
       let day = time.getDate();
       let month = time.getMonth() + 1;
@@ -297,6 +345,7 @@ export default {
           }
         });
     },
+
     // 获取排课
     getWeekClass() {
       this.weekClassData = [];
@@ -318,15 +367,17 @@ export default {
               if (~studentsIds.indexOf(this.userInfo.sid)) {
                 this.weekClassData[index].push(item);
                 this.weekClassData[index].forEach(item => {
-                let cdate = item.cdate;
-                let index = cdate.lastIndexOf("-");  
-                item.cdate = cdate.substring(index-2, cdate.length);
-              })
+                  let cdate = item.cdate;
+                  let index = cdate.lastIndexOf("-");
+                  item.cdate = cdate.substring(index - 2, cdate.length);
+                });
               }
             });
             this.$forceUpdate();
           } else {
-            this.$vux.toast.text("本周暂无课程安排", "middle");
+            let msg = '';
+            this.thisWeekData ? msg = '本周暂无课程安排' : msg = '下周暂无课程安排';
+            this.$vux.toast.text(msg, "middle");
           }
         });
     }
@@ -642,5 +693,22 @@ export default {
       }
     }
   }
+}
+
+.week-btn {
+  // background: #4bb9c2;
+  margin: 0 0.2rem;
+  padding: .1rem 0.2rem;
+  color: #fff;
+  border-radius: 0.08rem;
+  border:none;
+}
+
+.week-this {
+  background: #ccc;
+}
+
+.week-down {
+  background: #4BB9C2;
 }
 </style>
