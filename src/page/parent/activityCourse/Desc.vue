@@ -128,7 +128,6 @@ export default {
             this.applyMsg.title = "成功";
             this.applyMsg.desc = res.msg;
             this.pagenum = 1;
-            this.getActiveData();
             break;
 
           default:
@@ -136,6 +135,7 @@ export default {
             this.applyMsg.desc = res.msg;
             break;
         }
+        this.getCourseDesc();
       });
     },
 
