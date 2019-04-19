@@ -698,7 +698,7 @@ export default {
 .week-btn {
   // background: #4bb9c2;
   margin: 0 0.2rem;
-  padding: .1rem 0.2rem;
+  padding: .13rem 0.2rem;
   color: #fff;
   border-radius: 0.08rem;
   border:none;
