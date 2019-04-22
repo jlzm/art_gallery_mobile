@@ -49,14 +49,6 @@
                   <span class="info-desc">{{item.room}}</span>
                 </p>
               </div>
-              <div class="course-item-btn">
-                <button
-                  @click.stop="apply(item.crid)"
-                  :disabled="item.cstatus != 0"
-                  class="poa btn-content"
-                  :class=" item.cstatus == '0' ? 'btn-status1' : 'btn-status2' "
-                >{{item.btnTxt}}</button>
-              </div>
             </div>
           </div>
           <p class="more" v-if="showMore">{{info}}</p>

@@ -55,6 +55,11 @@
             <img src="@/assets/images/home/teacher_1.png" alt>
           </div>
         </div>
+        <div class="history history-1">
+          <div class="plate-left" @click="gotoACourse()">
+            <img src="@/assets/images/home/parent_1.png" alt>
+          </div>
+        </div>
         <!-- <div class="history history-1">
           <div class="plate-right" @click="gotoAttendence()">
             <img src="@/assets/images/home/teacher_2.png" alt="">
@@ -171,8 +176,10 @@ export default {
     };
   },
   methods: {
-        /**
-     * 获取前后日期方法
+    
+
+    /**
+     * 加减日期方法
      */
     funDate(currentTime, dayNum) {
       let month = null,
@@ -286,8 +293,8 @@ export default {
     gotoHistory() {
       this.$router.push("./history");
     },
-    gotoAttendence(e) {
-      this.$router.push("./attendence/1");
+    gotoACourse () {
+      this.$router.push("./activityCourse/list");
     },
     // 获取一周开始与结束
     getWeekData() {

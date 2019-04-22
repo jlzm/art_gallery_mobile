@@ -115,6 +115,17 @@ const router = [
       type: 'teacher'
     },
     component: resolve => require(['../page/common/history/history'], resolve)
+  },
+
+  // 活动课程
+  {
+    path: '/teacher/activityCourse/list',
+    name: 'teacherCourseList',
+    meta: {
+      title: '上课历史记录',
+      type: 'teacher'
+    },
+    component: resolve => require(['../page/teacher/activityCourse/List'], resolve)
   }
 ]
 export default router
