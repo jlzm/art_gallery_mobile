@@ -126,7 +126,7 @@ export default {
     this.$nextTick(() => {
       this.initScroll();
     });
-    this.getActiveData();
+    this.getActiveData(this.courseStatus);
   },
   methods: {
     /**
@@ -135,6 +135,7 @@ export default {
     onItemClick(status) {
       this.courseStatus = status;
       console.log('this.courseStatus', this.courseStatus);
+      this.getActiveData(this.courseStatus);
     },
 
     /**
@@ -195,8 +196,6 @@ export default {
         }
       };
       const winHeight = window.innerHeight - 90;
-      console.log(winHeight);
-      console.log(this.$refs.wrapper);
       this.$refs.wrapper.style.height = winHeight + "px";
       this.scroll = new BScroll(this.$refs.wrapper, options);
       this.scroll.on("pullingUp", () => {
@@ -206,7 +205,7 @@ export default {
           return;
         }
         this.pagenum++;
-        this.getActiveData();
+        this.getActiveData(this.courseStatus);
       });
     },
 
@@ -224,16 +223,17 @@ export default {
      * 获取活动课程列表
      * 作者：jlzm
      */
-    getActiveData() {
+    getActiveData(wxstatus) {
+      console.log('this.userInfo', this.userInfo);
       let propsData = {
-        wsid: this.userInfo.sid,
+        tid: this.userInfo.tid,
         page: this.pagenum,
         rows: this.pageSize,
-        status: 0,
+        wxstatus: 0,
         ctype: 2
       };
       console.log("propsData", propsData);
-      API.homeAPI.getCourseByPage(propsData).then(res => {
+      API.post('wxTeacherCourse', propsData).then(res => {
         console.log("res", res);
         if (res.total <= 0) {
           this.$vux.toast.text("暂无数据", "middle");
