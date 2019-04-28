@@ -291,23 +291,36 @@ export default {
     },
     // 获取一周开始与结束
     getWeekData() {
-      const ONE_DAY = 1000 * 60 * 60 * 24;
-      let time = new Date();
-      let day = time.getDate();
-      let month = time.getMonth() + 1;
-      let year = time.getFullYear();
-      // 获取纯粹的时间，从0点开始
-      let pureDate = new Date(year + "/" + month + "/" + day);
-      if (time.getDay !== 0) {
-        let startDate = new Date(
-          pureDate.getTime() - (time.getDay() - 1) * ONE_DAY
-        );
-        let endDate = new Date(
-          pureDate.getTime() + (7 - time.getDay()) * ONE_DAY
-        );
-        this.weekData.begindate = this.format(startDate);
-        this.weekData.enddate = this.format(endDate);
-      }
+            const ONEDAYTIME = 1 * 1000 * 60 * 60 * 24;
+      let today = util.getTime(new Date());
+      let [minusTime, plusTime] = [0, 0];
+      // 重新组装日期,保证不出现时分秒影响
+      let todayTime = new Date(
+        today.year + "-" + today.month + "-" + today.day
+      ).getTime();
+
+      let weekStart, weekEnd;
+      let formatStr = dateJson => {
+        return dateJson.year + "-" + dateJson.month + "-" + dateJson.day;
+      };
+
+      // 计算一周剩余时间
+
+      minusTime = ((6 + today.weeknum) % 7) * ONEDAYTIME;
+      plusTime = ((7 - today.weeknum) % 7) * ONEDAYTIME;
+      // 周一和周日的时间戳
+      weekStart = new Date(todayTime - minusTime);
+
+      weekEnd = new Date(todayTime + plusTime);
+      console.log("weekStart", weekStart);
+      console.log("weekEnd", weekEnd);
+      // 周一和周日的日期
+      let startDateJson = util.getTime(weekStart);
+      let endDateJson = util.getTime(weekEnd);
+      let date = [formatStr(startDateJson), formatStr(endDateJson)];
+      console.log("date", date);
+      this.weekData.begindate = date[0];
+      this.weekData.enddate = date[1];
       console.log("this.weekData", this.weekData);
     },
     // 获取用户信息

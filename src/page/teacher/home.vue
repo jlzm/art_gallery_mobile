@@ -336,6 +336,7 @@ export default {
       console.log("date", date);
       this.weekData.begindate = date[0];
       this.weekData.enddate = date[1];
+      
     },
     // 获取用户信息
     getUserInfo() {
