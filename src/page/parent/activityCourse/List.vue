@@ -5,8 +5,8 @@
     <!-- 头部导航 end -->
     <div class="tab-wrap">
           <tab bar-active-color="#58b9c1" active-color="#58b9c1">
-          <tab-item  selected @on-item-click="onItemClick(1)">火热报名</tab-item>
-          <tab-item @on-item-click="onItemClick(2)">往期活动</tab-item>
+          <tab-item  selected @on-item-click="onItemClick('0')">火热报名</tab-item>
+          <tab-item @on-item-click="onItemClick('1')">往期活动</tab-item>
     </tab>
     </div>
     <div class="course-wrap">
@@ -31,8 +31,8 @@
                   alt
                 >
               </div>
-              <div class="dib course-item-info vat txt-omit">
-                <p>
+              <div class="dib course-item-info vat">
+                <p class="txt-omit">
                   <span class="info-title">老师：</span>
                   <span class="info-desc">{{item.tname}} - {{item.atname}}</span>
                 </p>
@@ -106,7 +106,7 @@ export default {
 
   data() {
     return {
-      courseStatus: 1,
+      courseStatus: '0',
       currentCrid: null,
       showConfirm: false,
       applyMsg: {
@@ -143,6 +143,7 @@ export default {
     onItemClick(status) {
       this.courseStatus = status;
       console.log('this.courseStatus', this.courseStatus);
+      this.getActiveData();
     },
 
     /**
@@ -238,7 +239,8 @@ export default {
         page: this.pagenum,
         rows: this.pageSize,
         status: 0,
-        ctype: 2
+        ctype: 2,
+        wxstatus: this.courseStatus
       };
       console.log("propsData", propsData);
       API.homeAPI.getCourseByPage(propsData).then(res => {
@@ -301,8 +303,8 @@ export default {
 
 .course-item {
   background: #fff;
-  margin-bottom: 0.32rem;
-  padding: 0 0.32rem;
+  // margin-bottom: 0.32rem;
+  padding: 0 0.32rem 0.32rem;
   .course-item-title {
     padding: 0.24rem 0;
     justify-content: space-between;
@@ -328,8 +330,8 @@ export default {
     }
     .course-item-info {
       line-height: 0.4rem;
-      width: 5.16rem;
-      height: 1.54rem;
+      width: 4.2rem;
+      // height: 1.54rem;
       font-size: 0.24rem;
       .info-title {
         color: #666;

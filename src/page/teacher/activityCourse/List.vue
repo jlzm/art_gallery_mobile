@@ -5,8 +5,8 @@
     <!-- 头部导航 end -->
     <div class="tab-wrap">
           <tab bar-active-color="#58b9c1" active-color="#58b9c1">
-          <tab-item  selected @on-item-click="onItemClick(1)">火热报名</tab-item>
-          <tab-item @on-item-click="onItemClick(2)">往期活动</tab-item>
+          <tab-item  selected @on-item-click="onItemClick('0')">火热报名</tab-item>
+          <tab-item @on-item-click="onItemClick('1')">往期活动</tab-item>
     </tab>
     </div>
     <div class="course-wrap">
@@ -31,8 +31,8 @@
                   alt
                 >
               </div>
-              <div class="dib course-item-info vat txt-omit">
-                <p>
+              <div class="dib course-item-info vat">
+                <p class="txt-omit">
                   <span class="info-title">老师：</span>
                   <span class="info-desc">{{item.tname}} - {{item.atname}}</span>
                 </p>
@@ -98,7 +98,7 @@ export default {
 
   data() {
     return {
-      courseStatus: 1,
+      courseStatus: '0',
       currentCrid: null,
       showConfirm: false,
       applyMsg: {
@@ -126,7 +126,7 @@ export default {
     this.$nextTick(() => {
       this.initScroll();
     });
-    this.getActiveData(this.courseStatus);
+    this.getActiveData();
   },
   methods: {
     /**
@@ -135,7 +135,7 @@ export default {
     onItemClick(status) {
       this.courseStatus = status;
       console.log('this.courseStatus', this.courseStatus);
-      this.getActiveData(this.courseStatus);
+      this.getActiveData();
     },
 
     /**
@@ -178,7 +178,7 @@ export default {
      * 跳转活动课程详情页
      */
     routerCourse(item) {
-      const path = "/parent/activityCourse/desc";
+      const path = "/teacher/activityCourse/desc";
       let query = {
         crid: item.crid
       };
@@ -196,6 +196,8 @@ export default {
         }
       };
       const winHeight = window.innerHeight - 90;
+      console.log(winHeight);
+      console.log(this.$refs.wrapper);
       this.$refs.wrapper.style.height = winHeight + "px";
       this.scroll = new BScroll(this.$refs.wrapper, options);
       this.scroll.on("pullingUp", () => {
@@ -205,7 +207,7 @@ export default {
           return;
         }
         this.pagenum++;
-        this.getActiveData(this.courseStatus);
+        this.getActiveData();
       });
     },
 
@@ -223,17 +225,16 @@ export default {
      * 获取活动课程列表
      * 作者：jlzm
      */
-    getActiveData(wxstatus) {
-      console.log('this.userInfo', this.userInfo);
+    getActiveData() {
       let propsData = {
         tid: this.userInfo.tid,
         page: this.pagenum,
         rows: this.pageSize,
-        wxstatus: 0,
-        ctype: 2
+        ctype: 2,
+        wxstatus: this.courseStatus
       };
       console.log("propsData", propsData);
-      API.post('wxTeacherCourse', propsData).then(res => {
+      API.post('wxTeacherCourse' ,propsData).then(res => {
         console.log("res", res);
         if (res.total <= 0) {
           this.$vux.toast.text("暂无数据", "middle");
@@ -247,40 +248,12 @@ export default {
         }
 
         this.pagenumCount = res.pageCount;
-        this.addCstutasBtnTxt();
 
         this.endScroll();
         console.log(this.currentData);
       });
     },
 
-    /**
-     * 添加按钮状态文字
-     */
-    addCstutasBtnTxt() {
-      this.currentData.forEach(item => {
-        switch (item.cstatus) {
-          case "0":
-            item.btnTxt = "立即报名";
-            break;
-          case "1":
-            item.btnTxt = "已报名";
-            break;
-
-          case "2":
-            item.btnTxt = "名额已满";
-            break;
-
-          case "3":
-            item.btnTxt = "报名结束";
-            break;
-
-          default:
-            break;
-        }
-        item.cpicture = global.IMGURL + item.cpicture;
-      });
-    }
   }
 };
 </script>
@@ -294,7 +267,8 @@ export default {
 .course-item {
   background: #fff;
   margin-bottom: 0.32rem;
-  padding: 0 0.32rem;
+  // margin-bottom: 0.32rem;
+  padding: 0 0.32rem 0.32rem;
   .course-item-title {
     padding: 0.24rem 0;
     justify-content: space-between;
@@ -320,8 +294,8 @@ export default {
     }
     .course-item-info {
       line-height: 0.4rem;
-      width: 5.16rem;
-      height: 1.54rem;
+      width: 4.2rem;
+      // height: 1.54rem;
       font-size: 0.24rem;
       .info-title {
         color: #666;

@@ -11,21 +11,29 @@
         </div>
         <div class="por course-item-content">
           <div class="dib course-item-info vat">
-            <p>
+            <p class="txt-wrap">
               <span class="info-title">活动老师：</span>
               <span class="info-desc">{{currentData.tname || ''}} - {{currentData.atname || ''}}</span>
             </p>
-            <p>
+            <p class="txt-wrap">
               <span class="info-title">活动日期：</span>
               <span class="info-desc">{{currentData.cdate || ''}}</span>
             </p>
-            <p>
+            <p class="txt-wrap">
               <span class="info-title">活动时间：</span>
               <span class="info-desc">{{currentData.begintime || ''}}-{{currentData.endtime || ''}}</span>
             </p>
-            <p>
+            <p class="txt-wrap">
               <span class="info-title">活动地点：</span>
               <span class="info-desc">{{currentData.room || ''}}</span>
+            </p>
+            <p class="txt-wrap">
+              <span class="info-title">活动人员：</span>
+              <span class="info-desc">{{currentData.tname || ''}}</span>
+            </p>
+            <p class="txt-wrap">
+              <span class="info-title">试听人员：</span>
+              <span class="info-desc">{{currentData.tlname || ''}}</span>
             </p>
           </div>
         </div>
@@ -37,22 +45,6 @@
         <div class="course-desc txt-wrap">{{currentData.cdesc}}</div>
       </div>
 
-      <div class="course-item">
-        <div class="course-item-btn">
-          <button
-            @click="apply()"
-            :disabled="currentData.cstatus != 0"
-            class="btn-content"
-            :class=" currentData.cstatus == '0' ? 'btn-status1' : 'btn-status2' "
-          >
-            <span class="btn-meta">{{currentData.btnTxt}}</span>
-            <span
-              v-show="currentData.cstatus == 0"
-              class="btn-desc"
-            >仅剩{{currentData.maxnum - currentData.allarrive}}个名额</span>
-          </button>
-        </div>
-      </div>
     </div>
     <div class="alert-wrap">
       <alert v-model="applyMsg.show" :title="applyMsg.title">{{ applyMsg.desc }}</alert>
@@ -111,40 +103,6 @@ export default {
   },
 
   methods: {
-    /**
-     * 确认报名
-     */
-    onConfirm() {
-      this.applyMsg.show = true;
-      let propsData = {
-        crid: this.currentData.crid,
-        sid: this.userInfo.sid
-      };
-      console.log("propsData", propsData);
-      API.homeAPI.wxSignUpCourseRecords(propsData).then(res => {
-        console.log("res", res);
-        switch (res.code) {
-          case 1:
-            this.applyMsg.title = "成功";
-            this.applyMsg.desc = res.msg;
-            this.pagenum = 1;
-            break;
-
-          default:
-            this.applyMsg.title = "失败";
-            this.applyMsg.desc = res.msg;
-            break;
-        }
-        this.getCourseDesc();
-      });
-    },
-
-    /**
-     * 立即报名
-     */
-    apply() {
-      this.showConfirm = true;
-    },
 
     /**
      * 获取活动课程详情
@@ -205,6 +163,7 @@ export default {
 // public end
 
 .course-item {
+  margin-bottom: 0.32rem;
   // margin-bottom: 0.32rem;
   padding: 0 0.32rem 0.32rem;
   .course-item-title {
@@ -223,7 +182,6 @@ export default {
     }
     .course-item-info {
       line-height: 0.4rem;
-      // width: 5.16rem;
       // height: 1.54rem;
       font-size: 0.24rem;
       .info-title {
