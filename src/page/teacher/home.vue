@@ -68,8 +68,18 @@
       </div>
       <div class="bottom-class">
         <div class="class-title dib">
-          <button :disabled="thisWeekData"  @click="thisWeek()" :class="thisWeekData ? 'week-this' : 'week-down'" class="dib week-btn">本周课程</button>
-          <button :disabled="!thisWeekData" @click="downWeek()" :class="thisWeekData ? 'week-down' : 'week-this'" class="dib week-btn">下周课程</button>
+          <button
+            :disabled="thisWeekData"
+            @click="thisWeek()"
+            :class="thisWeekData ? 'week-this' : 'week-down'"
+            class="dib week-btn"
+          >本周课程</button>
+          <button
+            :disabled="!thisWeekData"
+            @click="downWeek()"
+            :class="thisWeekData ? 'week-down' : 'week-this'"
+            class="dib week-btn"
+          >下周课程</button>
         </div>
         <div class="class-content">
           <div class="class-week">
@@ -176,8 +186,6 @@ export default {
     };
   },
   methods: {
-    
-
     /**
      * 加减日期方法
      */
@@ -199,11 +207,11 @@ export default {
       return time;
     },
 
-        /**
+    /**
      * 本周课程
      */
     thisWeek() {
-      if(this.thisWeekData) return;
+      if (this.thisWeekData) return;
       this.getWeekData();
       this.getWeekClass();
       this.thisWeekData = true;
@@ -213,7 +221,7 @@ export default {
      * 下周课程
      */
     downWeek() {
-      if(!this.thisWeekData) return;
+      if (!this.thisWeekData) return;
       this.weekData.begindate = this.funDate(this.weekData.begindate, 7);
       this.weekData.enddate = this.funDate(this.weekData.enddate, 7);
       console.log("this.weekData", this.weekData);
@@ -293,28 +301,41 @@ export default {
     gotoHistory() {
       this.$router.push("./history");
     },
-    gotoACourse () {
+    gotoACourse() {
       this.$router.push("./activityCourse/list");
     },
     // 获取一周开始与结束
     getWeekData() {
-      const ONE_DAY = 1000 * 60 * 60 * 24;
-      let time = new Date();
-      let day = time.getDate();
-      let month = time.getMonth() + 1;
-      let year = time.getFullYear();
-      // 获取纯粹的时间，从0点开始
-      let pureDate = new Date(year + "/" + month + "/" + day);
-      if (time.getDay !== 0) {
-        let startDate = new Date(
-          pureDate.getTime() - (time.getDay() - 1) * ONE_DAY
-        );
-        let endDate = new Date(
-          pureDate.getTime() + (7 - time.getDay()) * ONE_DAY
-        );
-        this.weekData.begindate = this.format(startDate);
-        this.weekData.enddate = this.format(endDate);
-      }
+      const ONEDAYTIME = 1 * 1000 * 60 * 60 * 24;
+      let today = util.getTime(new Date());
+      let [minusTime, plusTime] = [0, 0];
+      // 重新组装日期,保证不出现时分秒影响
+      let todayTime = new Date(
+        today.year + "-" + today.month + "-" + today.day
+      ).getTime();
+
+      let weekStart, weekEnd;
+      let formatStr = dateJson => {
+        return dateJson.year + "-" + dateJson.month + "-" + dateJson.day;
+      };
+
+      // 计算一周剩余时间
+
+      minusTime = ((6 + today.weeknum) % 7) * ONEDAYTIME;
+      plusTime = ((7 - today.weeknum) % 7) * ONEDAYTIME;
+      // 周一和周日的时间戳
+      weekStart = new Date(todayTime - minusTime);
+
+      weekEnd = new Date(todayTime + plusTime);
+      console.log("weekStart", weekStart);
+      console.log("weekEnd", weekEnd);
+      // 周一和周日的日期
+      let startDateJson = util.getTime(weekStart);
+      let endDateJson = util.getTime(weekEnd);
+      let date = [formatStr(startDateJson), formatStr(endDateJson)];
+      console.log("date", date);
+      this.weekData.begindate = date[0];
+      this.weekData.enddate = date[1];
     },
     // 获取用户信息
     getUserInfo() {
@@ -368,10 +389,10 @@ export default {
               this.weekClassData[index].push(item);
               this.weekClassData[index].forEach(item => {
                 let cdate = item.cdate;
-                let index = cdate.lastIndexOf("-");  
+                let index = cdate.lastIndexOf("-");
 
-                item.cdate = cdate.substring(index-2, cdate.length);
-              })
+                item.cdate = cdate.substring(index - 2, cdate.length);
+              });
             });
             this.$forceUpdate();
           } else {
@@ -705,14 +726,13 @@ export default {
   }
 }
 
-
 .week-btn {
   // background: #4bb9c2;
   margin: 0 0.2rem;
-  padding: .13rem 0.2rem;
+  padding: 0.13rem 0.2rem;
   color: #fff;
   border-radius: 0.08rem;
-  border:none;
+  border: none;
 }
 
 .week-this {
@@ -720,6 +740,6 @@ export default {
 }
 
 .week-down {
-  background: #4BB9C2;
+  background: #4bb9c2;
 }
 </style>

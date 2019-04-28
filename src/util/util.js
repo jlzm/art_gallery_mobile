@@ -52,8 +52,32 @@ function fDbClick(el, type) {
     //   el.click()
     // }
 }
+
+function getTime(time) {
+  const weekmap = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+  time = new Date(time)
+  let year = time.getFullYear()
+  let month = time.getMonth() + 1
+  let day = time.getDate()
+  let weeknum = time.getDay()
+  let weekLabel = weekmap[weeknum]
+  if (Number(month) < 10) {
+    month = '0' + month
+  }
+  if (Number(day) < 10) {
+    day = '0' + day
+  }
+  return {
+    year,
+    month,
+    day,
+    weekLabel,
+    weeknum
+  }
+}
 export default {
   getStyle,
   formatDate,
-  fDbClick
+  fDbClick,
+  getTime
 }
