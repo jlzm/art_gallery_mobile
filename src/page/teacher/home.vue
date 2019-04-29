@@ -397,8 +397,9 @@ export default {
             });
             this.$forceUpdate();
           } else {
+            let msg = '';
             this.thisWeekData ? msg = '本周暂无课程安排' : msg = '下周暂无课程安排';
-            this.$vux.toast.text("本周暂无课程安排", "middle");
+            this.$vux.toast.text(msg, "middle");
           }
         });
     }
