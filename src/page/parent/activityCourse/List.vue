@@ -238,7 +238,6 @@ export default {
         wsid: this.userInfo.sid,
         page: this.pagenum,
         rows: this.pageSize,
-        status: 0,
         ctype: 2,
         wxstatus: this.courseStatus
       };
