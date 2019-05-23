@@ -69,15 +69,21 @@
       <div class="bottom-class">
         <div class="class-title dib">
           <button
-            :disabled="thisWeekData"
+            :disabled="thisWeekData == 'prev'"
+            @click="prevWeek()"
+            :class="thisWeekData == 'prev' ? 'week-this' : 'week-down'"
+            class="dib week-btn"
+          >上周课程</button>
+          <button
+            :disabled="thisWeekData == 'this'"
             @click="thisWeek()"
-            :class="thisWeekData ? 'week-this' : 'week-down'"
+            :class="thisWeekData == 'this' ? 'week-this' : 'week-down'"
             class="dib week-btn"
           >本周课程</button>
           <button
-            :disabled="!thisWeekData"
-            @click="downWeek()"
-            :class="thisWeekData ? 'week-down' : 'week-this'"
+            :disabled="!thisWeekData  == 'next'"
+            @click="nextWeek()"
+            :class="thisWeekData == 'next' ? 'week-this' : 'week-down'"
             class="dib week-btn"
           >下周课程</button>
         </div>
@@ -165,7 +171,7 @@ export default {
   },
   data() {
     return {
-      thisWeekData: true,
+      thisWeekData: 'this',
 
       /** jlzm start */
       headShowMore: false,
@@ -211,22 +217,32 @@ export default {
      * 本周课程
      */
     thisWeek() {
-      if (this.thisWeekData) return;
+      if (this.thisWeekData == 'this') return;
       this.getWeekData();
       this.getWeekClass();
-      this.thisWeekData = true;
+      this.thisWeekData = 'this';
+    },
+
+    // 上周课程
+    prevWeek() {
+      if (this.thisWeekData == 'prev') return;
+      this.weekData.begindate = this.funDate(this.weekData.begindate, -7);
+      this.weekData.enddate = this.funDate(this.weekData.enddate, -7);
+      console.log("this.weekData", this.weekData);
+      this.getWeekClass();
+      this.thisWeekData = 'prev';
     },
 
     /**
      * 下周课程
      */
-    downWeek() {
-      if (!this.thisWeekData) return;
+    nextWeek() {
+      if (this.thisWeekData == 'next') return;
       this.weekData.begindate = this.funDate(this.weekData.begindate, 7);
       this.weekData.enddate = this.funDate(this.weekData.enddate, 7);
       console.log("this.weekData", this.weekData);
       this.getWeekClass();
-      this.thisWeekData = false;
+      this.thisWeekData = 'next';
     },
 
     /** jlzm start */
@@ -398,8 +414,10 @@ export default {
             this.$forceUpdate();
           } else {
             let msg = '';
-            this.thisWeekData ? msg = '本周暂无课程安排' : msg = '下周暂无课程安排';
-            this.$vux.toast.text(msg, "middle");
+            this.thisWeekData == 'prev' ? msg = '上周' :
+            this.thisWeekData == 'this' ? msg = '本周' :
+            this.thisWeekData == 'next' ? msg = '下周' : ''
+            this.$vux.toast.text(msg + '暂无课程安排', "middle");
           }
         });
     }

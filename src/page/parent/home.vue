@@ -53,8 +53,24 @@
       </div>
       <div class="bottom-class">
         <div class="class-title dib">
-          <button :disabled="thisWeekData"  @click="thisWeek()" :class="thisWeekData ? 'week-this' : 'week-down'" class="dib week-btn">本周课程</button>
-          <button :disabled="!thisWeekData" @click="downWeek()" :class="thisWeekData ? 'week-down' : 'week-this'" class="dib week-btn">下周课程</button>
+          <button
+            :disabled="thisWeekData == 'prev'"
+            @click="prevWeek()"
+            :class="thisWeekData == 'prev' ? 'week-this' : 'week-down'"
+            class="dib week-btn"
+          >上周课程</button>
+          <button
+            :disabled="thisWeekData == 'this'"
+            @click="thisWeek()"
+            :class="thisWeekData == 'this' ? 'week-this' : 'week-down'"
+            class="dib week-btn"
+          >本周课程</button>
+          <button
+            :disabled="thisWeekData == 'next'"
+            @click="nextWeek()"
+            :class="thisWeekData == 'next' ? 'week-this' : 'week-down'"
+            class="dib week-btn"
+          >下周课程</button>
         </div>
         <div class="class-content">
           <div class="class-week">
@@ -142,7 +158,7 @@ export default {
   },
   data() {
     return {
-      thisWeekData: true,
+      thisWeekData: 'this',
       tabArr: ["一", "二", "三", "四", "五", "六", "日"],
       activeIndex: 0,
       scroll: {},
@@ -181,26 +197,38 @@ export default {
       return time;
     },
 
+        /**
+     * 上周课程
+     */
+    prevWeek() {
+      if (this.thisWeekData == 'prev') return;
+      this.weekData.begindate = this.funDate(this.weekData.begindate, -7);
+      this.weekData.enddate = this.funDate(this.weekData.enddate, -7);
+      console.log("this.weekData", this.weekData);
+      this.getWeekClass();
+      this.thisWeekData = 'prev';
+    },
+
     /**
      * 本周课程
      */
     thisWeek() {
-      if(this.thisWeekData) return;
+      if (this.thisWeekData == 'this') return;
       this.getWeekData();
       this.getWeekClass();
-      this.thisWeekData = true;
+      this.thisWeekData = 'this';
     },
 
     /**
      * 下周课程
      */
-    downWeek() {
-      if(!this.thisWeekData) return;
+    nextWeek() {
+      if (this.thisWeekData == 'next') return;
       this.weekData.begindate = this.funDate(this.weekData.begindate, 7);
       this.weekData.enddate = this.funDate(this.weekData.enddate, 7);
       console.log("this.weekData", this.weekData);
       this.getWeekClass();
-      this.thisWeekData = false;
+      this.thisWeekData = 'next';
     },
 
     /**获取当前星期 */
@@ -291,7 +319,7 @@ export default {
     },
     // 获取一周开始与结束
     getWeekData() {
-            const ONEDAYTIME = 1 * 1000 * 60 * 60 * 24;
+      const ONEDAYTIME = 1 * 1000 * 60 * 60 * 24;
       let today = util.getTime(new Date());
       let [minusTime, plusTime] = [0, 0];
       // 重新组装日期,保证不出现时分秒影响
@@ -389,8 +417,10 @@ export default {
             this.$forceUpdate();
           } else {
             let msg = '';
-            this.thisWeekData ? msg = '本周暂无课程安排' : msg = '下周暂无课程安排';
-            this.$vux.toast.text(msg, "middle");
+            this.thisWeekData == 'prev' ? msg = '上周' :
+            this.thisWeekData == 'this' ? msg = '本周' :
+            this.thisWeekData == 'next' ? msg = '下周' : ''
+            this.$vux.toast.text(msg + '暂无课程安排', "middle");
           }
         });
     }
@@ -711,10 +741,10 @@ export default {
 .week-btn {
   // background: #4bb9c2;
   margin: 0 0.2rem;
-  padding: .13rem 0.2rem;
+  padding: 0.13rem 0.2rem;
   color: #fff;
   border-radius: 0.08rem;
-  border:none;
+  border: none;
 }
 
 .week-this {
@@ -722,6 +752,6 @@ export default {
 }
 
 .week-down {
-  background: #4BB9C2;
+  background: #4bb9c2;
 }
 </style>
