@@ -1,16 +1,17 @@
 <template>
   <div class="photo">
     <div class="header" @click="triggerClick">
-      <div class="content">{{fileList.length >= 9 || this.type === 'parent' ? '查看图片' : '添加图片'}}</div>
+      <div class="content">{{hasComment || this.type === 'parent' ? '查看图片' : '添加图片'}}</div>
       <div class="head-img">
         <img src="@/assets/images/upload-img.png" alt>
       </div>
     </div>
+    <!-- old start -->
     <!-- <div class="show-img-ctn vux-1px-t" v-if="!this.fileList.length">
       <div class="imgs">
         <div
           class="img-item img-zoom"
-          v-for="(item, index) in this.fileList"
+          v-for="(item, index) in this.viewImgList"
           :key="index"
           @click="show(index)"
         >
@@ -24,14 +25,14 @@
       </div>
       <div v-transfer-dom>
         <previewer
-          :list="this.fileList"
+          :list="this.viewImgList"
           ref="previewer"
           :options="options"
           @on-index-change="logIndexChange"
         ></previewer>
       </div>
-    </div> -->
-    <div class="show-img-ctn vux-1px-t">
+    </div>
+    <div class="show-img-ctn vux-1px-t" v-else>
       <div class="imgs">
         <div
           class="img-item img-zoom"
@@ -40,7 +41,7 @@
           @click="show(index)"
         >
           <img :src="item.src" alt class="previewer-demo-img">
-          <div v-if="!hasComment"  class="delete" @click.stop="deleteImg(index)">
+          <div class="delete" @click.stop="deleteImg(index)">
             <img src="@/assets/images/delete.png" alt>
           </div>
         </div>
@@ -52,8 +53,7 @@
           :options="options"
           @on-index-change="logIndexChange"
         >
-        <!-- 移除图片 -->
-          <template v-if="!hasComment"  slot="button-before">
+          <template slot="button-before">
             <span class="previewer-delete-icon-box" @click.stop="removeImg">
               <img
                 src="@/assets/images/garbage.png"
@@ -65,7 +65,68 @@
           </template>
         </previewer>
       </div>
-      <div class="no-data" v-if="type === 'parent' && !fileList.length">暂无数据</div>
+      <div class="no-data" v-if="type === 'parent' && !viewImgList.length">暂无数据</div>
+    </div> -->
+    <!-- old end -->
+        <div class="show-img-ctn vux-1px-t" v-if="hasComment">
+      <div class="imgs">
+        <div
+          class="img-item img-zoom"
+          v-for="(item, index) in this.viewImgList"
+          :key="index"
+          @click="show(index)"
+        >
+          <img
+            :src="item.src"
+            @error="item.src = require('@/assets/images/delete.png')"
+            alt
+            class="previewer-demo-img"
+          >
+        </div>
+      </div>
+      <div v-transfer-dom>
+        <previewer
+          :list="this.viewImgList"
+          ref="previewer"
+          :options="options"
+          @on-index-change="logIndexChange"
+        ></previewer>
+      </div>
+    </div>
+    <div class="show-img-ctn vux-1px-t" v-else>
+      <div class="imgs">
+        <div
+          class="img-item img-zoom"
+          v-for="(item, index) in fileList"
+          :key="index"
+          @click="show(index)"
+        >
+          <img :src="item.src" alt class="previewer-demo-img">
+          <div class="delete" @click.stop="deleteImg(index)">
+            <img src="@/assets/images/delete.png" alt>
+          </div>
+        </div>
+      </div>
+      <div v-transfer-dom>
+        <previewer
+          :list="fileList"
+          ref="previewer"
+          :options="options"
+          @on-index-change="logIndexChange"
+        >
+          <template slot="button-before">
+            <span class="previewer-delete-icon-box" @click.stop="removeImg">
+              <img
+                src="@/assets/images/garbage.png"
+                width="22"
+                height="22"
+                class="previewer-delete-icon"
+              >
+            </span>
+          </template>
+        </previewer>
+      </div>
+      <div class="no-data" v-if="type === 'parent' && !viewImgList.length">暂无数据</div>
     </div>
     <div class="hidden upload needsclick">
       <input
@@ -77,7 +138,7 @@
         accept="image/*"
       >
     </div>
-    <div class="btn" v-if="type === 'teacher' && !hasComment && fileList.length <= 9">
+    <div class="btn" v-if="type === 'teacher' && fileList.length && !hasComment">
       <x-button type="primary" @click.native="uploadTrend">上传图片</x-button>
     </div>
   </div>
@@ -106,7 +167,7 @@ export default {
     return {
       fileList: [],
       trendDetail: [],
-      fileList: [],
+      viewImgList: [],
       // 是否评论过
       hasComment: false
     };
@@ -116,7 +177,7 @@ export default {
   },
   methods: {
     triggerClick() {
-      if (this.fileList.length >= 9 || this.type === "parent") return;
+      if (this.hasComment || this.type === "parent") return;
       this.$refs.file.click();
     },
 
@@ -132,18 +193,17 @@ export default {
           if (res && res.length) {
             this.trendDetail = res;
             console.log(this.trendDetail);
-            // this.hasComment = true;
+            this.hasComment = true;
             if (this.trendDetail[0]) {
               this.trendDetail[0].url.split(",").forEach(item => {
                 console.log("imgItem", item);
-                this.fileList.push({
+                this.viewImgList.push({
                   src: global.IMGURL + item
                 });
               });
             }
-            console.log('this.fileList.length', this.fileList.length);
-            if(this.fileList.length >= 9) this.hasComment = true;;
-            console.log("fileList", this.fileList);
+            // if(this.viewImgList.length >= 9) this.hasComment = true;;
+            console.log("viewImgList", this.viewImgList);
           }
         });
     },
@@ -163,6 +223,7 @@ export default {
     },
     // 上传图片
     uploadFn() {
+      this.hasComment = true;
       API.formAPI
         .uploadTrend({
           crid: this.currentCourse.crid,
@@ -172,13 +233,14 @@ export default {
         })
         .then(res => {
           if (res && parseInt(res.code) === 1) {
-            if(this.fileList.length >= 9) this.hasComment = true;;
+            this.fileList = [];
             this.$vux.toast.show({
               text: "上传成功",
               width: "2rem",
               time: 2000
             });
           } else {
+            this.hasComment = false;
             this.$vux.toast.text(res.msg, "middle");
           }
         });
