@@ -14,7 +14,12 @@
           :key="index"
           @click="show(index)"
         >
-          <img :src="item.src" @error="item.src = require('@/assets/images/delete.png')" alt class="previewer-demo-img">
+          <img
+            :src="item.src"
+            @error="item.src = require('@/assets/images/delete.png')"
+            alt
+            class="previewer-demo-img"
+          >
         </div>
       </div>
       <div v-transfer-dom>
@@ -79,7 +84,7 @@
 
 <script>
 import typeMixin from "@/mixins/typeMixin";
-import { XButton, Previewer, TransferDom } from "vux";
+import { XButton, Previewer, TransferDom, Confirm } from "vux";
 import imageMixin from "@/mixins/imageMixins";
 import API from "@/api/apiFactory";
 import global from "@/global/global";
@@ -87,6 +92,11 @@ import { mapState } from "vuex";
 // import zoom from '@/mixins/zoom'
 export default {
   name: "photo",
+  components: {
+    XButton,
+    Previewer,
+    Confirm
+  },
   mixins: [typeMixin, imageMixin],
   mounted() {
     this.getPhoto();
@@ -103,10 +113,6 @@ export default {
   directives: {
     TransferDom
   },
-  components: {
-    XButton,
-    Previewer
-  },
   methods: {
     triggerClick() {
       if (this.hasComment || this.type === "parent") return;
@@ -119,24 +125,39 @@ export default {
           ftype: "photo"
         })
         .then(res => {
-          console.log('res', res);
+          console.log("res", res);
           if (res && res.length) {
             this.trendDetail = res;
             console.log(this.trendDetail);
             this.hasComment = true;
             if (this.trendDetail[0]) {
               this.trendDetail[0].url.split(",").forEach(item => {
-                console.log('imgItem', item);
+                console.log("imgItem", item);
                 this.viewImgList.push({
                   src: global.IMGURL + item
                 });
               });
             }
-            console.log('viewImgList', this.viewImgList);
+            console.log("viewImgList", this.viewImgList);
           }
         });
     },
+    // 上传图片按钮
     uploadTrend() {
+      this.$vux.confirm.show({
+        // 组件除show外的属性
+        title: "提示",
+        content: "是否确认上传图片？",
+        onCancel: () => {
+          console.log(this); //当前 vm
+        },
+        onConfirm: () => {
+          this.uploadFn();
+        }
+      });
+    },
+    // 上传图片
+    uploadFn() {
       this.hasComment = true;
       API.formAPI
         .uploadTrend({
@@ -216,6 +237,8 @@ export default {
         width: 2.18rem;
         margin-right: 0.1rem;
         position: relative;
+        margin-bottom: 0.1rem;
+        z-index: 98;
         img {
           width: 2.18rem;
           height: 2.18rem;

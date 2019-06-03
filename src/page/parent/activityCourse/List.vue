@@ -245,6 +245,7 @@ export default {
       API.homeAPI.getCourseByPage(propsData).then(res => {
         console.log("res", res);
         if (res.total <= 0) {
+          this.currentData = [];
           this.$vux.toast.text("暂无数据", "middle");
           return;
         }

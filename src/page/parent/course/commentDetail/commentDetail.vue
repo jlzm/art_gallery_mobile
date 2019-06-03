@@ -13,7 +13,7 @@
           <div slot="title">{{teacherInfo.tname}} - {{teacherInfo.atname}}</div>
         </cell>
       </group>
-    </div> -->
+    </div>-->
     <div class="course-panel">
       <editable-input @editchange="editchange" :editable="!hasComment" :val="comment"></editable-input>
     </div>
@@ -90,38 +90,45 @@ export default {
         this.$vux.toast.text("请填写评价", "middle");
         return;
       }
-      if(!this.teacherRater || !this.courseRater) {
+      if (!this.teacherRater || !this.courseRater) {
         this.$vux.toast.text("请对课程和老师评分", "middle");
         return;
       }
-      let propsData = {
-          crid: this.currentCourse.crid,
-          sid: this.userInfo.sid,
-          tid: this.currentCourse.tid,
-          type: 2,
-          remark: this.comment,
-          teacherrater: this.teacherRater.toString(),
-          courserater: this.courseRater.toString()
-        };
-        console.log(propsData);
-      API.homeAPI
-        .insertParentEvaluation(propsData)
-        .then(data => {
-          if (parseInt(data.code) === 1) {
-            this.hasComment = true;
-            this.$vux.toast.show({
-              text: "评价成功",
-              time: 2000,
-              width: "2rem"
-            });
-          } else {
-            this.$vux.toast.text(data.msg, "middle");
-          }
-        });
+      this.$vux.confirm.show({
+        // 组件除show外的属性
+        title: "提示",
+        content: "是否确认评价？",
+        onCancel: () => {
+          console.log(this); //当前 vm
+        },
+        onConfirm: () => {
+          let propsData = {
+            crid: this.currentCourse.crid,
+            sid: this.userInfo.sid,
+            tid: this.currentCourse.tid,
+            type: 2,
+            remark: this.comment,
+            teacherrater: this.teacherRater.toString(),
+            courserater: this.courseRater.toString()
+          };
+          console.log(propsData);
+          API.homeAPI.insertParentEvaluation(propsData).then(data => {
+            if (parseInt(data.code) === 1) {
+              this.hasComment = true;
+              this.$vux.toast.show({
+                text: "评价成功",
+                time: 2000,
+                width: "2rem"
+              });
+            } else {
+              this.$vux.toast.text(data.msg, "middle");
+            }
+          });
+        }
+      });
     },
 
     getComment() {
-
       API.homeAPI
         .wxEvaluationByStu({
           crid: this.currentCourse.crid,
@@ -130,10 +137,9 @@ export default {
           type: 2
         })
         .then(data => {
-          console.log('data', data);
+          console.log("data", data);
           // 是否已经评价
           if (data) {
-            
             this.hasComment = parseInt(data.isPj) !== 2;
             this.teacherInfo = {
               tname: data.tname,
@@ -241,7 +247,7 @@ export default {
 }
 
 .parent-comment .btn .yet {
-  background: #C3C3C3;
+  background: #c3c3c3;
 }
 </style>
 

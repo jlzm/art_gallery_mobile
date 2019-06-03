@@ -41,6 +41,9 @@
 
 
 /* 提示弹窗 */
+div .weui-dialog__hd {
+  padding: 0;
+}
 .alert-wrap .weui-dialog__hd {
   padding: 0;
 }

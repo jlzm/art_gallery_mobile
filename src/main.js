@@ -13,6 +13,9 @@ import "./assets/css/public.css";
 // 或者umd方式
 // 引入构建的js文件
 
+// vux
+import  { ConfirmPlugin } from 'vux'
+Vue.use(ConfirmPlugin)
 
 Vue.use(LoadingPlugin);
 import './assets/css/rewirete.css';
