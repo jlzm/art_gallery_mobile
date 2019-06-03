@@ -1,7 +1,7 @@
 <template>
   <div class="photo">
     <div class="header" @click="triggerClick">
-      <div class="content">{{hasComment || this.type === 'parent' ? '查看图片' : '添加图片'}}</div>
+      <div class="content">{{viewImgList.length >= 9 || this.type === 'parent' ? '查看图片' : '添加图片'}}</div>
       <div class="head-img">
         <img src="@/assets/images/upload-img.png" alt>
       </div>
@@ -76,7 +76,7 @@
         accept="image/*"
       >
     </div>
-    <div class="btn" v-if="type === 'teacher' && fileNum <= 9 && !hasComment">
+    <div class="btn" v-if="type === 'teacher' && fileList.length && viewImgList.length <= 9">
       <x-button type="primary" @click.native="uploadTrend">上传图片</x-button>
     </div>
   </div>
@@ -103,7 +103,6 @@ export default {
   },
   data() {
     return {
-      fileNum: 0,
       fileList: [],
       trendDetail: [],
       viewImgList: [],
@@ -116,7 +115,7 @@ export default {
   },
   methods: {
     triggerClick() {
-      if (this.hasComment || this.type === "parent") return;
+      if (this.viewImgList.length >= 9 || this.type === "parent") return;
       this.$refs.file.click();
     },
     getPhoto() {
@@ -139,6 +138,7 @@ export default {
                 });
               });
             }
+            // if(this.viewImgList.length >= 9) this.hasComment = true;;
             console.log("viewImgList", this.viewImgList);
           }
         });
@@ -159,7 +159,6 @@ export default {
     },
     // 上传图片
     uploadFn() {
-      this.fileNum += this.fileList.length;
       this.hasComment = true;
       API.formAPI
         .uploadTrend({

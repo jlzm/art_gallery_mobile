@@ -417,7 +417,7 @@ export default {
             this.thisWeekData == 'prev' ? msg = '上周' :
             this.thisWeekData == 'this' ? msg = '本周' :
             this.thisWeekData == 'next' ? msg = '下周' : ''
-            this.$vux.toast.text(msg + '暂无课程安排', "middle");
+            this.$vux.toast.text(msg + '无课程安排', "middle");
           }
         });
     }
