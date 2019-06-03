@@ -11,7 +11,7 @@ const router = new Router({
       path: '*',
       redirect: {
         name: 'login'
-      }
+      },
     },
     {
     path: '/login',
@@ -26,12 +26,15 @@ const router = new Router({
 
 /**路由守卫 */
 router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
   let path = to.path;
   const isLogin = store.state.userInfo;
   const isAccount = store.state.userAccountInfo;
   if (path == '/login') {
     if(Object.keys(isAccount).length) {
-      switch (isLogin.role) {
+      switch (isLogin && isLogin.role) {
         case 'teacher':
           next({
             path: '/teacher/home'
