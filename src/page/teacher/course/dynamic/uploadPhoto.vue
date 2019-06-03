@@ -76,7 +76,7 @@
         accept="image/*"
       >
     </div>
-    <div class="btn" v-if="type === 'teacher' && fileList.length && !hasComment">
+    <div class="btn" v-if="type === 'teacher' && fileNum <= 9 && !hasComment">
       <x-button type="primary" @click.native="uploadTrend">上传图片</x-button>
     </div>
   </div>
@@ -103,6 +103,7 @@ export default {
   },
   data() {
     return {
+      fileNum: 0,
       fileList: [],
       trendDetail: [],
       viewImgList: [],
@@ -158,6 +159,7 @@ export default {
     },
     // 上传图片
     uploadFn() {
+      this.fileNum += this.fileList.length;
       this.hasComment = true;
       API.formAPI
         .uploadTrend({
