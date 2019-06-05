@@ -56,19 +56,19 @@
           <button
             :disabled="thisWeekData == 'prev'"
             @click="prevWeek()"
-            :class="thisWeekData == 'prev' ? 'week-this' : 'week-down'"
+            :class="thisWeekData != 'prev' ? 'week-this' : 'week-down'"
             class="dib week-btn"
           >上周课程</button>
           <button
             :disabled="thisWeekData == 'this'"
             @click="thisWeek()"
-            :class="thisWeekData == 'this' ? 'week-this' : 'week-down'"
+            :class="thisWeekData != 'this' ? 'week-this' : 'week-down'"
             class="dib week-btn"
           >本周课程</button>
           <button
             :disabled="thisWeekData == 'next'"
             @click="nextWeek()"
-            :class="thisWeekData == 'next' ? 'week-this' : 'week-down'"
+            :class="thisWeekData != 'next' ? 'week-this' : 'week-down'"
             class="dib week-btn"
           >下周课程</button>
         </div>
